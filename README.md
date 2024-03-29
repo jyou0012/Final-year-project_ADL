@@ -2,6 +2,10 @@
 
 ## Project Management
 
+### Agenda
+
+[meeting3](project-management/agenda/meeting%203.md)
+
 ### Timesheets
 
 Xinrun Wu - a1876736:
