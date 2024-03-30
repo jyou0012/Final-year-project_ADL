@@ -24,3 +24,9 @@ Part 2:
 
 Other requirements:
 - 4-page PDF format documdent, each part taking approximately 2 pages
+
+### Project Management
+
+How to update timesheets and meetings on Github?
+- under the directory "project-management"
+- with the markdown format
