@@ -4,6 +4,7 @@
 
 ### Agenda
 
+[meeting2](project-management/agenda/meeting%202.md)
 [meeting3](project-management/agenda/meeting%203.md)
 
 ### Timesheets
