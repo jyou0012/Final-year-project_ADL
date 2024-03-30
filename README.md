@@ -1,5 +1,8 @@
 # Team-25
 
+Directory structure of this repo:
+- **project-management**: contains documents for Agenda/Minutes and individual timesheets
+
 ## Project Management
 
 ### Agenda
