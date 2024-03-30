@@ -1,6 +1,6 @@
 # Meeting Agenda
 
-Team **25** / Meeting **3** / Date **30-03-2024** / Time **10:30AM - 11:30AM** / Location **Zoom**
+Team **25** / Meeting **2** / Date **27-03-2024** / Time **15:00 - 16:00** / Location **Zoom**
 
 - Chair: Xinrun Wu
 - Secretary: Bofan Wang; Shiyao Wu
