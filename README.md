@@ -12,7 +12,7 @@ Directory structure of this repo:
 
 ### Timesheets
 
-Bofan Wang - a1878349
+Bofan Wang - a1878349:
 [week2](project-management/timesheets/Bofan%20Wang%20-%20a1878349%20-%20week2.md)
 
 Xinrun Wu - a1876736:
