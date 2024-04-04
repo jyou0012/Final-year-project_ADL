@@ -7,13 +7,17 @@ Directory structure of this repo:
 
 ### Agenda
 
-[meeting2](project-management/agenda/meeting%202.md)
-[meeting3](project-management/agenda/meeting%203.md)
+[meeting 2](project-management/agenda/meeting%202.md);
+[meeting 3](project-management/agenda/meeting%203.md)
 
 ### Timesheets
 
 Bofan Wang - a1878349:
-[week2](project-management/timesheets/Bofan%20Wang%20-%20a1878349%20-%20week2.md)
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349%20-%20week2.md)
 
 Xinrun Wu - a1876736:
-[week2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736%20-%20week%202.md)
+[week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736%20-%20week%202.md)
+
+### Tasks
+
+Apr 5th: [Learn Next.js](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23031)
