@@ -18,6 +18,6 @@ Bofan Wang - a1878349:
 Xinrun Wu - a1876736:
 [week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736%20-%20week%202.md)
 
-### Tasks
+## Tasks
 
 Apr 5th: [Learn Next.js](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23031)
