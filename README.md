@@ -20,4 +20,10 @@ Xinrun Wu - a1876736:
 
 ## Tasks
 
-Apr 5th: [Learn Next.js](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23031)
+Apr 5th:
+[Learn Next.js - Installation and Start up](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23031)
+
+Apr 6th:
+[Learn Next.js - App Router](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23036);
+[Learn React - JSX](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23037);
+[Learn Next.js - Fetch Data](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23038)
