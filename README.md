@@ -32,3 +32,6 @@ Apr 6th:
 [Learn Next.js - App Router](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23036);
 [Learn React - JSX](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23037);
 [Learn Next.js - Fetch Data](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23038)
+
+Apr 7th:
+[Create Project Structure](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23045)
