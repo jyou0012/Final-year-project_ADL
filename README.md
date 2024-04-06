@@ -6,9 +6,9 @@ Directory structure of this repo:
 
 ## Project Management
 
-### Client
+### Minutes
 
-[meeting 1](project-management/client/meeting%201.md)
+[meeting 1](project-management/minutes/meeting%201.md)
 
 ### Agenda
 
