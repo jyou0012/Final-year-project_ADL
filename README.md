@@ -1,6 +1,7 @@
 # Team-25
 
 Directory structure of this repo:
+- **src/app**: contains source codes
 - **project-management**: contains documents for Agenda/Minutes and individual timesheets
 
 ## Project Management
