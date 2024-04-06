@@ -6,9 +6,9 @@ Team **25** / Meeting **2** / Date **27-03-2024** / Time **15:00 - 16:00** / Loc
 - Secretary: Bofan Wang; Shiyao Wu
 - Attendees: Jiayu You; Qian Zhao
 
-## Discussion Topics
+## 1 Discussion Topics
 
-### Business Plan
+### 1.1 Business Plan
 
 Part 1:
 - an executive summary as your first paragraph
@@ -25,8 +25,8 @@ Part 2:
 Other requirements:
 - 4-page PDF format documdent, each part taking approximately 2 pages
 
-### Project Management
+### 1.2 Project Management
 
 How to update timesheets and meetings on Github?
 - under the directory "project-management"
-- with the markdown format
+- write in the markdown format
