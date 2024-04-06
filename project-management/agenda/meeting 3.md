@@ -2,10 +2,9 @@
 
 Team **25** / Meeting **3** / Date **30-03-2024** / Time **10:30 - 11:30** / Location **Zoom**
 
-## Discussion Topics
+## 1 Discussion Topics
 
-### Project Architecture & Team Organization
-
+### 1.1 Project Architecture & Team Organization
 
 Project Manager
 - Qian Zhao
