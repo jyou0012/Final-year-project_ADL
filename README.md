@@ -5,6 +5,10 @@ Directory structure of this repo:
 
 ## Project Management
 
+### Client
+
+[meeting 1](project-management/client/meeting%201.md)
+
 ### Agenda
 
 [meeting 2](project-management/agenda/meeting%202.md);
