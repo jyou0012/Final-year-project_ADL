@@ -20,4 +20,4 @@ Team **25** / Meeting **3** / Date **05-04-2024** / Time **16:00 - 17:00** / Loc
 - Teacher side: student details view
 
 ## 2 Next Meeting
-The next meeting will be held at 1AM on Wensday.
+The next meeting will be held at 1PM on next Wensday.
