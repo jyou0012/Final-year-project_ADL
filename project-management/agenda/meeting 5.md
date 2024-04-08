@@ -23,3 +23,8 @@ TODO
 How to update timesheets and meetings on Github?
 - the directory "project-management"
 - write in the markdown format
+
+### 1.4 Github Configuration
+
+- Configure username and email
+- Create and merge Pull Requests
