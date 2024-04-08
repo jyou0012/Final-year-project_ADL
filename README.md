@@ -47,3 +47,7 @@ Apr 6th:
 
 Apr 7th:
 [Create Project Structure](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23045)
+
+Apr 8th:
+[Create a Html Page for Timesheet Form](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23069);
+[Create Database and Connect Database Through Node.js](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23070)
