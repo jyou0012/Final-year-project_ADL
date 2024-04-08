@@ -14,7 +14,7 @@ Team **25** / Meeting **3** / Date **05-04-2024** / Time **16:00 - 17:00** / Loc
 - add the function of draft storage
 - the meaning of the two average time needs to be determined
 
-### 1.2 Planned for next Wednesday to complete the module.
+### 1.2 Planned for next Wednesday to complete.
 
 - Student side: Timesheet display submission 
 - Teacher side: student details view
