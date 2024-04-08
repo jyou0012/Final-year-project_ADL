@@ -18,6 +18,7 @@ Directory structure of this repo:
 [meeting 3](project-management/agenda/meeting%203.md);
 [meeting 4](project-management/agenda/meeting%204.md);
 [meeting 5](project-management/agenda/meeting%205.md);
+[meeting 6](project-management/agenda/meeting%206.md);
 
 ### Timesheets
 
