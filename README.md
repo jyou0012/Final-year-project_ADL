@@ -4,6 +4,13 @@ Directory structure of this repo:
 - **src/app**: contains source codes
 - **project-management**: contains documents for Agenda/Minutes and individual timesheets
 
+## Usage
+
+```sh
+$ npm install
+$ npm run dev
+```
+
 ## Project Management
 
 ### Minutes
