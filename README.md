@@ -8,7 +8,9 @@ Directory structure of this repo:
 
 ### Minutes
 
-[meeting 1](project-management/minutes/meeting%201.md)
+[meeting 1](project-management/minutes/meeting%201.md);
+[meeting 2](project-management/minutes/meeting%202.md);
+[meeting 3](project-management/minutes/meeting%203.md);
 
 ### Agenda
 
