@@ -11,28 +11,22 @@ await client.connect();
  
 async function run() {
   try {
-    
     // Get the database and collection on which to run the operation
-    const database = client.db("sample_mflix");
-    const movies = database.collection("movies");
-    // Query for movies that have a runtime less than 15 minutes
-    const query = { runtime: { $lt: 15 } };
-    const options = {
-      // Sort returned documents in ascending order by title (A->Z)
-      sort: { title: 1 },
-      // Include only the `title` and `imdb` fields in each returned document
-      projection: { _id: 0, title: 1, imdb: 1 },
-    };
-    // Execute query 
-    const cursor = movies.find(query, options);
-    // Print a message if no documents were found
-    if ((await movies.countDocuments(query)) === 0) {
-      console.log("No documents found!");
-    }
-    // Print returned documents
-    for await (const doc of cursor) {
-      console.dir(doc);
-    }
+    const database = client.db("MCI2024");
+    const timesheet = database.collection("timesheet");
+    // Create an array of documents to insert
+    const docs = [
+      { name: "a18111111", Day: "Monday" , Date: "2024-4-1", Task:"Learn MonongoDB"},
+      { name: "a18111112", Day: "Monday" , Date: "2024-4-2"},
+      { name: "a18111113", Day: "Monday" , Date: "2024-4-3", Task:"Learn MonongoDB3" }
+    ];
+    // Prevent additional documents from being inserted if one fails
+    const options = { ordered: true };
+    // Execute insert operation
+    const result = await timesheet.insertMany(docs, options);
+   
+    // Print result
+    console.log(`${result.insertedCount} documents were inserted`);
   } finally {
     await client.close();
   }
