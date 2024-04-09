@@ -15,5 +15,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+
+  },
+  "devDependencies": {
+    "@types/node": "20.12.5",
+    "@types/react": "18.2.74",
+    "typescript": "5.4.4",
+    "mongodb": "^6.5.0"
+
   }
 }
