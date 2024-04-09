@@ -1,8 +1,8 @@
 # Meeting Agenda
 
-Team **25** / Meeting **6** / Date **08-04-2024** / Time **10:30 - 11:00** / Location **Zoom**
+Team **25** / Meeting **6** / Date **09-04-2024** / Time **10:30 - 11:00** / Location **Zoom**
 
-- Chair: Xinrun Wu
+- Chair: Xinrun Wu ;  Bofan Wang
 - Secretary: Qian Zhao
 - Attendees: Jiayu You; Bofan Wang; Shiyao Wu
 
@@ -11,19 +11,18 @@ Team **25** / Meeting **6** / Date **08-04-2024** / Time **10:30 - 11:00** / Loc
 ### 1.1 Daily Report
 
 ### 1.2 New Tasks
-
-- Create database
-- Create a html page for timesheet submission
-- Design API for timesheet submission
+ 
+Currently using Autd to change to MUI 
+complete the first draft of the product prototype drawing and review
 
 ### 1.3 Project Management
 
-How to update timesheets and meetings on Github?
-- the directory "project-management"
-- write in the markdown format
+Front-end code review:
+Adjusting the project folder structure and determining the UI plugin to use MUI
+Back-end code review:
+Adjust folder structure and storage content
 
-### 1.4 Github Usage
+ 
 
-- Clone this repo and install requirements
-- Configure username and email on your local repo
-- Create and merge Pull Requests
+
+
