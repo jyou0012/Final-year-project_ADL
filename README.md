@@ -51,3 +51,7 @@ Apr 7th:
 Apr 8th:
 [Create a Html Page for Timesheet Form](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23069);
 [Create Database and Connect Database Through Node.js](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23070)
+
+Apr 9th:
+[Learn Next.js - Environment Variables](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23074);
+[Learn MUI - Installation](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23075)
