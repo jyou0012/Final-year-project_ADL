@@ -8,7 +8,7 @@ Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **6** / Total Hours 5
 | Tue | 02-04-2024 |         |          |             |   || |
 | Wed | 03-04-2024 | 16:00   | 15:00    | 1           | Meet up with Team Members | Discuss project tasks for milestone1 | Confirm with client|
 | Thu | 04-04-2024 | 15:00   | 16:00    | 1           | Client meeting with Dr.Cruz| Showing and review ideal goal for milestones 1| Start coding|
-| Fri | 05-04-2024 | 13:00   | 15:00    | 2           | Self working on coding | Get all environment set up| Continue coding in holiday
+| Fri | 05-04-2024 | 13:00   | 15:00    | 2           | Self working on coding | Get all environment set up| Continue coding and aim to finish milestone1 during holidays
 
 
 
