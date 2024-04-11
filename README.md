@@ -62,3 +62,6 @@ Apr 9th:
 
 Apr 10th:
 [Digital Design and API Definition](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23083)
+
+Apr 11th:
+[Learn Next.js - Server Actions](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23085)
