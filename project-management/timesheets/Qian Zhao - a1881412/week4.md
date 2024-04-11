@@ -8,5 +8,5 @@ Team **25** / Name **Qian Zhao** / ID **a1881412** / Week **4** / Total Hours7
 | Tue | 19-03-2024 | 15:00   | 17:30    | 3        | Group meeting and Client meeting with Dr.Cruz| Discuss about project requirements and pitch ideas| Doing division of work within groups|
 | Wed | 20-03-2024 | 15:00   | 16:30    | 2            | Doing research and study lecture slides | understand a comprehensive overview about project features | Making slides content|
 | Thu | 21-03-2024 |         |          |            | | | |
-| Fri | 22-03-2024 | 16:00   | 18:00    | 2           | Making slides content for conclusion| clearly understand goals of project| Prepare video recording|
+| Fri | 22-03-2024 | 16:00   | 18:00    | 2           | Making slides content for Introduction part| clearly understand goals of project| Prepare video recording usring zoom|
 
