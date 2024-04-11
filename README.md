@@ -8,9 +8,22 @@ Directory structure of this repo:
 
 ## Usage
 
+Install dependencies:
+
 ```sh
 $ npm install
+```
+
+Start the application in development mode:
+
+```
 $ npm run dev
+```
+
+Format codes:
+
+```
+$ npm run prettier
 ```
 
 ## Project Management
