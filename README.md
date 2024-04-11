@@ -35,10 +35,10 @@ $ npm run dev
 
 ### Timesheets - Bofan Wang - a1878349
 [week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%202.md);
-[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%203.md);
-[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%204.md);
-[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%205.md);
-[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%206.md);
+[week 3](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%203.md);
+[week 4](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%204.md);
+[week 5](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%205.md);
+[week 6](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%206.md);
 
 ### Timesheets - Xinrun Wu - a1876736
 [week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736/week%202.md)
