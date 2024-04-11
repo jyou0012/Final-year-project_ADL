@@ -21,11 +21,14 @@ $ npm run dev
 
 ### Agenda
 
+[meeting 1](project-management/agenda/meeting%201.md);
 [meeting 2](project-management/agenda/meeting%202.md);
 [meeting 3](project-management/agenda/meeting%203.md);
 [meeting 4](project-management/agenda/meeting%204.md);
 [meeting 5](project-management/agenda/meeting%205.md);
 [meeting 6](project-management/agenda/meeting%206.md);
+[meeting 7](project-management/agenda/meeting%207.md);
+[meeting 8](project-management/agenda/meeting%208.md);
 
 ### Timesheets - Shiyao Wu - a1756875
 [week 2](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%202.md)
