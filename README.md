@@ -27,13 +27,17 @@ $ npm run dev
 [meeting 5](project-management/agenda/meeting%205.md);
 [meeting 6](project-management/agenda/meeting%206.md);
 
-### Timesheets
+### Timesheets - Shiyao Wu - a1756875
 
-Bofan Wang - a1878349:
+### Timesheets - Jiayu You - a1847115
+
+### Timesheets - Bofan Wang - a1878349
 [week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349%20-%20week2.md)
 
-Xinrun Wu - a1876736:
+### Timesheets - Xinrun Wu - a1876736
 [week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736%20-%20week%202.md)
+
+### Timesheets - Qian Zhao - a1881412
 
 ## Tasks
 
