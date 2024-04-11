@@ -8,7 +8,7 @@ Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **5** / Total Hours 6
 | Tue | 26-03-2024 | 11:00   | 12:00    | 1           | Self working on pitch slides |Adjust and update pitch slides | Start recording|
 | Wed | 27-03-2024 | 16:00   | 15:00    | 1           | Meet up with Team Members | Discuss and practice presentation | Finish video and submit|
 | Thu | 28-03-2024 | 10:00   | 11:00    | 1           | Self recording for video presentation| Submit pitch video| Preparing bussiness case & draft plan|
-| Fri | 29-03-2024 | 13:00   | 15:00    | 2           | Working on bussiness case & draft plan| Finish bussiness case part| Submit bussiness case & draft plan｜
+| Fri | 29-03-2024 | 13:00   | 15:00    | 2           | Working on bussiness case & draft plan| Finish bussiness case part| Submit bussiness case & draft plan
 
 
 
