@@ -28,16 +28,23 @@ $ npm run dev
 [meeting 6](project-management/agenda/meeting%206.md);
 
 ### Timesheets - Shiyao Wu - a1756875
+[week 2](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%202.md)
 
 ### Timesheets - Jiayu You - a1847115
+[week 2](project-management/timesheets/Jiayu%20You%20-%20a1847115/week%202.md)
 
 ### Timesheets - Bofan Wang - a1878349
-[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349%20-%20week2.md)
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%202.md);
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%203.md);
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%204.md);
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%205.md);
+[week 2](project-management/timesheets/Bofan%20Wang%20-%20a1878349/week%206.md);
 
 ### Timesheets - Xinrun Wu - a1876736
-[week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736%20-%20week%202.md)
+[week 2](project-management/timesheets/Xinrun%20Wu%20-%20a1876736/week%202.md)
 
 ### Timesheets - Qian Zhao - a1881412
+[week 2](project-management/timesheets/Qian%20Zhao%20-%20a1881412/week%202.md)
 
 ## Tasks
 
