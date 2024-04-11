@@ -55,3 +55,6 @@ Apr 8th:
 Apr 9th:
 [Learn Next.js - Environment Variables](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23074);
 [Learn MUI - Installation](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23075)
+
+Apr 10th:
+[Digital Design and API Definition](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23083)
