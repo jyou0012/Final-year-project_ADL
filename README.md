@@ -102,3 +102,6 @@ Apr 10th:
 
 Apr 11th:
 [Learn Next.js - Server Actions](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23085)
+
+Apr 12th:
+[Format Javascript Codes](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23097)
