@@ -6,6 +6,6 @@ Team **25** / Name **ShiYaoWu** / ID **a1756875** / Week **4** / Total Hours7
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
 | Mon | 18-03-2024 |         |          | 0           | | | |
 | Tue | 19-03-2024 | 15:00   | 17:30    | 3        | Group meeting and meeting with professor| Discuss about project requirements| Task alocation with teamember|
-| Wed | 20-03-2024 | 15:00   | 16:30    | 2            | Doing research for our presentation | studing how to do Introduction  | Making presentation content|
-| Thu | 21-03-2024 |         |          |            | | | |
+| Wed | 20-03-2024 | 15:00   | 16:30    | 2            | Doing research for our presentation | studing how to do Introduction  | Designing questionnaires|
+| Thu | 21-03-2024 | 10:00   | 11:00    | 2          | Designing questionnaires | Understanding the level of demand for the project| Making presentation content|
 | Fri | 22-03-2024 | 16:00   | 18:00    | 2           | Making slides content for Introduction part| discuss with teamember about the content | Prepare video recording usring zoom|
