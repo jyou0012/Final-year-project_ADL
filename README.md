@@ -46,7 +46,11 @@ $ npm run prettier
 [meeting 8](project-management/agenda/meeting%208.md);
 
 ### Timesheets - Shiyao Wu - a1756875
-[week 2](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%202.md)
+[week 2](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%202.md);
+[week 3](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%203.md);
+[week 4](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%204.md);
+[week 5](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%205.md);
+[week 6](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%206.md);
 
 ### Timesheets - Jiayu You - a1847115
 [week 2](project-management/timesheets/Jiayu%20You%20-%20a1847115/week%202.md);
