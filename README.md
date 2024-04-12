@@ -47,10 +47,10 @@ $ npm run prettier
 
 ### Timesheets - Shiyao Wu - a1756875
 [week 2](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%202.md);
-[week 3](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%3.md);
-[week 4](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%4.md);
-[week 5](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%5.md);
-[week 6](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week%6.md);
+[week 3](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week3.md);
+[week 4](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week4.md);
+[week 5](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week5.md);
+[week 6](project-management/timesheets/Shiyao%20Wu%20-%20a1756875/week6.md);
 
 ### Timesheets - Jiayu You - a1847115
 [week 2](project-management/timesheets/Jiayu%20You%20-%20a1847115/week%202.md);
