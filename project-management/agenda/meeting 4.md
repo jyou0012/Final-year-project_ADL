@@ -1,9 +1,9 @@
 # Meeting Agenda
 
 Team **25** / Meeting **4** / Date **04-04-2024** / Time **20:00 - 10:30** / Location **Zoom**
-- Chair: Jiayu You
+- Chair: Qian Zhao
 - Secretary: Shiyao Wu
-- Attendees: Bofan Wang; Qian Zhao, Xinrun Wu
+- Attendees: Bofan Wang; Jiayu You; Xinrun Wu
 
 ## 1 Discussion Topics
 
