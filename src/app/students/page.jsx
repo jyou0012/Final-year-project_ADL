@@ -1,6 +1,11 @@
 "use client";
+import React, { useState, useEffect } from 'react';
+import { useFormStatus, useFormState } from "react-dom";
+import { formAction } from "./actions";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
-import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -22,6 +27,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
+
+
 // Extend dayjs with custom parse format plugin
 dayjs.extend(customParseFormat);
 
@@ -30,6 +37,25 @@ const weekdays = ["MON", "TUE", "WED", "THU", "FRI"];
 const totalWeeks = 12;
 
 export default function Layout() {
+  //for form submit
+  const { pending } = useFormStatus();
+  const [state, action] = useFormState(formAction, null);
+  const [alertType, setAlertType] = useState(null);  // 新状态用于控制弹窗类型
+
+  useEffect(() => {
+    if (state === "form request received") {
+      setAlertType('success');
+    } else if (state === 0) {
+      setAlertType('error');
+    }else if (state === 1) {
+      setAlertType('error');
+    }else if (state === 2) {
+      setAlertType('error');
+    }
+  }, [state]);
+
+
+
   // State to keep track of the selected week
   const [selectedWeek, setSelectedWeek] = useState(0);
   // State to control the expansion of Accordion panels
@@ -93,6 +119,26 @@ export default function Layout() {
 
   return (
     <Container maxWidth="lg">
+       <form action={action}>
+
+       {alertType === 'success' && (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success Alert with an encouraging title.
+          </Alert>
+        </Stack>
+      )}
+      {alertType === 'error' && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          This is an error Alert with a scary title.
+        </Alert>
+      )}
+
+
+
+
       <Box sx={{ display: "flex", mt: 4 }}>
         <List sx={{ width: "15%", mr: 2 }}>
           {Array.from({ length: totalWeeks }, (_, i) => (
@@ -136,7 +182,7 @@ export default function Layout() {
                             newValue,
                           )
                         }
-                        renderInput={(params) => (
+                        textField={(params) => (
                           <TextField {...params} fullWidth />
                         )}
                       />
@@ -240,25 +286,29 @@ export default function Layout() {
               </AccordionDetails>
             </Accordion>
           ))}
+          <Box display="flex" justifyContent="flex-end" >
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
-            sx={{ mt: 2 }}
-          >
-            Save
+          <button disabled={pending}
+           variant="contained"
+           color="primary"
+           
+           sx={{ mt: 2 }}
+          >{pending ? "Submitting..." : "Submit"}
+          </button>
+
+          
+          <Button disabled={pending}
+           variant="contained"
+           color="primary"
+           
+           sx={{ mt: 2 }}
+          >{pending ? "Submitting..." : "Submit"}
           </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleSubmit}
-            sx={{ mt: 2, ml: 2 }}
-          >
-            Submit
-          </Button>
+           
+          </Box>
         </Box>
       </Box>
+      </form>
     </Container>
   );
 }
