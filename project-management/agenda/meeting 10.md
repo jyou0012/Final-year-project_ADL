@@ -1,17 +1,16 @@
-Meeting Agenda
-Team 25 / Meeting 10 / Date 12-05-2024 / Time 10:30 - 11:00 / Location Zoom
+# Meeting Agenda
 
+Team **25** / Meeting **10** / Date **18-04-2024** / Time **10:30 - 11:00** / Location **Zoom**
 
-Chair: Xinrun Wu
+- Chair: Xinrun Wu
+- Secretary: Bofan Wang
+- Attendees: Jiayu You; Qian Zhao; Shiyao Wu
 
-Secretary: Qian Zhao
+## 1 Discussion Topics
 
-Attendees: Jiayu You; Bofan Wang; Shiyao Wu
+### 1.1 Daily Report
 
+### 1.2 Modularization
 
-1 Discussion Topics
-
-1.1 Project division of labour for Milestone 2
-1.2 How to add session functionality to login
-1.3How to perform functional testing for milestone1
- 
+- move all components into the `src/components` folder
+- move all database operation into the `src/database` folder
