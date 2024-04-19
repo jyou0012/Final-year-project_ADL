@@ -12,7 +12,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-function TimesheetInput({ day, data }) {
+<<<<<<< HEAD
+function TimesheetInput({ week, day, data }) {
+  console.log(day + week);
+=======
+function TimesheetInput({ day }) {
+>>>>>>> parent of 2774c8d (Create database)
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>{day}</AccordionSummary>
@@ -35,7 +40,10 @@ function TimesheetInput({ day, data }) {
           multiline
           fullWidth
           rows={4}
-          value={data["data1"]}
+<<<<<<< HEAD
+          value={data[day + week]}
+=======
+>>>>>>> parent of 2774c8d (Create database)
         />
         <TextField
           label="How does it fit to project plan"
@@ -56,14 +64,25 @@ function TimesheetInput({ day, data }) {
   );
 }
 
-export default function TimesheetForm({ action, data }) {
+<<<<<<< HEAD
+export default function TimesheetForm({ week, action, data }) {
   return (
     <Box component="form" action={action}>
-      <TimesheetInput day="Mon" data={data}/>
-      <TimesheetInput day="Tue" data={data}/>
-      <TimesheetInput day="Wed" data={data}/>
-      <TimesheetInput day="Thu" data={data}/>
-      <TimesheetInput day="Fri" data={data}/>
+      <TimesheetInput week={week} day="Mon" data={data} />
+      <TimesheetInput week={week} day="Tue" data={data} />
+      <TimesheetInput week={week} day="Wed" data={data} />
+      <TimesheetInput week={week} day="Thu" data={data} />
+      <TimesheetInput week={week} day="Fri" data={data} />
+=======
+export default function TimesheetForm({ action }) {
+  return (
+    <Box component="form" action={action}>
+      <TimesheetInput day="Mon" />
+      <TimesheetInput day="Tue" />
+      <TimesheetInput day="Wed" />
+      <TimesheetInput day="Thu" />
+      <TimesheetInput day="Fri" />
+>>>>>>> parent of 2774c8d (Create database)
       <Button variant="contained" type="submit">
         Submit
       </Button>

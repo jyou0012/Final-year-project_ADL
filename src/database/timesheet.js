@@ -1,6 +1,6 @@
 export default function timesheetData() {
-	return {
-		data1: 1,
-		data2: 2,
-	}
+  return {
+    Mon1: 1,
+    Mon2: 2,
+  };
 }

@@ -1,13 +1,15 @@
-import WeekTabs from "../../components/WeekTabs";
-import TimesheetForm from "../../components/TimesheetForm";
+import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import timesheetData from "../../database/timesheet";
 
 export default function Layout() {
+<<<<<<< HEAD
   const data = timesheetData();
+  return <TimesheetFormTabs action={timesheetFormAction} data={data} />;
+=======
   return (
     <WeekTabs>
-      <TimesheetForm action={timesheetFormAction} data={data} />
+      <TimesheetForm action={timesheetFormAction} />
     </WeekTabs>
   );
+>>>>>>> parent of 2774c8d (Create database)
 }
