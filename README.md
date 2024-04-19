@@ -109,3 +109,6 @@ Apr 11th:
 
 Apr 12th:
 [Format Javascript Codes](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23097)
+
+Apr 18th:
+[Code Modularization](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23173)
