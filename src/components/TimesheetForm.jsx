@@ -12,7 +12,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-function TimesheetInput({ day }) {
+function TimesheetInput({ day, data }) {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>{day}</AccordionSummary>
@@ -35,6 +35,7 @@ function TimesheetInput({ day }) {
           multiline
           fullWidth
           rows={4}
+          value={data["data1"]}
         />
         <TextField
           label="How does it fit to project plan"
@@ -55,14 +56,14 @@ function TimesheetInput({ day }) {
   );
 }
 
-export default function TimesheetForm({ action }) {
+export default function TimesheetForm({ action, data }) {
   return (
     <Box component="form" action={action}>
-      <TimesheetInput day="Mon" />
-      <TimesheetInput day="Tue" />
-      <TimesheetInput day="Wed" />
-      <TimesheetInput day="Thu" />
-      <TimesheetInput day="Fri" />
+      <TimesheetInput day="Mon" data={data}/>
+      <TimesheetInput day="Tue" data={data}/>
+      <TimesheetInput day="Wed" data={data}/>
+      <TimesheetInput day="Thu" data={data}/>
+      <TimesheetInput day="Fri" data={data}/>
       <Button variant="contained" type="submit">
         Submit
       </Button>
