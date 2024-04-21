@@ -25,7 +25,7 @@ export default async function timesheetFormAction(formData) {
   //await db.createCollection("timesheet");
   const timesheet = db.collection("timesheet");
   await timesheet.updateOne(
-    { week: formData.get("Week") },
+    { week: formData.get("week") },
     {
       $set: {
         week: formData.get("week"),
