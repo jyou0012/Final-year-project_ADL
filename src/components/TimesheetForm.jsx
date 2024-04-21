@@ -59,6 +59,7 @@ function TimesheetInput({ week, day, data }) {
 export default function TimesheetForm({ week, action, data }) {
   return (
     <Box component="form" action={action}>
+      <input name="week" value={week} type="hidden" />
       <TimesheetInput week={week} day="Mon" data={data} />
       <TimesheetInput week={week} day="Tue" data={data} />
       <TimesheetInput week={week} day="Wed" data={data} />
