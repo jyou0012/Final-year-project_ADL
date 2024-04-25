@@ -26,13 +26,13 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
       <Grid item xs={9}>
         {Array.from(
           weeks,
-          (week, weekIndex) =>
+          (week) =>
             week === selectedWeek && (
               <TimesheetForm
                 key={week}
                 week={week}
                 action={action}
-                dataDays={dataWeeks.filter((d) => d["week"] === week)}
+                dataDays={dataWeeks[week] || {}}
               />
             ),
         )}

@@ -14,11 +14,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { weekdays, inputFields } from "../const";
 
-function findInputValue(data, day, key) {
-  let r = data.find((d) => d["day"] === day);
-  return r === undefined ? null : r[key];
-}
-
 export default function TimesheetForm({ week, action, dataDays }) {
   return (
     <Box component="form" action={action}>
@@ -55,7 +50,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "task")}
+              defaultValue={day in dataDays ? dataDays[day]["task"] : null}
             />
             <TextField
               label="How does it fit to project plan"
@@ -63,7 +58,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "fit")}
+              defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
             />
             <TextField
               label="Outcome/Next action"
@@ -71,7 +66,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "outcome")}
+              defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
             />
           </AccordionDetails>
         </Accordion>
