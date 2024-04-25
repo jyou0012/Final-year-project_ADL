@@ -1,6 +1,7 @@
 "use client";
 
 import Box from "@mui/material/Box";
+import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Accordion from "@mui/material/Accordion";
@@ -11,60 +12,67 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { weekdays, inputFields } from "../const";
 
-function TimesheetInput({ week, day, data }) {
-  return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>{day}</AccordionSummary>
-      <AccordionDetails>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label="Date" name={day + "Date"} />
-        </LocalizationProvider>
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker label="Start" name={day + "Start"} ampm={false} />
-        </LocalizationProvider>
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker label="End" name={day + "End"} ampm={false} />
-        </LocalizationProvider>
-
-        <TextField
-          label="Tasks"
-          name={day + "Task"}
-          multiline
-          fullWidth
-          rows={4}
-          value={data[day + week]}
-        />
-        <TextField
-          label="How does it fit to project plan"
-          name={day + "Fit"}
-          multiline
-          fullWidth
-          rows={4}
-        />
-        <TextField
-          label="Outcome/Next action"
-          name={day + "Outcome"}
-          multiline
-          fullWidth
-          rows={4}
-        />
-      </AccordionDetails>
-    </Accordion>
-  );
-}
+function TimesheetInput({ week, day, data }) {}
 
 export default function TimesheetForm({ week, action, data }) {
   return (
     <Box component="form" action={action}>
-      <input name="week" value={week} type="hidden" />
-      <TimesheetInput week={week} day="Mon" data={data} />
-      <TimesheetInput week={week} day="Tue" data={data} />
-      <TimesheetInput week={week} day="Wed" data={data} />
-      <TimesheetInput week={week} day="Thu" data={data} />
-      <TimesheetInput week={week} day="Fri" data={data} />
+      <Input name={inputFields["week"]} value={week} type="hidden" />
+      {Array.from(weekdays, (day, dayIndex) => (
+        <Accordion key={day}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            {day}
+          </AccordionSummary>
+          <AccordionDetails>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker label="Date" name={inputFields[day]["date"]} />
+            </LocalizationProvider>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="Start"
+                name={inputFields[day]["start"]}
+                ampm={false}
+              />
+            </LocalizationProvider>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="End"
+                name={inputFields[day]["end"]}
+                ampm={false}
+              />
+            </LocalizationProvider>
+
+            <TextField
+              label="Tasks"
+              name={inputFields[day]["task"]}
+              multiline
+              fullWidth
+              rows={4}
+              defaultValue={data === null ? null : data[dayIndex]["task"]}
+            />
+            <TextField
+              label="How does it fit to project plan"
+              name={inputFields[day]["fit"]}
+              multiline
+              fullWidth
+              rows={4}
+              defaultValue={data === null ? null : data[dayIndex]["fit"]}
+            />
+            <TextField
+              label="Outcome/Next action"
+              name={inputFields[day]["outcome"]}
+              multiline
+              fullWidth
+              rows={4}
+              defaultValue={data === null ? null : data[dayIndex]["outcome"]}
+            />
+          </AccordionDetails>
+        </Accordion>
+      ))}
       <Button variant="contained" type="submit">
         Submit
       </Button>
