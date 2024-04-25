@@ -18,7 +18,9 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
     <Grid container spacing={5}>
       <Grid item xs={2}>
         <Tabs orientation="vertical" onChange={tabChange} value={selectedWeek}>
-          {Array.from(weeks, (week) => (<Tab key={week} label={week} value={week} />))}
+          {Array.from(weeks, (week) => (
+            <Tab key={week} label={week} value={week} />
+          ))}
         </Tabs>
       </Grid>
       <Grid item xs={9}>

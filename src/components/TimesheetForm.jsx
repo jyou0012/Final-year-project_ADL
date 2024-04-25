@@ -15,8 +15,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { weekdays, inputFields } from "../const";
 
 function findInputValue(data, day, key) {
-	let r = data.find((d) => d["day"] === day);
-	return r === undefined ? null : r[key];
+  let r = data.find((d) => d["day"] === day);
+  return r === undefined ? null : r[key];
 }
 
 export default function TimesheetForm({ week, action, dataDays }) {
