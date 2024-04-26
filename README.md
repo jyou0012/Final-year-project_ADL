@@ -117,3 +117,7 @@ Apr 25th:
 [Optomize style of timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23217);
 [Set date properly and automatically](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23218);
 [Add status message to timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23220)
+
+Apr 26th:
+[Create staff pages](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23221);
+[Create stepper components](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23222)
