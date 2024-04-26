@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import { weekdays, inputFields } from "../const";
+import { timesheetFormAction, timesheetFormDraft } from '../app/students/actions';
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
@@ -48,6 +49,19 @@ export default function TimesheetForm({ week, action, dataDays }) {
     }
     setDates(newDates);
   };
+
+  const handleSaveDraft = async (event) => {
+    event.preventDefault(); // Prevent the default form action
+    
+    // Create a new FormData object passing the form as a parameter
+    const formData = new FormData(event.currentTarget.parentElement); // Assumed that the button is a direct child of the form
+
+    try {
+        await timesheetFormDraft(formData); // For saving drafts
+    } catch (error) {
+        console.error('Failed to save draft:', error);
+    }
+};
  
   return (
     <Box component="form" action={action}>
@@ -128,6 +142,9 @@ export default function TimesheetForm({ week, action, dataDays }) {
       ))}
       <Button variant="contained" type="submit">
         Submit
+      </Button>
+      <Button variant="contained" onClick={handleSaveDraft}>
+        Save Draft
       </Button>
     </Box>
   );
