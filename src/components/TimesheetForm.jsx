@@ -24,7 +24,7 @@ dayjs.updateLocale('en', {
   weekStart: 1
 });
 
-export default function TimesheetForm({ week, action, data }) {
+export default function TimesheetForm({ week, action, dataDays }) {
   const [dates, setDates] = useState(Array(5).fill(null));
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function TimesheetForm({ week, action, data }) {
     }
     setDates(newDates);
   };
-
+ 
   return (
     <Box component="form" action={action}>
       <Input name={inputFields["week"]} value={week} type="hidden" />
@@ -93,7 +93,7 @@ export default function TimesheetForm({ week, action, data }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={data && data[index] ? data[index]["task"] : ''}
+              defaultValue={day in dataDays ? dataDays[day]["task"] : null}
             />
             <TextField
               label="How does it fit to project plan"
@@ -101,7 +101,7 @@ export default function TimesheetForm({ week, action, data }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={data && data[index] ? data[index]["fit"] : ''}
+              defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
             />
             <TextField
               label="Outcome/Next action"
@@ -109,7 +109,7 @@ export default function TimesheetForm({ week, action, data }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={data && data[index] ? data[index]["outcome"] : ''}
+              defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
             />
           </AccordionDetails>
         </Accordion>
