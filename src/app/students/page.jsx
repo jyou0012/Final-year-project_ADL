@@ -1,15 +1,19 @@
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import { dbTimesheetGet } from "../../database/timesheet";
-import { weeks } from "../../const";
+import { dbTimesheetGetByStudent } from "../../database/timesheet";
 
 export default async function Layout() {
-  const data = await dbTimesheetGet(weeks[0]);
-  console.log(data);
   return (
     <TimesheetFormTabs
       action={timesheetFormAction}
-      data={JSON.parse(JSON.stringify(data))}
+      dataWeeks={JSON.parse(
+        JSON.stringify(
+          await dbTimesheetGetByStudent({
+            student: "a1234567",
+            type: "submission",
+          }),
+        ),
+      )}
     />
   );
 }

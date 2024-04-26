@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import TimesheetForm from "./TimesheetForm";
 import { weeks } from "../const";
 
-export default function TimesheetFormTabs({ action, data }) {
+export default function TimesheetFormTabs({ action, dataWeeks }) {
   const [selectedWeek, setWeek] = useState(weeks[0]);
 
   const tabChange = (event, newWeek) => {
@@ -32,7 +32,7 @@ export default function TimesheetFormTabs({ action, data }) {
                 key={week}
                 week={week}
                 action={action}
-                data={data}
+                dataDays={dataWeeks[week] || {}}
               />
             ),
         )}
