@@ -1,7 +1,6 @@
 # Team-25
 
 Directory structure of this repo:
-- **api**: includes documents of api definition
 - **design**: includes images of webpage design
 - **src/app**: includes source codes for both frontend and backend
 - **project-management**: includes documents of Agenda/Minutes and individual Timesheets
