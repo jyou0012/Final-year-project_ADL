@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from 'react';
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -8,29 +9,64 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import { weekdays, inputFields } from "../const";
 
-function findInputValue(data, day, key) {
-  let r = data.find((d) => d["day"] === day);
-  return r === undefined ? null : r[key];
-}
+dayjs.extend(weekday);
+dayjs.extend(updateLocale);
 
-export default function TimesheetForm({ week, action, dataDays }) {
+dayjs.updateLocale('en', {
+  weekStart: 1
+});
+
+export default function TimesheetForm({ week, action, data }) {
+  const [dates, setDates] = useState(Array(5).fill(null));
+
+  useEffect(() => {
+    if (week) {
+      const startOfWeek = dayjs(week).startOf('week').add(1, 'day'); 
+      const newDates = [];
+      for (let i = 0; i < 5; i++) {
+        newDates.push(startOfWeek.add(i, 'day'));
+      }
+      setDates(newDates);
+    }
+  }, [week]);
+
+  const handleDateChange = (newValue, index) => {
+    const newDates = [...dates];
+    if (newValue) {
+      const selectedDate = dayjs(newValue);
+      for (let i = 0; i < 5; i++) {
+        newDates[i] = selectedDate.add(i, 'day');
+      }
+    }
+    setDates(newDates);
+  };
+
   return (
     <Box component="form" action={action}>
       <Input name={inputFields["week"]} value={week} type="hidden" />
-      {Array.from(weekdays, (day, dayIndex) => (
+      {weekdays.slice(0, 5).map((day, index) => (
         <Accordion key={day}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             {day}
           </AccordionSummary>
           <AccordionDetails>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker label="Date" name={inputFields[day]["date"]} />
+              <DatePicker
+                label="Date"
+                name={inputFields[day]["date"]}
+                renderInput={(params) => <TextField {...params} />}
+                value={dates[index]}
+                onChange={(newValue) => handleDateChange(newValue, index)}
+                shouldDisableDate={(date) => date.weekday() !== index}
+              />
             </LocalizationProvider>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -38,6 +74,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 label="Start"
                 name={inputFields[day]["start"]}
                 ampm={false}
+                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
@@ -46,16 +83,17 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 label="End"
                 name={inputFields[day]["end"]}
                 ampm={false}
+                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
             <TextField
-              label="Task"
+              label="Tasks"
               name={inputFields[day]["task"]}
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "task")}
+              defaultValue={data && data[index] ? data[index]["task"] : ''}
             />
             <TextField
               label="How does it fit to project plan"
@@ -63,7 +101,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "fit")}
+              defaultValue={data && data[index] ? data[index]["fit"] : ''}
             />
             <TextField
               label="Outcome/Next action"
@@ -71,7 +109,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               multiline
               fullWidth
               rows={4}
-              defaultValue={findInputValue(dataDays, day, "outcome")}
+              defaultValue={data && data[index] ? data[index]["outcome"] : ''}
             />
           </AccordionDetails>
         </Accordion>
