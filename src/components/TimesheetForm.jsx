@@ -53,8 +53,8 @@ export default function TimesheetForm({ week, action, data }) {
               fullWidth
               rows={4}
               defaultValue={data === null ? null : data[dayIndex]["task"]}
-              variant="outlined"  
-              sx={{ my: 1 }}     
+              variant="outlined"
+              sx={{ my: 1 }}
             />
             <Box sx={{ display: "flex" }}>
               <Box sx={{ flexGrow: 1, mr: 1 }}>
@@ -65,8 +65,8 @@ export default function TimesheetForm({ week, action, data }) {
                   fullWidth
                   rows={4}
                   defaultValue={data === null ? null : data[dayIndex]["fit"]}
-                  variant="outlined"  
-                  sx={{ my: 1 }}    
+                  variant="outlined"
+                  sx={{ my: 1 }}
                 />
               </Box>
               <Box sx={{ flexGrow: 1 }}>
@@ -76,9 +76,11 @@ export default function TimesheetForm({ week, action, data }) {
                   multiline
                   fullWidth
                   rows={4}
-                  defaultValue={data === null ? null : data[dayIndex]["outcome"]}
-                  variant="outlined"  
-                  sx={{ my: 1 }}     
+                  defaultValue={
+                    data === null ? null : data[dayIndex]["outcome"]
+                  }
+                  variant="outlined"
+                  sx={{ my: 1 }}
                 />
               </Box>
             </Box>
