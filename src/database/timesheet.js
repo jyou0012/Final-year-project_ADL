@@ -6,9 +6,26 @@ const timesheet = database.collection("timesheet");
 const drafts = database.collection("drafts"); // Collection for drafts
 
 export async function dbTimesheetGetByStudent({ student, type }) {
-  return await timesheet.findOne({ student: student, type: type }) || {};
+  const draftsEntry = await drafts.findOne({ student: student, type: type });
+  const timesheetEntry = await timesheet.findOne({ student: student, type: type });
+  console.log(draftsEntry);
+  console.log(timesheetEntry);
+  if (draftsEntry) {
+    // If there are entries in drafts, return the drafts context
+    return draftsEntry;
+  } else if (timesheetEntry) {
+    // If there are no entries in drafts but there are entries in timesheet, return timesheet context
+    return timesheetEntry;
+  } else {
+    // If there are no entries in both drafts and timesheet, return an empty object
+    return {};
+  }
 }
 
+export async function dbTimesheetGetByStudentDraft({ student, type }) {
+  return await drafts.findOne({ student: student, type: type }) || {};
+}
+ 
 export async function dbTimesheetUpsertByWeek({ student, type, week, data }) {
   const now = Date.now();
   await timesheet.updateOne(

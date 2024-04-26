@@ -1,9 +1,18 @@
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import { timesheetFormAction, timesheetFormDraft } from './actions';
-import { dbTimesheetGetByStudent } from "../../database/timesheet";
-import { dbTimesheetSaveDraft } from "../../database/timesheet";
+import { dbTimesheetGetByStudent,dbTimesheetGetByStudentDraft } from "../../database/timesheet";
+
 
 export default async function Layout() {
+  let nType = "";
+  if (dbTimesheetGetByStudentDraft({
+    student: "a1234567",
+    type: "draft"            
+  }) != null) {
+    nType = "draft";
+  }else{
+    nType = "submission"
+  }
   return (
     <TimesheetFormTabs
       action={timesheetFormAction}
@@ -11,8 +20,7 @@ export default async function Layout() {
         JSON.stringify(
           await dbTimesheetGetByStudent({
             student: "a1234567",
-            type: "submission"
-            
+            type: nType            
           }),
         ),
       )}
