@@ -5,7 +5,7 @@ const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
 
 export async function dbTimesheetGetByStudent({ student, type }) {
-  return await timesheet.findOne({ student: student, type: type });
+  return await timesheet.findOne({ student: student, type: type }) || {};
 }
 
 export async function dbTimesheetUpsertByWeek({ student, type, week, data }) {
