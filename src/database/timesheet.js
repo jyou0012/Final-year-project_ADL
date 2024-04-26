@@ -5,16 +5,18 @@ const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
 const drafts = database.collection("drafts"); // Collection for drafts
 
-export async function dbTimesheetGetByStudent({ student, type }) {
-  const draftsEntry = await drafts.findOne({ student: student, type: type });
-  const timesheetEntry = await timesheet.findOne({ student: student, type: type });
-  console.log(draftsEntry);
-  console.log(timesheetEntry);
+export async function dbTimesheetGetByStudent({ student }) {
+  const draftsEntry = await drafts.findOne({ student: student, type: "draft" });
+  const timesheetEntry = await timesheet.findOne({ student: student, type: "submission" });
+  //console.log(type);
+
   if (draftsEntry) {
     // If there are entries in drafts, return the drafts context
+    console.log("draft");
     return draftsEntry;
   } else if (timesheetEntry) {
     // If there are no entries in drafts but there are entries in timesheet, return timesheet context
+    console.log("submission");
     return timesheetEntry;
   } else {
     // If there are no entries in both drafts and timesheet, return an empty object
@@ -41,6 +43,7 @@ export async function dbTimesheetUpsertByWeek({ student, type, week, data }) {
     },
     { upsert: true },
   );
+  await drafts.deleteOne({ student: student, type: "draft" });
 }
 
 // Function to save drafts
