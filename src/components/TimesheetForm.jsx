@@ -94,23 +94,35 @@ export default function TimesheetForm({ week, action, dataDays }) {
               fullWidth
               rows={4}
               defaultValue={day in dataDays ? dataDays[day]["task"] : null}
+              variant="outlined"
+              sx={{ my: 1 }}
             />
-            <TextField
-              label="How does it fit to project plan"
-              name={inputFields[day]["fit"]}
-              multiline
-              fullWidth
-              rows={4}
-              defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
-            />
-            <TextField
-              label="Outcome/Next action"
-              name={inputFields[day]["outcome"]}
-              multiline
-              fullWidth
-              rows={4}
-              defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
-            />
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ flexGrow: 1, mr: 1 }}>
+                <TextField
+                  label="How does it fit to project plan"
+                  name={inputFields[day]["fit"]}
+                  multiline
+                  fullWidth
+                  rows={4}
+                  defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
+                  variant="outlined"
+                  sx={{ my: 1 }}
+                />
+              </Box>
+              <Box sx={{ flexGrow: 1 }}>
+                <TextField
+                  label="Outcome/Next action"
+                  name={inputFields[day]["outcome"]}
+                  multiline
+                  fullWidth
+                  rows={4}
+                  defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
+                  variant="outlined"
+                  sx={{ my: 1 }}
+                />
+              </Box>
+            </Box>
           </AccordionDetails>
         </Accordion>
       ))}
