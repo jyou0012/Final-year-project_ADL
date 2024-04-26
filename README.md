@@ -112,3 +112,8 @@ Apr 12th:
 
 Apr 18th:
 [Code Modularization](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23173)
+
+Apr 25th:
+[Optomize style of timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23217);
+[Set date properly and automatically](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23218);
+[Add status message to timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23220)
