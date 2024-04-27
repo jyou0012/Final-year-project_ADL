@@ -66,6 +66,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 value={dates[index]}
                 onChange={(newValue) => handleDateChange(newValue, index)}
                 shouldDisableDate={(date) => date.weekday() !== index}
+                format="DD/MM/YYYY" 
               />
             </LocalizationProvider>
 
