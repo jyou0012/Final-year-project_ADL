@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
@@ -24,19 +22,22 @@ dayjs.updateLocale('en', {
   weekStart: 1
 });
 
+function TimesheetInput({ week, day, data }) {}
+
 export default function TimesheetForm({ week, action, dataDays }) {
   const [dates, setDates] = useState(Array(5).fill(null));
+  const [expanded, setExpanded] = useState(Array(5).fill(false)); // State for each day's expansion
 
   useEffect(() => {
-    if (week) {
-      const startOfWeek = dayjs(week).startOf('week').add(1, 'day'); 
-      const newDates = [];
-      for (let i = 0; i < 5; i++) {
-        newDates.push(startOfWeek.add(i, 'day'));
-      }
-      setDates(newDates);
+    const today = dayjs().weekday();
+    const startOfWeek = dayjs().startOf('week').add(today - 1, 'day');
+    const newDates = [];
+    for (let i = 0; i < 5; i++) {
+      newDates.push(startOfWeek.add(i, 'day'));
     }
-  }, [week]);
+    setDates(newDates);
+    setExpanded((prev) => prev.map((_, index) => index === today - 1)); // Expand today's Accordion
+  }, []);
 
   const handleDateChange = (newValue, index) => {
     const newDates = [...dates];
@@ -47,13 +48,18 @@ export default function TimesheetForm({ week, action, dataDays }) {
       }
     }
     setDates(newDates);
+    setExpanded((prev) => prev.map((_, i) => i === index)); // Expand the selected day's Accordion
   };
  
   return (
     <Box component="form" action={action}>
       <Input name={inputFields["week"]} value={week} type="hidden" />
       {weekdays.slice(0, 5).map((day, index) => (
-        <Accordion key={day}>
+        <Accordion
+          key={day}
+          expanded={expanded[index]}
+          onChange={() => setExpanded((prev) => prev.map((ex, i) => i === index ? !ex : ex))}
+        >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             {day}
           </AccordionSummary>
@@ -76,6 +82,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 name={inputFields[day]["start"]}
                 ampm={false}
                 renderInput={(params) => <TextField {...params} />}
+                sx={{ ml: 1 }} // Add margin to separate from Date
               />
             </LocalizationProvider>
 
@@ -85,6 +92,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 name={inputFields[day]["end"]}
                 ampm={false}
                 renderInput={(params) => <TextField {...params} />}
+                sx={{ ml: 1 }} // Add margin to separate from Start
               />
             </LocalizationProvider>
 
@@ -127,9 +135,14 @@ export default function TimesheetForm({ week, action, dataDays }) {
           </AccordionDetails>
         </Accordion>
       ))}
-      <Button variant="contained" type="submit">
-        Submit
-      </Button>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+        <Button variant="contained" sx={{ mr: 2 }}>
+          Save
+        </Button>
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
+      </Box>
     </Box>
   );
 }
