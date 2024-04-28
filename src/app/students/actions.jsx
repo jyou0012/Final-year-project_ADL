@@ -1,12 +1,13 @@
 "use server";
 
-import { dbTimesheetUpsertByWeek } from "../../database/timesheet";
+import { dbTimesheetUpsertByWeek,dbTimesheetSaveDraft } from "../../database/timesheet";
 import { weekdays, inputFields } from "../../const";
 
 export default async function timesheetFormAction(formData) {
+ 
   dbTimesheetUpsertByWeek({
     student: "a1234567",
-    type: "submission",
+    type: formData.get('actionType'),
     week: formData.get(inputFields["week"]),
     data: Object.fromEntries(
       weekdays.map((day) => [
@@ -23,3 +24,5 @@ export default async function timesheetFormAction(formData) {
     ),
   });
 }
+
+

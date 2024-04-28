@@ -15,6 +15,7 @@ import weekday from 'dayjs/plugin/weekday';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import { weekdays, inputFields } from "../const";
 
+
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
 
@@ -50,6 +51,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
     setDates(newDates);
     setExpanded((prev) => prev.map((_, i) => i === index)); // Expand the selected day's Accordion
   };
+
  
   return (
     <Box component="form" action={action}>
@@ -136,12 +138,8 @@ export default function TimesheetForm({ week, action, dataDays }) {
         </Accordion>
       ))}
       <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button variant="contained" sx={{ mr: 2 }}>
-          Save
-        </Button>
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+      <Button sx={{ mr: 2 }} variant="contained" type="submit" name="actionType" value="draft">Save Draft</Button>
+      <Button sx={{ mr: 2 }} variant="contained" type="submit" name="actionType" value="submission">Submit</Button>
       </Box>
     </Box>
   );
