@@ -2,6 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'; 
+import TeacherAndGroupBar from '../../components/TeacherAndGroupBar';
+
 
 function StatusIndicator({ completed }) {
   return (
@@ -15,7 +17,7 @@ function StatusIndicator({ completed }) {
   );
 }
 
-export default function condition_view() {
+export default function ConditionView() {
   const students = [
     { draft: false, submission: true },
     { draft: true, submission: false },
@@ -26,9 +28,10 @@ export default function condition_view() {
 
   return (
     <Box sx={{ p: 2 }}>
+      <TeacherAndGroupBar />  
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-        <div style={{ marginLeft: '180px' }}>Draft</div> {/* Adjusted spacing */}
-        <div style={{ marginLeft: '80px' }}>Submission</div> {/* Adjusted spacing */}
+        <div style={{ marginLeft: '180px' }}>Draft</div> 
+        <div style={{ marginLeft: '80px' }}>Submission</div> 
       </Box>
       {students.map((student, index) => (
         <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 14, my: 6 }}>
