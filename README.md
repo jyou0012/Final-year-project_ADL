@@ -1,7 +1,6 @@
 # Team-25
 
 Directory structure of this repo:
-- **api**: includes documents of api definition
 - **design**: includes images of webpage design
 - **src/app**: includes source codes for both frontend and backend
 - **project-management**: includes documents of Agenda/Minutes and individual Timesheets
@@ -112,3 +111,12 @@ Apr 12th:
 
 Apr 18th:
 [Code Modularization](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23173)
+
+Apr 25th:
+[Optomize style of timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23217);
+[Set date properly and automatically](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23218);
+[Add status message to timesheet webpage](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23220)
+
+Apr 26th:
+[Create staff pages](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23221);
+[Create stepper components](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/projects/1#card-23222)

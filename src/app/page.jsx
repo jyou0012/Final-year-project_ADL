@@ -1,3 +1,7 @@
 export default function Page() {
-  return <p>TODO hello</p>;
+  return (
+    <div>
+      <p>TODO hello</p>
+    </div>
+  );
 }
