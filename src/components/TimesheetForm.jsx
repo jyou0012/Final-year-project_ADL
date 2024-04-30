@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -10,17 +10,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { TimePicker, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from 'dayjs';
-import weekday from 'dayjs/plugin/weekday';
-import updateLocale from 'dayjs/plugin/updateLocale';
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import updateLocale from "dayjs/plugin/updateLocale";
 import { weekdays, inputFields } from "../const";
-
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
 
-dayjs.updateLocale('en', {
-  weekStart: 1
+dayjs.updateLocale("en", {
+  weekStart: 1,
 });
 
 function TimesheetInput({ week, day, data }) {}
@@ -31,10 +30,12 @@ export default function TimesheetForm({ week, action, dataDays }) {
 
   useEffect(() => {
     const today = dayjs().weekday();
-    const startOfWeek = dayjs().startOf('week').add(today - 1, 'day');
+    const startOfWeek = dayjs()
+      .startOf("week")
+      .add(today - 1, "day");
     const newDates = [];
     for (let i = 0; i < 5; i++) {
-      newDates.push(startOfWeek.add(i, 'day'));
+      newDates.push(startOfWeek.add(i, "day"));
     }
     setDates(newDates);
     setExpanded((prev) => prev.map((_, index) => index === today - 1)); // Expand today's Accordion
@@ -45,22 +46,28 @@ export default function TimesheetForm({ week, action, dataDays }) {
     if (newValue) {
       const selectedDate = dayjs(newValue);
       for (let i = 0; i < 5; i++) {
-        newDates[i] = selectedDate.add(i, 'day');
+        newDates[i] = selectedDate.add(i, "day");
       }
     }
     setDates(newDates);
     setExpanded((prev) => prev.map((_, i) => i === index)); // Expand the selected day's Accordion
   };
 
- 
   return (
     <Box component="form" action={action}>
-      <Input name={inputFields["week"]} value={week} type="hidden" />
-      {weekdays.slice(0, 5).map((day, index) => (
+      <Input
+        name={inputFields["week"]}
+        value={week}
+        type="hidden"
+        sx={{ display: "none" }}
+      />
+      {weekdays.map((day, index) => (
         <Accordion
           key={day}
           expanded={expanded[index]}
-          onChange={() => setExpanded((prev) => prev.map((ex, i) => i === index ? !ex : ex))}
+          onChange={() =>
+            setExpanded((prev) => prev.map((ex, i) => (i === index ? !ex : ex)))
+          }
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             {day}
@@ -74,7 +81,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 value={dates[index]}
                 onChange={(newValue) => handleDateChange(newValue, index)}
                 shouldDisableDate={(date) => date.weekday() !== index}
-                format="DD/MM/YYYY" 
+                format="DD/MM/YYYY"
               />
             </LocalizationProvider>
 
@@ -128,7 +135,9 @@ export default function TimesheetForm({ week, action, dataDays }) {
                   multiline
                   fullWidth
                   rows={4}
-                  defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
+                  defaultValue={
+                    day in dataDays ? dataDays[day]["outcome"] : null
+                  }
                   variant="outlined"
                   sx={{ my: 1 }}
                 />
@@ -138,8 +147,24 @@ export default function TimesheetForm({ week, action, dataDays }) {
         </Accordion>
       ))}
       <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-      <Button sx={{ mr: 2 }} variant="contained" type="submit" name="actionType" value="draft">Save Draft</Button>
-      <Button sx={{ mr: 2 }} variant="contained" type="submit" name="actionType" value="submission">Submit</Button>
+        <Button
+          sx={{ mr: 2 }}
+          variant="contained"
+          type="submit"
+          name="actionType"
+          value="draft"
+        >
+          Save Draft
+        </Button>
+        <Button
+          sx={{ mr: 2 }}
+          variant="contained"
+          type="submit"
+          name="actionType"
+          value="submission"
+        >
+          Submit
+        </Button>
       </Box>
     </Box>
   );

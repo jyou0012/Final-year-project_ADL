@@ -1,11 +1,11 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'; 
+import React from "react";
+import Box from "@mui/material/Box";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 function StatusIndicator({ completed }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
       {completed ? (
         <CheckCircleIcon color="success" fontSize="large" />
       ) : (

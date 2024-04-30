@@ -6,22 +6,41 @@ const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
 const drafts = database.collection("drafts"); // Collection for drafts
 
-
-
 export async function* dbTimesheetGetByStudent({ student }) {
   try {
-    const weeks = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"];
+    const weeks = [
+      "Week 1",
+      "Week 2",
+      "Week 3",
+      "Week 4",
+      "Week 5",
+      "Week 6",
+      "Week 7",
+      "Week 8",
+      "Week 9",
+      "Week 10",
+      "Week 11",
+      "Week 12",
+    ];
 
     for (const week of weeks) {
-      const submissionEntry = await timesheet.findOne({ student: student, type: "submission", week: week });
-      const draftEntry = await timesheet.findOne({ student: student, type: "draft", week: week });
+      const submissionEntry = await timesheet.findOne({
+        student: student,
+        type: "submission",
+        week: week,
+      });
+      const draftEntry = await timesheet.findOne({
+        student: student,
+        type: "draft",
+        week: week,
+      });
 
       if (submissionEntry) {
         yield submissionEntry;
       } else if (draftEntry) {
         yield draftEntry;
       } else {
-        yield {};  // Yield an empty object for weeks with no data
+        yield {}; // Yield an empty object for weeks with no data
       }
     }
   } catch (error) {
@@ -34,7 +53,7 @@ export async function processTimesheets(student) {
   const generator = dbTimesheetGetByStudent({ student: student });
   let entry = "";
   for await (const timesheet of generator) {
-    //console.log(timesheet);  // Process each yielded timesheet 
+    //console.log(timesheet);  // Process each yielded timesheet
     entry = timesheet;
   }
   //console.log(JSON.parse(JSON.stringify(timesheet)));
@@ -42,16 +61,12 @@ export async function processTimesheets(student) {
   return entry;
 }
 
-
-
-
- 
 export async function dbTimesheetUpsertByWeek({ student, type, week, data }) {
   const now = Date.now();
   try {
     // Upsert the current submission or draft
     await timesheet.updateOne(
-      { student: student, week: week }, 
+      { student: student, week: week },
       {
         $set: {
           student: student,
@@ -61,21 +76,22 @@ export async function dbTimesheetUpsertByWeek({ student, type, week, data }) {
           [week]: data,
         },
       },
-      { upsert: true }
+      { upsert: true },
     );
 
     // If the submission is a final submission, delete any drafts
     if (type === "submission") {
-      await timesheet.deleteOne({ student: student, week: week, type: "draft" });
+      await timesheet.deleteOne({
+        student: student,
+        week: week,
+        type: "draft",
+      });
     }
   } catch (error) {
     console.error("Error handling timesheet operation:", error);
     throw error; // Rethrow or handle error as appropriate for your application
   }
 }
-
-
-
 
 // Function to handle final submission
 export async function dbTimesheetSubmitFinal({ student, data, type }) {
@@ -88,5 +104,4 @@ export async function dbTimesheetSubmitFinal({ student, data, type }) {
   });
 }
 
-
-processTimesheets()
+processTimesheets();
