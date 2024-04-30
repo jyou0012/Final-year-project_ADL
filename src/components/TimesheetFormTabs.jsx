@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useFormState } from "react-dom";
+import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Grid from "@mui/material/Grid";
 import TimesheetForm from "./TimesheetForm";
 import StateAlert from "./StateAlert";
-import Box from "@mui/material/Box";
 import { weeks } from "../const";
 
 export default function TimesheetFormTabs({ action, dataWeeks }) {
@@ -22,7 +22,7 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
     <Box>
       <StateAlert>{formState}</StateAlert>
       <Grid container mx="5%">
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Tabs
             orientation="vertical"
             onChange={tabChange}

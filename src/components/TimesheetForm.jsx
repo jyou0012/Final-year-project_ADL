@@ -13,6 +13,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
+import ProgressStepper from "./ProgressStepper";
 import { weekdays, inputFields } from "../const";
 
 dayjs.extend(weekday);
@@ -54,117 +55,122 @@ export default function TimesheetForm({ week, action, dataDays }) {
   };
 
   return (
-    <Box component="form" action={action}>
-      <Input
-        name={inputFields["week"]}
-        value={week}
-        type="hidden"
-        sx={{ display: "none" }}
-      />
-      {weekdays.map((day, index) => (
-        <Accordion
-          key={day}
-          expanded={expanded[index]}
-          onChange={() =>
-            setExpanded((prev) => prev.map((ex, i) => (i === index ? !ex : ex)))
-          }
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            {day}
-          </AccordionSummary>
-          <AccordionDetails>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Date"
-                name={inputFields[day]["date"]}
-                renderInput={(params) => <TextField {...params} />}
-                value={dates[index]}
-                onChange={(newValue) => handleDateChange(newValue, index)}
-                shouldDisableDate={(date) => date.weekday() !== index}
-                format="DD/MM/YYYY"
-              />
-            </LocalizationProvider>
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                label="Start"
-                name={inputFields[day]["start"]}
-                ampm={false}
-                renderInput={(params) => <TextField {...params} />}
-                sx={{ ml: 1 }} // Add margin to separate from Date
-              />
-            </LocalizationProvider>
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                label="End"
-                name={inputFields[day]["end"]}
-                ampm={false}
-                renderInput={(params) => <TextField {...params} />}
-                sx={{ ml: 1 }} // Add margin to separate from Start
-              />
-            </LocalizationProvider>
-
-            <TextField
-              label="Tasks"
-              name={inputFields[day]["task"]}
-              multiline
-              fullWidth
-              rows={4}
-              defaultValue={day in dataDays ? dataDays[day]["task"] : null}
-              variant="outlined"
-              sx={{ my: 1 }}
-            />
-            <Box sx={{ display: "flex" }}>
-              <Box sx={{ flexGrow: 1, mr: 1 }}>
-                <TextField
-                  label="How does it fit to project plan"
-                  name={inputFields[day]["fit"]}
-                  multiline
-                  fullWidth
-                  rows={4}
-                  defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
-                  variant="outlined"
-                  sx={{ my: 1 }}
+    <Box>
+      <ProgressStepper />
+      <Box component="form" action={action}>
+        <Input
+          name={inputFields["week"]}
+          value={week}
+          type="hidden"
+          sx={{ display: "none" }}
+        />
+        {weekdays.map((day, index) => (
+          <Accordion
+            key={day}
+            expanded={expanded[index]}
+            onChange={() =>
+              setExpanded((prev) =>
+                prev.map((ex, i) => (i === index ? !ex : ex)),
+              )
+            }
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              {day}
+            </AccordionSummary>
+            <AccordionDetails>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date"
+                  name={inputFields[day]["date"]}
+                  renderInput={(params) => <TextField {...params} />}
+                  value={dates[index]}
+                  onChange={(newValue) => handleDateChange(newValue, index)}
+                  shouldDisableDate={(date) => date.weekday() !== index}
+                  format="DD/MM/YYYY"
                 />
-              </Box>
-              <Box sx={{ flexGrow: 1 }}>
-                <TextField
-                  label="Outcome/Next action"
-                  name={inputFields[day]["outcome"]}
-                  multiline
-                  fullWidth
-                  rows={4}
-                  defaultValue={
-                    day in dataDays ? dataDays[day]["outcome"] : null
-                  }
-                  variant="outlined"
-                  sx={{ my: 1 }}
+              </LocalizationProvider>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Start"
+                  name={inputFields[day]["start"]}
+                  ampm={false}
+                  renderInput={(params) => <TextField {...params} />}
+                  sx={{ ml: 1 }} // Add margin to separate from Date
                 />
+              </LocalizationProvider>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="End"
+                  name={inputFields[day]["end"]}
+                  ampm={false}
+                  renderInput={(params) => <TextField {...params} />}
+                  sx={{ ml: 1 }} // Add margin to separate from Start
+                />
+              </LocalizationProvider>
+
+              <TextField
+                label="Tasks"
+                name={inputFields[day]["task"]}
+                multiline
+                fullWidth
+                rows={4}
+                defaultValue={day in dataDays ? dataDays[day]["task"] : null}
+                variant="outlined"
+                sx={{ my: 1 }}
+              />
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ flexGrow: 1, mr: 1 }}>
+                  <TextField
+                    label="How does it fit to project plan"
+                    name={inputFields[day]["fit"]}
+                    multiline
+                    fullWidth
+                    rows={4}
+                    defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
+                    variant="outlined"
+                    sx={{ my: 1 }}
+                  />
+                </Box>
+                <Box sx={{ flexGrow: 1 }}>
+                  <TextField
+                    label="Outcome/Next action"
+                    name={inputFields[day]["outcome"]}
+                    multiline
+                    fullWidth
+                    rows={4}
+                    defaultValue={
+                      day in dataDays ? dataDays[day]["outcome"] : null
+                    }
+                    variant="outlined"
+                    sx={{ my: 1 }}
+                  />
+                </Box>
               </Box>
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-      ))}
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          sx={{ mr: 2 }}
-          variant="contained"
-          type="submit"
-          name="actionType"
-          value="draft"
-        >
-          Save Draft
-        </Button>
-        <Button
-          sx={{ mr: 2 }}
-          variant="contained"
-          type="submit"
-          name="actionType"
-          value="submission"
-        >
-          Submit
-        </Button>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+          <Button
+            sx={{ mr: 2 }}
+            variant="contained"
+            type="submit"
+            name="actionType"
+            value="draft"
+          >
+            Save Draft
+          </Button>
+          <Button
+            sx={{ mr: 2 }}
+            variant="contained"
+            type="submit"
+            name="actionType"
+            value="submission"
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

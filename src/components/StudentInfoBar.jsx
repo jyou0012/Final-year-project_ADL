@@ -1,29 +1,30 @@
-import React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 
-function StudentInfoBar({ studentName, studentId, mentorName }) {
+export default function StudentInfoBar({ studentName, studentId, mentorName }) {
   return (
     <Box
       sx={{
-        p: 2,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        py: "1%",
         backgroundColor: "#1976d2",
       }}
     >
-      <Typography variant="body1" sx={{ color: "#fff", flexGrow: 1 }}>
-        Name: {studentName}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff", flexGrow: 1 }}>
-        ID: {studentId}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff", flexGrow: 1 }}>
-        Mentor: {mentorName}
-      </Typography>
+      <Grid container px="4%">
+        <Grid item xs={2}>
+          Timesheet Form
+        </Grid>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={6}>
+          <Stack direction="row" spacing={3} justifyContent="end">
+            <div>Name: Bob</div>
+            <div>ID: a1234567</div>
+            <div>Group: 1 </div>
+            <div>Client: Cruz</div>
+          </Stack>
+        </Grid>
+        <Grid item xs={1}></Grid>
+      </Grid>
     </Box>
   );
 }
-
-export default StudentInfoBar;
