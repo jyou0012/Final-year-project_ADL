@@ -1,9 +1,9 @@
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ margin: "0px", padding: "0px" }}>
         {/* Layout UI */}
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
