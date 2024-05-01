@@ -3,19 +3,19 @@ import Box from "@mui/material/Box";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
-function StatusIndicator({ completed }) {
+export default function StatusIndicator({ completed }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
       {completed ? (
-        <CheckCircleIcon color="success" fontSize="large" />
+        <CheckCircleIcon color="success" />
       ) : (
-        <RadioButtonUncheckedIcon color="disabled" fontSize="large" />
+        <RadioButtonUncheckedIcon color="disabled" />
       )}
     </Box>
   );
 }
 
-export default function IndicatorExample() {
+export function IndicatorExample() {
   const completed = false; // Set to true or false as needed
   return (
     <Box sx={{ p: 2 }}>
