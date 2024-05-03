@@ -1,3 +1,12 @@
+export const STATE = {
+  empty: null,
+  draft: "draft",
+  final: "final",
+};
+export const EMPTY = null;
+export const DRAFT = "draft";
+export const FINAL = "final";
+
 export const weeks = [
   "Week 1",
   "Week 2",
@@ -17,6 +26,7 @@ export const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
 export const inputFields = {
   week: "week",
+  state: "state",
   Mon: {
     date: "mon-date",
     start: "mon-start",

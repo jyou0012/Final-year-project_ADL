@@ -8,9 +8,9 @@ export default function StateAlert({ children }) {
   return (
     <Box
       position="fixed"
-      zIndex="1"
+      zIndex="1200"
       width="100%"
-      top="1%"
+      top="0.85%"
       display={display}
       justifyContent="center"
       alignItems="center"

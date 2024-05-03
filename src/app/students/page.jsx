@@ -1,20 +1,16 @@
-import React from "react";
+import { Fragment } from "react";
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import {
-  dbTimesheetGetByStudent,
-  processTimesheets,
-} from "../../database/timesheet";
+import { dbTimesheetGet } from "../../database/timesheet";
 
 export default async function Layout() {
+  const data = await dbTimesheetGet({ student: "a1234567" });
   return (
-    <div>
+    <Fragment>
       <TimesheetFormTabs
         action={timesheetFormAction}
-        dataWeeks={JSON.parse(
-          JSON.stringify(await processTimesheets({ student: "a1234567" })),
-        )}
+        dataWeeks={JSON.parse(JSON.stringify(data))}
       />
-    </div>
+    </Fragment>
   );
 }

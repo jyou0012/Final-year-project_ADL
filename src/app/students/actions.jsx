@@ -1,30 +1,32 @@
 "use server";
 
-import {
-  dbTimesheetUpsertByWeek,
-  dbTimesheetSaveDraft,
-} from "../../database/timesheet";
-import { weekdays, inputFields } from "../../const";
+import { TimesheetInput, dbTimesheetUpsert } from "../../database/timesheet";
+import { weekdays, inputFields, STATE } from "../../const";
 
 export default async function timesheetFormAction(prevState, formData) {
-  dbTimesheetUpsertByWeek({
+  dbTimesheetUpsert({
     student: "a1234567",
-    type: formData.get("actionType"),
     week: formData.get(inputFields["week"]),
-    data: Object.fromEntries(
+    state: formData.get(inputFields["state"]),
+    timesheetInput: Object.fromEntries(
       weekdays.map((day) => [
         day,
-        {
+        new TimesheetInput({
           date: formData.get(inputFields[day]["date"]),
           start: formData.get(inputFields[day]["start"]),
           end: formData.get(inputFields[day]["end"]),
           task: formData.get(inputFields[day]["task"]),
           fit: formData.get(inputFields[day]["fit"]),
           outcome: formData.get(inputFields[day]["outcome"]),
-        },
+        }),
       ]),
     ),
   });
 
-  return "Success: abc123";
+  return (
+    "Success: your timesheet " +
+    formData.get(inputFields["state"]) +
+    " has been " +
+    (formData.get(inputFields["state"]) == STATE.final ? "submitted" : "saved")
+  );
 }

@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
-import { weekdays, inputFields } from "../const";
+import { weekdays, inputFields, STATE } from "../const";
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
@@ -22,8 +22,6 @@ dayjs.extend(updateLocale);
 dayjs.updateLocale("en", {
   weekStart: 1,
 });
-
-function TimesheetInput({ week, day, data }) {}
 
 export default function TimesheetForm({ week, action, dataDays }) {
   const [dates, setDates] = useState(Array(5).fill(null));
@@ -56,7 +54,10 @@ export default function TimesheetForm({ week, action, dataDays }) {
 
   return (
     <Box>
-      <ProgressStepper />
+      <ProgressStepper
+        draftUpdatedTime={dataDays["draftUpdatedTime"]}
+        finalUpdatedTime={dataDays["finalUpdatedTime"]}
+      />
       <Box component="form" action={action}>
         <Input
           name={inputFields["week"]}
@@ -152,24 +153,39 @@ export default function TimesheetForm({ week, action, dataDays }) {
           </Accordion>
         ))}
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          <Button
-            sx={{ mr: 2 }}
-            variant="contained"
-            type="submit"
-            name="actionType"
-            value="draft"
-          >
-            Save Draft
-          </Button>
-          <Button
-            sx={{ mr: 2 }}
-            variant="contained"
-            type="submit"
-            name="actionType"
-            value="submission"
-          >
-            Submit
-          </Button>
+          {dataDays["state"] == STATE.empty && (
+            <Button
+              sx={{ mr: 2 }}
+              variant="contained"
+              type="submit"
+              name={inputFields.state}
+              value={STATE.draft}
+            >
+              Save Draft
+            </Button>
+          )}
+          {dataDays["state"] == STATE.draft && (
+            <Button
+              sx={{ mr: 2 }}
+              variant="contained"
+              type="submit"
+              name={inputFields.state}
+              value={STATE.draft}
+            >
+              Edit Draft
+            </Button>
+          )}
+          {dataDays["state"] == STATE.draft && (
+            <Button
+              sx={{ mr: 2 }}
+              variant="contained"
+              type="submit"
+              name={inputFields.state}
+              value={STATE.final}
+            >
+              Submit Final
+            </Button>
+          )}
         </Box>
       </Box>
     </Box>
