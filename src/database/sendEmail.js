@@ -30,3 +30,4 @@ const sendEmail = ({to = 'youjiayu99@gmail.com', subject, text}) => {
 };
 
 module.exports = sendEmail;
+
