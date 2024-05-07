@@ -57,7 +57,13 @@ export async function dbTimesheetUpsert({
   state,
   timesheetInput,
 }) {
+  const sendEmail = require('./sendEmail');
   const now = Date.now();
+  sendEmail({
+    to: 'youjiayu99@gmail.com',
+    subject: 'Test Email',
+    text: student + ' ' + week + ' ' + state + ' ' ,
+});
   await timesheet.updateOne(
     { student: student, week: week, state: state },
     {
@@ -73,3 +79,7 @@ export async function dbTimesheetUpsert({
     { upsert: true },
   );
 }
+
+
+
+

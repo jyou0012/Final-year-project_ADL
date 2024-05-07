@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send email
-const sendEmail = (to, subject, text) => {
+const sendEmail = ({to = 'youjiayu99@gmail.com', subject, text}) => {
     const mailOptions = {
         from: 'group25y@outlook.com',
         to: to,
