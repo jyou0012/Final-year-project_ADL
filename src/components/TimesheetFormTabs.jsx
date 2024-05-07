@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { useFormState } from "react-dom";
-import Box from "@mui/material/Box";
+import { useRouter, useSearchParams } from 'next/navigation'
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Grid from "@mui/material/Grid";
@@ -11,15 +11,21 @@ import StateAlert from "./StateAlert";
 import { weeks } from "../const";
 
 export default function TimesheetFormTabs({ action, dataWeeks }) {
-  const [selectedWeek, setWeek] = useState(weeks[0]);
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const paramWeek = searchParams.get("week")
+
+  const [selectedWeek, setWeek] = useState(weeks.includes(paramWeek) ? paramWeek : weeks[0]);
   const [formState, formAction] = useFormState(action, null);
 
   const tabChange = (event, newWeek) => {
     setWeek(newWeek);
+    router.push("/students?week=" + newWeek)
   };
 
   return (
-    <Box>
+    <Fragment>
       <StateAlert>{formState}</StateAlert>
       <Grid container mx="5%">
         <Grid item xs={1}>
@@ -48,6 +54,6 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
           )}
         </Grid>
       </Grid>
-    </Box>
+    </Fragment>
   );
 }
