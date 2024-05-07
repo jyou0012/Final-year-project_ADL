@@ -47,7 +47,6 @@ export async function dbTimesheetGet({ student }) {
       ...f,
     };
   }
-
   return timesheetOutput;
 }
 
@@ -57,7 +56,13 @@ export async function dbTimesheetUpsert({
   state,
   timesheetInput,
 }) {
+  const sendEmail = require('./sendEmail');
   const now = Date.now();
+  sendEmail({
+    to: student + '@adelaide.edu.au',
+    subject: student + ' ' + week + ' ' + state + ' ',
+    text: week + ' ' + state + ' '+'submitted by '+ student + ' at ' + now + '',
+});
   await timesheet.updateOne(
     { student: student, week: week, state: state },
     {
@@ -73,3 +78,33 @@ export async function dbTimesheetUpsert({
     { upsert: true },
   );
 }
+
+// Function to check the documents and send emails
+export const checkDraftsAndSendEmails = async (timesheetOutput) => {
+  const sendEmail = require('./sendEmail');
+  try {
+      let emailPromises = [];
+      // Loop through weeks in the timesheetOutput
+      for (const week in timesheetOutput) {
+          if (timesheetOutput.hasOwnProperty(week) && timesheetOutput[week].state === 'draft') {
+              const emailData = {
+                  to: timesheetOutput.student + '@adelaide.edu.au',
+                  subject: `Reminder: Your entry is still in draft for ${week}`,
+                  text: `Hi, your entry for ${week} is still in draft. Please complete it.`
+              };
+              // Push the email sending function wrapped in a promise that resolves with a delay
+              emailPromises.push(new Promise((resolve) => setTimeout(() => resolve(sendEmail(emailData)), 1000 * emailPromises.length)));
+          }
+      }
+      // Wait for all email promises to resolve
+      await Promise.all(emailPromises);
+  } catch (err) {
+      console.error('Error sending email reminders for drafts', err);
+  }
+};
+
+
+
+
+
+

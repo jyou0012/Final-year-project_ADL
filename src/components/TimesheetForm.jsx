@@ -25,31 +25,48 @@ dayjs.updateLocale("en", {
 
 export default function TimesheetForm({ week, action, dataDays }) {
   const [dates, setDates] = useState(Array(5).fill(null));
-  const [expanded, setExpanded] = useState(Array(5).fill(false)); // State for each day's expansion
+  const [startTimes, setStartTimes] = useState(Array(5).fill(null));
+  const [endTimes, setEndTimes] = useState(Array(5).fill(null));
+  const [totalHours, setTotalHours] = useState(Array(5).fill('0.00'));
+  const [expanded, setExpanded] = useState(Array(5).fill(false));
 
   useEffect(() => {
     const today = dayjs().weekday();
-    const startOfWeek = dayjs()
-      .startOf("week")
-      .add(today - 1, "day");
+    const startOfWeek = dayjs().startOf("week").add(today - 1, "day");
     const newDates = [];
     for (let i = 0; i < 5; i++) {
       newDates.push(startOfWeek.add(i, "day"));
     }
     setDates(newDates);
-    setExpanded((prev) => prev.map((_, index) => index === today - 1)); // Expand today's Accordion
+    setExpanded((prev) => prev.map((_, index) => index === today - 1));
   }, []);
 
   const handleDateChange = (newValue, index) => {
     const newDates = [...dates];
-    if (newValue) {
-      const selectedDate = dayjs(newValue);
-      for (let i = 0; i < 5; i++) {
-        newDates[i] = selectedDate.add(i, "day");
-      }
-    }
+    newDates[index] = newValue;
     setDates(newDates);
-    setExpanded((prev) => prev.map((_, i) => i === index)); // Expand the selected day's Accordion
+  };
+
+  const handleTimeChange = (newValue, index, isStart) => {
+    if (isStart) {
+      const newStartTimes = [...startTimes];
+      newStartTimes[index] = newValue;
+      setStartTimes(newStartTimes);
+    } else {
+      const newEndTimes = [...endTimes];
+      newEndTimes[index] = newValue;
+      setEndTimes(newEndTimes);
+    }
+    calculateTotalHours(index);
+  };
+
+  const calculateTotalHours = (index) => {
+    if (startTimes[index] && endTimes[index]) {
+      const hours = dayjs(endTimes[index]).diff(dayjs(startTimes[index]), 'hour', true);
+      const newTotalHours = [...totalHours];
+      newTotalHours[index] = hours.toFixed(2);
+      setTotalHours(newTotalHours);
+    }
   };
 
   return (
@@ -89,25 +106,29 @@ export default function TimesheetForm({ week, action, dataDays }) {
                   shouldDisableDate={(date) => date.weekday() !== index}
                   format="DD/MM/YYYY"
                 />
-              </LocalizationProvider>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <TimePicker
                   label="Start"
                   name={inputFields[day]["start"]}
                   ampm={false}
                   renderInput={(params) => <TextField {...params} />}
+                  value={startTimes[index]}
+                  onChange={(newValue) => handleTimeChange(newValue, index, true)}
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
-              </LocalizationProvider>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <TimePicker
                   label="End"
                   name={inputFields[day]["end"]}
                   ampm={false}
                   renderInput={(params) => <TextField {...params} />}
+                  value={endTimes[index]}
+                  onChange={(newValue) => handleTimeChange(newValue, index, false)}
                   sx={{ ml: 1 }} // Add margin to separate from Start
+                />
+                <TextField
+                  label="Total Hours"
+                  value={totalHours[index]}
+                  InputProps={{ readOnly: true }}
+                  sx={{ ml: 1 }} // Add margin to separate from End
                 />
               </LocalizationProvider>
 
@@ -141,9 +162,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                     multiline
                     fullWidth
                     rows={4}
-                    defaultValue={
-                      day in dataDays ? dataDays[day]["outcome"] : null
-                    }
+                    defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
                     variant="outlined"
                     sx={{ my: 1 }}
                   />
