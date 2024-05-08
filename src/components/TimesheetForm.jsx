@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -70,11 +70,13 @@ export default function TimesheetForm({ week, action, dataDays }) {
   };
 
   return (
-    <Box>
+    <Fragment>
+      <Box my="2%" px="25%">
       <ProgressStepper
         draftUpdatedTime={dataDays["draftUpdatedTime"]}
         finalUpdatedTime={dataDays["finalUpdatedTime"]}
       />
+      </Box>
       <Box component="form" action={action}>
         <Input
           name={inputFields["week"]}
@@ -207,6 +209,6 @@ export default function TimesheetForm({ week, action, dataDays }) {
           )}
         </Box>
       </Box>
-    </Box>
+    </Fragment>
   );
 }

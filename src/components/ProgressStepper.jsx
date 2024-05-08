@@ -8,7 +8,6 @@ export default function ProgressStepper({
   finalUpdatedTime,
 }) {
   return (
-    <Box my="2%" width="40%" px="30%">
       <Stepper alternativeLabel>
         <Step active={draftUpdatedTime ? true : false}>
           <StepLabel>
@@ -29,6 +28,5 @@ export default function ProgressStepper({
           </StepLabel>
         </Step>
       </Stepper>
-    </Box>
   );
 }

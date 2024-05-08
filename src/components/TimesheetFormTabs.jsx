@@ -40,23 +40,22 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={formState ? true : false}
       >
-
-        <CircularProgress color="inherit" />
-
     <Card sx={{ maxWidth: 480 }}>
       <CardContent>
         <Alert severity="success">{formState}</Alert>
+    <Box my="5%" px="10%">
       <ProgressStepper
         draftUpdatedTime={dataWeeks[selectedWeek]["draftUpdatedTime"]}
         finalUpdatedTime={dataWeeks[selectedWeek]["finalUpdatedTime"]}
       />
+    </Box>
         <Typography gutterBottom variant="h5" component="div">
         </Typography>
         <Typography variant="body2" color="text.secondary">
         </Typography>
       </CardContent>
       <CardActions  sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button size="small">Confirm</Button>
+        <Button size="small" onClick={() => {window.location.reload()}}>Confirm</Button>
       </CardActions>
     </Card>
 
