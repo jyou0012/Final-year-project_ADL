@@ -2,12 +2,12 @@ const nodemailer = require('nodemailer');
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     secure: false,
     auth: {
-        user: 'group25y@outlook.com',
-        pass: 'Comp7098'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
