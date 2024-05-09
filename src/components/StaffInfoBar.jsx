@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import Divider from '@mui/material/Divider'; 
 
 export default function StaffInfoBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -30,21 +30,20 @@ export default function StaffInfoBar() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          edge="start"
-          onClick={handleMenu}
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Dashboard
         </Typography>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Staff: Dr.Cruz
         </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="menu"
+          edge="end"
+          onClick={handleMenu}
+        >
+          <MenuIcon />
+        </IconButton>
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
@@ -60,6 +59,9 @@ export default function StaffInfoBar() {
           open={open}
           onClose={handleClose}
         >
+          <MenuItem onClick={handleClose}>Overview</MenuItem>
+          <MenuItem onClick={handleClose}>Import Students</MenuItem>
+          <Divider /> 
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>

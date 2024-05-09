@@ -7,7 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import Divider from '@mui/material/Divider';  
+import ListItemText from '@mui/material/ListItemText'; 
 
 export default function StudentInfoBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -30,30 +31,18 @@ export default function StudentInfoBar() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          edge="start"
-          onClick={handleMenu}
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Form
         </Typography>
-        <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-          Name: Bob
-        </Typography>
-        <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-          ID: a1234567
-        </Typography>
-        <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-          Group: 1
-        </Typography>
-        <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-          Client: Dr. Cruz
-        </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="menu"
+          edge="end"
+          onClick={handleMenu}
+          sx={{ ml: 'auto' }} 
+        >
+          <MenuIcon />
+        </IconButton>
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
@@ -69,6 +58,11 @@ export default function StudentInfoBar() {
           open={open}
           onClose={handleClose}
         >
+          <ListItemText primary="Name: Bob" sx={{ px: 2 }} />
+          <ListItemText primary="ID: a1234567" sx={{ px: 2 }} />
+          <ListItemText primary="Group: 1" sx={{ px: 2 }} />
+          <ListItemText primary="Client: Dr. Cruz" sx={{ px: 2 }} />
+          <Divider />  
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>
