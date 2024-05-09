@@ -25,19 +25,42 @@ dayjs.updateLocale("en", {
 
 const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   let start = dayjs(startDate);
-  let daysToAdd = (weekNumber - 1) * 7;
+  let totalDaysToAdd = 0;  // Total days to add to the semester start date
 
-  breaks.forEach(breakPeriod => {
-      const breakStart = dayjs(breakPeriod.start);
-      const breakEnd = dayjs(breakPeriod.end);
-      // Only adjust days if the week to be calculated is after the break ends
-      if (start.add(daysToAdd, 'days').isAfter(breakEnd)) {
-          daysToAdd += breakEnd.diff(breakStart, 'days') + 1;
+  // Sort the breaks by start date
+  breaks.sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1));
+
+  // Calculate the effective start of each week accounting for breaks
+  let effectiveStartDate = start;
+
+  for (let currentWeek = 1; currentWeek <= weekNumber; currentWeek++) {
+      let weekStart = effectiveStartDate.add(totalDaysToAdd, 'days');
+
+      // Check each break to see if it affects the current week
+      breaks.forEach(breakPeriod => {
+          const breakStart = dayjs(breakPeriod.start);
+          const breakEnd = dayjs(breakPeriod.end);
+
+          if (weekStart.isBetween(breakStart, breakEnd, null, '[]')) {
+              // Adjust start date if the calculated week start falls during a break
+              totalDaysToAdd += breakEnd.diff(weekStart, 'days') + 1;
+          }
+      });
+
+      // Only add 7 days for the next week if we're not at the target week
+      if (currentWeek < weekNumber) {
+          totalDaysToAdd += 7;
       }
-  });
+  }
 
-  return start.add(daysToAdd, 'days');
+  return start.add(totalDaysToAdd, 'days');
 };
+
+
+
+
+
+
 
 
 export default function TimesheetForm({ week, action, dataDays }) {
