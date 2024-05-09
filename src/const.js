@@ -68,3 +68,34 @@ export const inputFields = {
     outcome: "fri-outcome",
   },
 };
+
+export const SEMESTER_START_DATE = "2024-02-26"; // YYYY-MM-DD format
+
+export const SEMESTER_BREAKS = [
+  { start: "2024-04-08", end: "2024-04-21" }
+];
+
+import { parseISO, differenceInCalendarDays } from 'date-fns';
+
+export function getCurrentWeek(startDate, breaks) {
+    const start = parseISO(startDate);
+    let today = new Date();
+    let days = differenceInCalendarDays(today, start);
+
+    // Loop through each break period and adjust days count
+    breaks.forEach(breakPeriod => {
+        const breakStart = parseISO(breakPeriod.start);
+        const breakEnd = parseISO(breakPeriod.end);
+
+        if (today > breakEnd) {
+            // Subtract the number of days in the break period
+            days -= differenceInCalendarDays(breakEnd, breakStart) + 1;
+        } else if (today >= breakStart && today <= breakEnd) {
+            // If today is during the break, adjust days to the start of the break
+            days = differenceInCalendarDays(breakStart, start) - 1;
+        }
+    });
+
+    // Calculate current week number
+    return Math.ceil(days / 7);
+}

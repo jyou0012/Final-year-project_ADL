@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
-import { weekdays, inputFields, STATE } from "../const";
+import { weekdays, inputFields, STATE, getCurrentWeek, SEMESTER_START_DATE, SEMESTER_BREAKS, weeks } from "../const";
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
@@ -22,6 +22,23 @@ dayjs.extend(updateLocale);
 dayjs.updateLocale("en", {
   weekStart: 1,
 });
+
+const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
+  let start = dayjs(startDate);
+  let daysToAdd = (weekNumber - 1) * 7;
+
+  breaks.forEach(breakPeriod => {
+      const breakStart = dayjs(breakPeriod.start);
+      const breakEnd = dayjs(breakPeriod.end);
+      // Only adjust days if the week to be calculated is after the break ends
+      if (start.add(daysToAdd, 'days').isAfter(breakEnd)) {
+          daysToAdd += breakEnd.diff(breakStart, 'days') + 1;
+      }
+  });
+
+  return start.add(daysToAdd, 'days');
+};
+
 
 export default function TimesheetForm({ week, action, dataDays }) {
   const [dates, setDates] = useState(Array(5).fill(null));
@@ -31,15 +48,18 @@ export default function TimesheetForm({ week, action, dataDays }) {
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
   useEffect(() => {
-    const today = dayjs().weekday();
-    const startOfWeek = dayjs().startOf("week").add(today - 1, "day");
+    const weekNumber = weeks.indexOf(week) + 1;
+    const startOfWeek = calculateStartDateForWeek(weekNumber, SEMESTER_START_DATE, SEMESTER_BREAKS);
+    console.log("Start of Week:", startOfWeek.toString());
+
     const newDates = [];
     for (let i = 0; i < 5; i++) {
-      newDates.push(startOfWeek.add(i, "day"));
+        const newDate = dayjs(startOfWeek).add(i, 'days');
+        newDates.push(newDate);
+        console.log("New Date for " + i + ":", newDate);
     }
     setDates(newDates);
-    setExpanded((prev) => prev.map((_, index) => index === today - 1));
-  }, []);
+  }, [week]); 
 
   const handleDateChange = (newValue, index) => {
     const newDates = [...dates];
@@ -212,3 +232,4 @@ export default function TimesheetForm({ week, action, dataDays }) {
     </Fragment>
   );
 }
+
