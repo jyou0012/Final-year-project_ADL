@@ -24,8 +24,10 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [selectedWeek, setWeek] = useState(weeks[0]); // Default to first week if no current week calculated
-  const [formState, formAction] = useState(null); // Assuming form state management is needed
+  const paramWeek = searchParams.get("week")
+
+  const [selectedWeek, setWeek] = useState(weeks.includes(paramWeek) ? paramWeek : weeks[0]);
+  const [formState, formAction] = useFormState(action, null);
 
   useEffect(() => {
     // Calculate the current week based on the semester start and breaks
