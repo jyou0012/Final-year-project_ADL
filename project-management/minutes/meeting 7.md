@@ -1,6 +1,6 @@
-# Minutes of the six Client Meeting
+# Minutes of the seven Client Meeting
 
-Team **25** / Meeting **7** / Date **028-04-2024** / Time **16:00 - 17:00** / Location **Ingkarni Wardli, floor 4**
+Team **25** / Meeting **7** / Date **02-05-2024** / Time **16:00 - 17:00** / Location **Ingkarni Wardli, floor 4**
 
 - Client: Cruz Lzu
 - Attendees: Bofan Wang; Jiayu You; Qian Zhao; Shiyao Wu
