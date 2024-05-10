@@ -56,7 +56,7 @@ export async function dbTimesheetUpsert({
   state,
   timesheetInput,
 }) {
-  const sendEmail = require('./sendEmail');
+  const sendEmail = require('../sendEmail');
   const now = Date.now();
   sendEmail({
     to: student + '@adelaide.edu.au',
@@ -81,7 +81,7 @@ export async function dbTimesheetUpsert({
 
 // Function to check the documents and send emails
 export const checkDraftsAndSendEmails = async (timesheetOutput) => {
-  const sendEmail = require('./sendEmail');
+  const sendEmail = require('../sendEmail');
   try {
       let emailPromises = [];
       // Loop through weeks in the timesheetOutput
