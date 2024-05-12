@@ -23,7 +23,18 @@ dayjs.updateLocale("en", {
   weekStart: 1,
 });
 
-export default function TimesheetForm({ week, action, dataDays }) {
+export default function TimesheetForm({ week, action, draftTimesheet, finalTimesheet }) {
+  if (finalTimesheet) {
+  	var state = STATE.final
+  	var dataDays = finalTimesheet
+  } else if (draftTimesheet) {
+  	var state = STATE.draft
+  	var dataDays = draftTimesheet
+  } else {
+  	var state = STATE.empty
+  	var dataDays = null
+  }
+
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
@@ -73,8 +84,8 @@ export default function TimesheetForm({ week, action, dataDays }) {
     <Fragment>
       <Box my="2%" px="25%">
       <ProgressStepper
-        draftUpdatedTime={dataDays["draftUpdatedTime"]}
-        finalUpdatedTime={dataDays["finalUpdatedTime"]}
+	draftUpdatedTime={draftTimesheet ? draftTimesheet.updatedTime : null}
+        finalUpdatedTime={finalTimesheet ? finalTimesheet.updatedTime : null}
       />
       </Box>
       <Box component="form" action={action}>
@@ -140,7 +151,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                 multiline
                 fullWidth
                 rows={4}
-                defaultValue={day in dataDays ? dataDays[day]["task"] : null}
+                defaultValue={dataDays ? dataDays[day].task : null}
                 variant="outlined"
                 sx={{ my: 1 }}
               />
@@ -152,7 +163,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                     multiline
                     fullWidth
                     rows={4}
-                    defaultValue={day in dataDays ? dataDays[day]["fit"] : null}
+                    defaultValue={dataDays ? dataDays[day].fit : null}
                     variant="outlined"
                     sx={{ my: 1 }}
                   />
@@ -164,7 +175,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
                     multiline
                     fullWidth
                     rows={4}
-                    defaultValue={day in dataDays ? dataDays[day]["outcome"] : null}
+                    defaultValue={dataDays ? dataDays[day].outcome : null}
                     variant="outlined"
                     sx={{ my: 1 }}
                   />
@@ -174,7 +185,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
           </Accordion>
         ))}
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          {dataDays["state"] == STATE.empty && (
+          {state == STATE.empty && (
             <Button
               sx={{ mr: 2 }}
               variant="contained"
@@ -185,7 +196,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               Save Draft
             </Button>
           )}
-          {dataDays["state"] == STATE.draft && (
+          {state == STATE.draft && (
             <Button
               sx={{ mr: 2 }}
               variant="contained"
@@ -196,7 +207,7 @@ export default function TimesheetForm({ week, action, dataDays }) {
               Edit Draft
             </Button>
           )}
-          {dataDays["state"] == STATE.draft && (
+          {state == STATE.draft && (
             <Button
               sx={{ mr: 2 }}
               variant="contained"

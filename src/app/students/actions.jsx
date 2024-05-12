@@ -1,6 +1,6 @@
 "use server";
 
-import { TimesheetInput, dbTimesheetUpsert } from "../../database/timesheet";
+import { DayFields, dbTimesheetUpsert } from "../../database/timesheet";
 import { weekdays, inputFields, STATE } from "../../const";
 
 export default async function timesheetFormAction(prevState, formData) {
@@ -8,10 +8,10 @@ export default async function timesheetFormAction(prevState, formData) {
     student: "a1234567",
     week: formData.get(inputFields["week"]),
     state: formData.get(inputFields["state"]),
-    timesheetInput: Object.fromEntries(
+    weekFields: Object.fromEntries(
       weekdays.map((day) => [
         day,
-        new TimesheetInput({
+        new DayFields({
           date: formData.get(inputFields[day]["date"]),
           start: formData.get(inputFields[day]["start"]),
           end: formData.get(inputFields[day]["end"]),

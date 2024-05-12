@@ -1,13 +1,11 @@
-import { DragHandle } from "@mui/icons-material";
 import { MongoClient } from "mongodb";
-import { weeks, STATE } from "../const";
+import { weeks, weekdays, STATE } from "../const";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
-const drafts = database.collection("drafts"); // Collection for drafts
 
-export function TimesheetInput({ date, start, end, task, fit, outcome }) {
+export function DayFields({ date, start, end, task, fit, outcome }) {
   this.date = date;
   this.start = start;
   this.end = end;
@@ -15,6 +13,40 @@ export function TimesheetInput({ date, start, end, task, fit, outcome }) {
   this.fit = fit;
   this.outcome = outcome;
 }
+
+export function TimesheetDoc() {
+  this.week = null
+  this.state = STATE.empty
+  this.student = null
+  this.createdTime = null
+  this.updatedTime = null
+
+  for (const day of weekdays) {
+  this[day] = {
+  	date: null,
+  	start: null,
+  	end: null,
+  	task: null,
+  	fit: null,
+  	outcome: null,
+  }}
+}
+
+export async function getStudentTimesheets({ student, state }) {
+  let timesheets = {}
+  for (const t of await timesheet.find({ student: student, state: state }).toArray()) {
+  	timesheets[t.week] = t
+  }
+  return timesheets
+}
+
+export async function getWeekTimesheets({team, state}) {
+	let timesheets = {}
+	for (const t of await timesheet.find({ student: student, state: state }).toArray()) {
+		timesheets[t.student][t.week] = t
+	}
+}
+
 
 export function TimesheetOutput({ student }) {
   this.student = student;
@@ -24,45 +56,33 @@ export function TimesheetOutput({ student }) {
       state: STATE.empty,
       draftUpdatedTime: null,
       finalUpdatedTime: null,
+      ...(new TimesheetInput({})),
     };
   }
 }
 
-export async function dbTimesheetGet({ student }) {
-  let timesheetOutput = new TimesheetOutput({ student: student });
+export function WeekOverviewOutput({ team }) {
+	this.team = team;
 
-  let draft = await timesheet.find({ student: student, state: STATE.draft });
-  for (const d of await draft.toArray()) {
-    timesheetOutput[d.week] = {
-      draftUpdatedTime: d.updatedTime,
-      ...d,
-    };
-  }
-
-  let final = await timesheet.find({ student: student, state: STATE.final });
-  for (const f of await final.toArray()) {
-    timesheetOutput[f.week] = {
-      ...timesheetOutput[f.week],
-      finalUpdatedTime: f.updatedTime,
-      ...f,
-    };
-  }
-  return timesheetOutput;
+	const students = ["a123457"]
+	for (const student of students) {
+	}
 }
 
 export async function dbTimesheetUpsert({
   student,
   week,
   state,
-  timesheetInput,
+  weekFields,
 }) {
   const sendEmail = require('./sendEmail');
   const now = Date.now();
-  sendEmail({
+/*  sendEmail({
     to: student + '@adelaide.edu.au',
     subject: student + ' ' + week + ' ' + state + ' ',
     text: week + ' ' + state + ' '+'submitted by '+ student + ' at ' + now + '',
 });
+*/
   await timesheet.updateOne(
     { student: student, week: week, state: state },
     {
@@ -72,7 +92,7 @@ export async function dbTimesheetUpsert({
         student: student,
         createdTime: now,
         updatedTime: now,
-        ...timesheetInput,
+        ...weekFields,
       },
     },
     { upsert: true },
@@ -102,9 +122,3 @@ export const checkDraftsAndSendEmails = async (timesheetOutput) => {
       console.error('Error sending email reminders for drafts', err);
   }
 };
-
-
-
-
-
-

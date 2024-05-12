@@ -7,7 +7,6 @@ export default function ConditionView() {
     <Box sx={{ p: 2 }}>
       <CsvUploadButton />
       <WeekOverviewTable />
-      
     </Box>
   );
 }
