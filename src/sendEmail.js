@@ -8,6 +8,7 @@ const { getCurrentWeek, SEMESTER_START_DATE, SEMESTER_BREAKS, weeks } = require(
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
+const students = database.collection("students");
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -19,6 +20,11 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 // Function to send email
 const sendEmail = ({to = 'youjiayu99@gmail.com', subject, text}) => {
@@ -40,28 +46,39 @@ const sendEmail = ({to = 'youjiayu99@gmail.com', subject, text}) => {
 
 // Fetch drafts and send reminder emails
 async function sendDraftReminders() {
+    //week num 有问题
+    //找有没有这个学生的final-》有就不发邮件 没有就发邮件
     try {
         await client.connect();
         console.log("Connected to MongoDB server successfully.");
         const currentWeek = getCurrentWeek(SEMESTER_START_DATE, SEMESTER_BREAKS);
-        const draftsQuery = { week: `Week ${currentWeek}`, state: 'draft' };
+        const studentList = await students.find({}).toArray();
+        const weekQuery = { week: `Week ${currentWeek}` };
+        
+        console.log('currentWeek:', currentWeek);
 
-        const drafts = await timesheet.find(draftsQuery).toArray();
-        console.log(`Found ${drafts.length} draft(s) for Week ${currentWeek}`);
+        const documents = await timesheet.find(weekQuery).toArray();
+        const studentDocuments = new Map(documents.map(doc => [doc.student, doc.state]));
 
-        for (const draft of drafts) {
-            const finalQuery = { student: draft.student, week: draft.week, state: 'final' };
-            const finalDoc = await timesheet.findOne(finalQuery);
+        for (const student of studentList) {
+            const studentId = student.studentID; // or whatever the identifier field is
+            const hasFinal = studentDocuments.get(studentId) === 'final';
+            const hasDraft = studentDocuments.get(studentId) === 'draft';
 
-            if (finalDoc) {
-                console.log(`Final document already exists for student ${draft.student} for Week ${draft.week}. No email will be sent.`);
-            } else {
-                console.log(`No final document found for student ${draft.student} for Week ${draft.week}. Sending reminder email.`);
+            if (!hasFinal) {
+                console.log(`No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`);
                 sendEmail({
-                    to: draft.student + '@adelaide.edu.au',
+                    to: studentId + '@adelaide.edu.au',
                     subject: 'Reminder: Final Document Submission Required',
-                    text: `Please note that your final document for Week ${currentWeek} is still missing. Please submit it as soon as possible.`
+                    text: `Your final document for Week ${currentWeek} is missing. Please submit it as soon as possible.`
                 });
+                if (!hasDraft) {
+                    console.log(`Also no draft document found for student ${studentId}.`);
+                    // Additional reminders or actions can be triggered here if no draft exists.
+                }
+                await delay(500);//wait 500ms for next email
+            } else {
+                console.log(`Final document exists for student ${studentId} for Week ${currentWeek}. No email will be sent.`);
             }
         }
     } catch (error) {
@@ -74,7 +91,7 @@ async function sendDraftReminders() {
 
 //At 16:00 on Friday send draft reminders
 //https://crontab.guru/#00_16_*_*_5
-cron.schedule('00 16 * * 5', () => {
+cron.schedule('*/2 * * * *', () => {
     console.log("Running scheduled task to send draft reminders...");
     sendDraftReminders();
 });

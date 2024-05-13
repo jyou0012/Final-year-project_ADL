@@ -75,27 +75,36 @@ export const SEMESTER_BREAKS = [
   { start: "2024-04-08", end: "2024-04-21" }
 ];
 
-import { parseISO, differenceInCalendarDays } from 'date-fns';
+import { parseISO, differenceInCalendarDays, isWithinInterval } from 'date-fns';
 
 export function getCurrentWeek(startDate, breaks) {
     const start = parseISO(startDate);
     let today = new Date();
     let days = differenceInCalendarDays(today, start);
 
-    // Loop through each break period and adjust days count
+    console.log(`Today's date: ${today.toISOString()}`);
+    console.log(`Semester start date: ${start.toISOString()}`);
+    console.log(`Days since semester start: ${days}`);
+
     breaks.forEach(breakPeriod => {
         const breakStart = parseISO(breakPeriod.start);
         const breakEnd = parseISO(breakPeriod.end);
 
-        if (today > breakEnd) {
-            // Subtract the number of days in the break period
-            days -= differenceInCalendarDays(breakEnd, breakStart) + 1;
-        } else if (today >= breakStart && today <= breakEnd) {
-            // If today is during the break, adjust days to the start of the break
-            days = differenceInCalendarDays(breakStart, start) - 1;
+        console.log(`Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`);
+
+        if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
+            console.log(`Today is within the break.`);
+            const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
+            console.log(`Days in current break (up to today): ${daysInBreak}`);
+            days -= daysInBreak;
+        } else if (today > breakEnd) {
+            const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
+            console.log(`Past break duration subtracted: ${breakDuration} days`);
+            days -= breakDuration;
         }
     });
 
-    // Calculate current week number
-    return Math.ceil(days / 7);
+    const currentWeek = Math.ceil((days+1) / 7);
+    console.log(`Calculated current week: ${currentWeek}`);
+    return currentWeek;
 }
