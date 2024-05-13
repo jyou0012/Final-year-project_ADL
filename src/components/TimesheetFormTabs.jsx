@@ -20,9 +20,10 @@ import TimesheetForm from "./TimesheetForm";
 import ProgressStepper from "./ProgressStepper";
 import { getCurrentWeek, SEMESTER_START_DATE, SEMESTER_BREAKS, weeks } from "../const";
 
-export default function TimesheetFormTabs({ action, dataWeeks }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+
+export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesheets }) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const paramWeek = searchParams.get("week")
 
@@ -54,8 +55,8 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
         <Alert severity="success">{formState}</Alert>
     <Box my="5%" px="10%">
       <ProgressStepper
-        draftUpdatedTime={dataWeeks[selectedWeek]["draftUpdatedTime"]}
-        finalUpdatedTime={dataWeeks[selectedWeek]["finalUpdatedTime"]}
+        draftUpdatedTime={selectedWeek in draftTimesheets ? draftTimesheets[selectedWeek].updatedTime : null}
+        finalUpdatedTime={selectedWeek in finalTimesheets ? finalTimesheets[selectedWeek].updatedTime : null}
       />
     </Box>
         <Typography gutterBottom variant="h5" component="div">
@@ -90,7 +91,9 @@ export default function TimesheetFormTabs({ action, dataWeeks }) {
                   key={week}
                   week={week}
                   action={formAction}
-                  dataDays={dataWeeks[week] || {}}
+                  dataDays={week in finalTimesheets ? finalTimesheets[week] : week in draftTimesheets ? draftTimesheets[week] : {}}
+                  draftTimesheet={week in draftTimesheets ? draftTimesheets[week] : null}
+                  finalTimesheet={week in finalTimesheets ? finalTimesheets[week] : null}
                 />
               ),
           )}

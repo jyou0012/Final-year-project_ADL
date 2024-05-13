@@ -1,19 +1,22 @@
 import { Fragment } from "react";
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import { dbTimesheetGet,checkDraftsAndSendEmails } from "../../database/timesheet";
+import { getStudentTimesheets, checkDraftsAndSendEmails } from "../../database/timesheet";
+import { STATE } from "../../const";
 
 export default async function Layout() {
-  const data = await dbTimesheetGet({ student: "a1847115" });
-  await checkDraftsAndSendEmails(data);
-  
+  const draftTimesheets = await getStudentTimesheets({ student: "a1234567", state: STATE.draft })
+  const finalTimesheets = await getStudentTimesheets({ student: "a1234567", state: STATE.final })
+  console.log(122, draftTimesheets)
+//  await checkDraftsAndSendEmails(data);
+
   return (
     <Fragment>
       <TimesheetFormTabs
         action={timesheetFormAction}
-        dataWeeks={JSON.parse(JSON.stringify(data))}
+        draftTimesheets={JSON.parse(JSON.stringify(draftTimesheets))}
+        finalTimesheets={JSON.parse(JSON.stringify(finalTimesheets))}
       />
-      
     </Fragment>
   );
 }
