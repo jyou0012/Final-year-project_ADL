@@ -68,3 +68,43 @@ export const inputFields = {
     outcome: "fri-outcome",
   },
 };
+
+export const SEMESTER_START_DATE = "2024-02-26"; // YYYY-MM-DD format
+
+export const SEMESTER_BREAKS = [
+  { start: "2024-04-08", end: "2024-04-21" }
+];
+
+import { parseISO, differenceInCalendarDays, isWithinInterval } from 'date-fns';
+
+export function getCurrentWeek(startDate, breaks) {
+    const start = parseISO(startDate);
+    let today = new Date();
+    let days = differenceInCalendarDays(today, start);
+
+    console.log(`Today's date: ${today.toISOString()}`);
+    console.log(`Semester start date: ${start.toISOString()}`);
+    console.log(`Days since semester start: ${days}`);
+
+    breaks.forEach(breakPeriod => {
+        const breakStart = parseISO(breakPeriod.start);
+        const breakEnd = parseISO(breakPeriod.end);
+
+        console.log(`Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`);
+
+        if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
+            console.log(`Today is within the break.`);
+            const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
+            console.log(`Days in current break (up to today): ${daysInBreak}`);
+            days -= daysInBreak;
+        } else if (today > breakEnd) {
+            const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
+            console.log(`Past break duration subtracted: ${breakDuration} days`);
+            days -= breakDuration;
+        }
+    });
+
+    const currentWeek = Math.ceil((days+1) / 7);
+    console.log(`Calculated current week: ${currentWeek}`);
+    return currentWeek;
+}
