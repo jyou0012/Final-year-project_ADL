@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import { useFormStatus } from "react-dom";
 import { formAction } from "./action";
-import { Button, TextField, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, Container, TablePagination } from '@mui/material';
+import { Box, Button, TextField, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, Container, TablePagination } from '@mui/material';
 
 export default function Page() {
   const { pending } = useFormStatus();
@@ -50,10 +51,10 @@ export default function Page() {
       <Typography variant="h4" gutterBottom>
         Student Information Import
       </Typography>
-      <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+      <Box component="form" action={formAction} style={{ marginBottom: '20px' }}>
         <TextField
+          name="csv"
           type="file"
-          onChange={handleFileChange}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -61,7 +62,7 @@ export default function Page() {
         <Button type="submit" variant="contained" color="primary" disabled={pending} fullWidth>
           {pending ? "Submitting..." : "Submit"}
         </Button>
-      </form>
+      </Box>
       {showTable && rows.length > 0 ? (
         <>
           <Paper style={{ padding: '20px' }}>

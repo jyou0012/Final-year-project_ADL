@@ -3,7 +3,8 @@ import { weeks, weekdays, STATE } from "../const";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
-const timesheet = database.collection("timesheet");
+
+export const timesheetCollection = database.collection("timesheet");
 
 export function DayFields({ date, start, end, task, fit, outcome }) {
   this.date = date;
