@@ -13,6 +13,13 @@ Install dependencies:
 $ npm install
 ```
 
+Configure environment variables:
+
+```sh
+$ nano .env.local
+MONGODB_URI=mongodb://127.0.0.1:27017
+```
+
 Start the application in development mode:
 
 ```
