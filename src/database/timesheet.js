@@ -1,10 +1,11 @@
 import { MongoClient } from "mongodb";
+import { getStudentByGroup } from "./student";
 import { weeks, weekdays, STATE } from "../const";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 
-export const timesheetCollection = database.collection("timesheet");
+export const timesheet = database.collection("timesheet");
 
 export function DayFields({ date, start, end, task, fit, outcome }) {
   this.date = date;
@@ -41,11 +42,20 @@ export async function getStudentTimesheets({ student, state }) {
   return timesheets
 }
 
-export async function getWeekTimesheets({team, state}) {
+export async function getWeekTimesheets({group, state}) {
 	let timesheets = {}
-	for (const t of await timesheet.find({ student: student, state: state }).toArray()) {
+
+	const students = await getStudentByGroup(group)
+
+	for (const s of students) {
+		timesheets[s.id] = {}
+	}
+
+	for (const t of await timesheet.find({ student: { $in: students }, state: state }).toArray()) {
 		timesheets[t.student][t.week] = t
 	}
+
+	return timesheets
 }
 
 

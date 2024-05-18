@@ -17,6 +17,10 @@ export async function getStudent(id) {
 	return await studentCollection.findOne({id: id})
 }
 
+export async function getStudentByGroup(group) {
+	return await studentCollection.find({group: group}).toArray()
+}
+
 export async function upsertStudent(studentDoc) {
 	await studentCollection.updateOne(
 		{ id: studentDoc.id },

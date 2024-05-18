@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Box component="body" sx={{ margin: "0px", padding: "0px" }}>
         {/* Layout UI */}
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </Box>
     </html>
   );

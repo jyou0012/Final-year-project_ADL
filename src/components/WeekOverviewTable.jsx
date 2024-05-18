@@ -14,9 +14,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { BarChart } from '@mui/x-charts/BarChart';
 import StatusIndicator from "./Indicator";
-import { weeks } from "../const";
+import { weeks, weekdays } from "../const";
 
-function WeekTableRow() {
+function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,78 +27,36 @@ function WeekTableRow() {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>Bob</TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator completed={true} />
+        <TableCell>{student}</TableCell>
+	{weeks.map((week) => (
+        <TableCell key={week}>
+          <StatusIndicator completed={week in finalTimesheets[student]} />
+          <StatusIndicator completed={week in draftTimesheets[student]} />
         </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator completed={true} />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator />
-        </TableCell>
-        <TableCell>
-          <StatusIndicator completed={true} />
-          <StatusIndicator completed={true} />
-        </TableCell>
+        ))
+        }
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={14}>
           <Collapse in={open} unmountOnExit>
                 <BarChart
-      series={[
-        { data: [35, 44, 24, 34] },
-        { data: [51, 6, 49, 30] },
-        { data: [15, 25, 30, 50] },
-        { data: [60, 50, 15, 25] },
-      ]}
-      height={290}
-      xAxis={[{ data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], scaleType: 'band' }]}
-      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+      series={
+        weekdays.map((day) => ({ data: weeks.map((week) => week in finalTimesheets[student] ? finalTimesheets[student]["end"] - finalTimesheets[student]["start"] : 0), stack: 'A', label: day }))
+      }
+      xAxis={[{scaleType: 'band', data: weeks.map((week) => week)}]}
+      height={300}
+      width={800}
     />
           </Collapse>
         </TableCell>
       </TableRow>
     </Fragment>
-  );
+  )
+//      xAxis={[{ data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], scaleType: 'band' }]}
+//      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
 }
 
-export default function WeekOverviewTable() {
+export default function WeekOverviewTable({ draftTimesheets, finalTimesheets }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -112,13 +70,12 @@ export default function WeekOverviewTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          <WeekTableRow />
-          <WeekTableRow />
-          <WeekTableRow />
-          <WeekTableRow />
-          <WeekTableRow />
+	  {Object.keys(draftTimesheets).map((student) => (
+      <WeekTableRow key={student} student={student} draftTimesheets={draftTimesheets} finalTimesheets={finalTimesheets} />
+          ))
+          }
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }
