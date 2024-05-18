@@ -9,20 +9,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-export default function LoginForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [role, setRole] = useState('student'); 
-
-    const handleLogin = (event) => {
-        event.preventDefault();
-        console.log("Logging in as:", role, "with username:", username, "and password:", password);
-        // 连接下后端登录逻辑
-    };
+export default function LoginForm({action}) {
+    const [role, setRole] = useState('student');
 
     return (
         <Box
             component="form"
+	    action={action}
             sx={{
                 '& > :not(style)': { m: 1, width: '25ch' },
                 display: 'flex',
@@ -35,16 +28,14 @@ export default function LoginForm() {
             }}
             noValidate
             autoComplete="off"
-            onSubmit={handleLogin}
         >
             <FormControl component="fieldset">
                 <FormLabel component="legend">Role</FormLabel>
                 <RadioGroup
                     row
                     aria-label="role"
-                    name="role1"
+                    name="role"
                     value={role}
-                    onChange={(e) => setRole(e.target.value)}
                 >
                     <FormControlLabel value="student" control={<Radio />} label="Student" />
                     <FormControlLabel value="staff" control={<Radio />} label="Staff" />
@@ -52,16 +43,14 @@ export default function LoginForm() {
             </FormControl>
             <TextField
                 label="Username"
+                name="username"
                 variant="outlined"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
             />
             <TextField
                 label="Password"
+                name="password"
                 type="password"
                 variant="outlined"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
             />
             <Button type="submit" variant="contained" color="primary">
                 Login
