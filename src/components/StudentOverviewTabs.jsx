@@ -52,26 +52,24 @@ export default function StudentOverviewTabs({
               week === selectedWeek &&
               weekdays.map((day) => (
                 <Card key={week}>
-                  <CardHeader title={day} />
-                  <CardContent>
-                    <Typography>
-                      Date:{" "}
-                      {selectedWeek in finalTimesheets
-                        ? finalTimesheets[week][day].date
-                        : null}
-                    </Typography>
-                    <Typography>
-                      Start:{" "}
-                      {selectedWeek in finalTimesheets
-                        ? finalTimesheets[week][day].start
-                        : null}
-                    </Typography>
-                    <Typography>
-                      End:{" "}
-                      {selectedWeek in finalTimesheets
+                  <CardHeader
+                    title={
+                      day +
+                      " " +
+                      (week in finalTimesheets &&
+                      finalTimesheets[week][day].date
+                        ? finalTimesheets[week][day].date + " "
+                        : " ") +
+                      (week in finalTimesheets &&
+                      finalTimesheets[week][day].start
+                        ? finalTimesheets[week][day].start + " - "
+                        : " ") +
+                      (week in finalTimesheets && finalTimesheets[week][day].end
                         ? finalTimesheets[week][day].end
-                        : null}
-                    </Typography>
+                        : "")
+                    }
+                  />
+                  <CardContent>
                     <Typography>
                       Task:{" "}
                       {selectedWeek in finalTimesheets

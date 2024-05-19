@@ -32,10 +32,14 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
         <TableCell>{student}</TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
-            <Link href="#">
+            <Link
+              href={`/staff/overview/group/0/student/${student}?week=${week}`}
+            >
               <StatusIndicator completed={week in finalTimesheets[student]} />
             </Link>
-            <Link href="#">
+            <Link
+              href={`/staff/overview/group/0/student/${student}?week=${week}`}
+            >
               <StatusIndicator completed={week in draftTimesheets[student]} />
             </Link>
           </TableCell>
