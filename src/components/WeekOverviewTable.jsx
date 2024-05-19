@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs";
 import { Fragment, useState } from "react";
+import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Collapse from "@mui/material/Collapse";
 import Table from "@mui/material/Table";
@@ -19,24 +20,7 @@ import { weeks, weekdays } from "../const";
 
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);
-  console.log(student, finalTimesheets[student]);
-  console.log(
-    9999,
-    dayjs(
-      finalTimesheets["a1876736"]["Week 1"]["Mon"].date +
-        " " +
-        finalTimesheets["a1876736"]["Week 1"]["Mon"].end,
-      "DD/MM/YYYY HH:mm",
-    ).diff(
-      dayjs(
-        finalTimesheets["a1876736"]["Week 1"]["Mon"].date +
-          " " +
-          finalTimesheets["a1876736"]["Week 1"]["Mon"].start,
-        "DD/MM/YYYY HH:mm",
-      ),
-      "hour",
-    ),
-  );
+
   return (
     <Fragment>
       <TableRow>
@@ -48,8 +32,12 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
         <TableCell>{student}</TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
-            <StatusIndicator completed={week in finalTimesheets[student]} />
-            <StatusIndicator completed={week in draftTimesheets[student]} />
+            <Link href="#">
+              <StatusIndicator completed={week in finalTimesheets[student]} />
+            </Link>
+            <Link href="#">
+              <StatusIndicator completed={week in draftTimesheets[student]} />
+            </Link>
           </TableCell>
         ))}
       </TableRow>
@@ -90,8 +78,6 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
       </TableRow>
     </Fragment>
   );
-  //      xAxis={[{ data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], scaleType: 'band' }]}
-  //      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
 }
 
 export default function WeekOverviewTable({
