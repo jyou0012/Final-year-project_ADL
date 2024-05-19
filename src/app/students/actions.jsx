@@ -5,9 +5,9 @@ import { DayFields, dbTimesheetUpsert } from "../../database/timesheet";
 import { weekdays, inputFields, STATE } from "../../const";
 
 export default async function timesheetFormAction(prevState, formData) {
-  const session = await verifySession()
+  const session = await verifySession();
 
-  console.log(44, formData)
+  console.log(44, formData);
   dbTimesheetUpsert({
     student: session.userId,
     week: formData.get(inputFields["week"]),

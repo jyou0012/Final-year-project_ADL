@@ -2,35 +2,45 @@
 
 import { useState, useEffect, Fragment } from "react";
 import { useFormState } from "react-dom";
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from "next/navigation";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import Fade from '@mui/material/Fade';
+import Fade from "@mui/material/Fade";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Grid from "@mui/material/Grid";
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import TimesheetForm from "./TimesheetForm";
 import ProgressStepper from "./ProgressStepper";
-import { getCurrentWeek, SEMESTER_START_DATE, SEMESTER_BREAKS, weeks } from "../const";
+import {
+  getCurrentWeek,
+  SEMESTER_START_DATE,
+  SEMESTER_BREAKS,
+  weeks,
+} from "../const";
 
+export default function TimesheetFormTabs({
+  action,
+  draftTimesheets,
+  finalTimesheets,
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesheets }) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const paramWeek = searchParams.get("week");
 
-  const paramWeek = searchParams.get("week")
-
-  const [selectedWeek, setWeek] = useState(weeks.includes(paramWeek) ? paramWeek : weeks[0]);
+  const [selectedWeek, setWeek] = useState(
+    weeks.includes(paramWeek) ? paramWeek : weeks[0],
+  );
   const [formState, formAction] = useFormState(action, null);
 
-/*
+  /*
   useEffect(() => {
     // Calculate the current week based on the semester start and breaks
     const currentWeek = getCurrentWeek(SEMESTER_START_DATE, SEMESTER_BREAKS);
@@ -48,28 +58,40 @@ export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesh
   return (
     <Fragment>
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={formState ? true : false}
       >
-    <Card sx={{ maxWidth: 480 }}>
-      <CardContent>
-        <Alert severity="success">{formState}</Alert>
-    <Box my="5%" px="10%">
-      <ProgressStepper
-        draftUpdatedTime={selectedWeek in draftTimesheets ? draftTimesheets[selectedWeek].updatedTime : null}
-        finalUpdatedTime={selectedWeek in finalTimesheets ? finalTimesheets[selectedWeek].updatedTime : null}
-      />
-    </Box>
-        <Typography gutterBottom variant="h5" component="div">
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        </Typography>
-      </CardContent>
-      <CardActions  sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button size="small" onClick={() => {window.location.reload()}}>Confirm</Button>
-      </CardActions>
-    </Card>
-
+        <Card sx={{ maxWidth: 480 }}>
+          <CardContent>
+            <Alert severity="success">{formState}</Alert>
+            <Box my="5%" px="10%">
+              <ProgressStepper
+                draftUpdatedTime={
+                  selectedWeek in draftTimesheets
+                    ? draftTimesheets[selectedWeek].updatedTime
+                    : null
+                }
+                finalUpdatedTime={
+                  selectedWeek in finalTimesheets
+                    ? finalTimesheets[selectedWeek].updatedTime
+                    : null
+                }
+              />
+            </Box>
+            <Typography gutterBottom variant="h5" component="div"></Typography>
+            <Typography variant="body2" color="text.secondary"></Typography>
+          </CardContent>
+          <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              size="small"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              Confirm
+            </Button>
+          </CardActions>
+        </Card>
       </Backdrop>
       <Grid container mx="5%">
         <Grid item xs={1}>
@@ -92,9 +114,19 @@ export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesh
                   key={week}
                   week={week}
                   action={formAction}
-                  dataDays={week in finalTimesheets ? finalTimesheets[week] : week in draftTimesheets ? draftTimesheets[week] : {}}
-                  draftTimesheet={week in draftTimesheets ? draftTimesheets[week] : null}
-                  finalTimesheet={week in finalTimesheets ? finalTimesheets[week] : null}
+                  dataDays={
+                    week in finalTimesheets
+                      ? finalTimesheets[week]
+                      : week in draftTimesheets
+                        ? draftTimesheets[week]
+                        : {}
+                  }
+                  draftTimesheet={
+                    week in draftTimesheets ? draftTimesheets[week] : null
+                  }
+                  finalTimesheet={
+                    week in finalTimesheets ? finalTimesheets[week] : null
+                  }
                 />
               ),
           )}

@@ -8,25 +8,25 @@ export default function ProgressStepper({
   finalUpdatedTime,
 }) {
   return (
-      <Stepper alternativeLabel>
-        <Step active={draftUpdatedTime ? true : false}>
-          <StepLabel>
-            {draftUpdatedTime
-              ? "Draft Saved (" +
-                new Date(draftUpdatedTime).toLocaleDateString() +
-                ")"
-              : "Draft Unsaved"}
-          </StepLabel>
-        </Step>
-        <Step active={finalUpdatedTime ? true : false}>
-          <StepLabel>
-            {finalUpdatedTime
-              ? "Final Submitted (" +
-                new Date(finalUpdatedTime).toLocaleDateString() +
-                ")"
-              : "Final Unsubmitted"}
-          </StepLabel>
-        </Step>
-      </Stepper>
+    <Stepper alternativeLabel>
+      <Step active={draftUpdatedTime ? true : false}>
+        <StepLabel>
+          {draftUpdatedTime
+            ? "Draft Saved (" +
+              new Date(draftUpdatedTime).toLocaleDateString() +
+              ")"
+            : "Draft Unsaved"}
+        </StepLabel>
+      </Step>
+      <Step active={finalUpdatedTime ? true : false}>
+        <StepLabel>
+          {finalUpdatedTime
+            ? "Final Submitted (" +
+              new Date(finalUpdatedTime).toLocaleDateString() +
+              ")"
+            : "Final Unsubmitted"}
+        </StepLabel>
+      </Step>
+    </Stepper>
   );
 }

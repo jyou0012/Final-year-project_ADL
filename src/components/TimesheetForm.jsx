@@ -14,7 +14,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
-import { weekdays, inputFields, STATE, getCurrentWeek, SEMESTER_START_DATE, SEMESTER_BREAKS, weeks } from "../const";
+import {
+  weekdays,
+  inputFields,
+  STATE,
+  getCurrentWeek,
+  SEMESTER_START_DATE,
+  SEMESTER_BREAKS,
+  weeks,
+} from "../const";
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
@@ -25,7 +33,7 @@ dayjs.updateLocale("en", {
 
 const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   let start = dayjs(startDate);
-  let totalDaysToAdd = 0;  // Total days to add to the semester start date
+  let totalDaysToAdd = 0; // Total days to add to the semester start date
 
   // Sort the breaks by start date
   breaks.sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1));
@@ -34,49 +42,53 @@ const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   let effectiveStartDate = start;
 
   for (let currentWeek = 1; currentWeek <= weekNumber; currentWeek++) {
-      let weekStart = effectiveStartDate.add(totalDaysToAdd, 'days');
+    let weekStart = effectiveStartDate.add(totalDaysToAdd, "days");
 
-      // Check each break to see if it affects the current week
-      breaks.forEach(breakPeriod => {
-          const breakStart = dayjs(breakPeriod.start);
-          const breakEnd = dayjs(breakPeriod.end);
+    // Check each break to see if it affects the current week
+    breaks.forEach((breakPeriod) => {
+      const breakStart = dayjs(breakPeriod.start);
+      const breakEnd = dayjs(breakPeriod.end);
 
-          if (weekStart.isBetween(breakStart, breakEnd, null, '[]')) {
-              // Adjust start date if the calculated week start falls during a break
-              totalDaysToAdd += breakEnd.diff(weekStart, 'days') + 1;
-          }
-      });
-
-      // Only add 7 days for the next week if we're not at the target week
-      if (currentWeek < weekNumber) {
-          totalDaysToAdd += 7;
+      if (weekStart.isBetween(breakStart, breakEnd, null, "[]")) {
+        // Adjust start date if the calculated week start falls during a break
+        totalDaysToAdd += breakEnd.diff(weekStart, "days") + 1;
       }
+    });
+
+    // Only add 7 days for the next week if we're not at the target week
+    if (currentWeek < weekNumber) {
+      totalDaysToAdd += 7;
+    }
   }
 
-  return start.add(totalDaysToAdd, 'days');
+  return start.add(totalDaysToAdd, "days");
 };
 
-export default function TimesheetForm({ week, action, draftTimesheet, finalTimesheet }) {
+export default function TimesheetForm({
+  week,
+  action,
+  draftTimesheet,
+  finalTimesheet,
+}) {
   if (finalTimesheet) {
-  	var state = STATE.final
-  	var dataDays = finalTimesheet
+    var state = STATE.final;
+    var dataDays = finalTimesheet;
   } else if (draftTimesheet) {
-  	var state = STATE.draft
-  	var dataDays = draftTimesheet
+    var state = STATE.draft;
+    var dataDays = draftTimesheet;
   } else {
-  	var state = STATE.empty
-  	var dataDays = null
+    var state = STATE.empty;
+    var dataDays = null;
   }
-  console.log(333, state)
-
+  console.log(333, state);
 
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
-  const [totalHours, setTotalHours] = useState(Array(5).fill('0.00'));
+  const [totalHours, setTotalHours] = useState(Array(5).fill("0.00"));
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
-/*
+  /*
   useEffect(() => {
     const weekNumber = weeks.indexOf(week) + 1;
     const startOfWeek = calculateStartDateForWeek(weekNumber, SEMESTER_START_DATE, SEMESTER_BREAKS);
@@ -113,7 +125,11 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
 
   const calculateTotalHours = (index) => {
     if (startTimes[index] && endTimes[index]) {
-      const hours = dayjs(endTimes[index]).diff(dayjs(startTimes[index]), 'hour', true);
+      const hours = dayjs(endTimes[index]).diff(
+        dayjs(startTimes[index]),
+        "hour",
+        true,
+      );
       const newTotalHours = [...totalHours];
       newTotalHours[index] = hours.toFixed(2);
       setTotalHours(newTotalHours);
@@ -123,10 +139,10 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
   return (
     <Fragment>
       <Box my="2%" px="25%">
-      <ProgressStepper
-	draftUpdatedTime={draftTimesheet ? draftTimesheet.updatedTime : null}
-        finalUpdatedTime={finalTimesheet ? finalTimesheet.updatedTime : null}
-      />
+        <ProgressStepper
+          draftUpdatedTime={draftTimesheet ? draftTimesheet.updatedTime : null}
+          finalUpdatedTime={finalTimesheet ? finalTimesheet.updatedTime : null}
+        />
       </Box>
       <Box component="form" action={action}>
         <Input
@@ -153,21 +169,39 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
                 <DatePicker
                   label="Date"
                   name={inputFields[day]["date"]}
-                  value={dataDays && dataDays[day].date ? dayjs(dataDays[day].date, "DD/MM/YYYY") : null}
+                  value={
+                    dataDays && dataDays[day].date
+                      ? dayjs(dataDays[day].date, "DD/MM/YYYY")
+                      : null
+                  }
                   format="DD/MM/YYYY"
                 />
                 <TimePicker
                   label="Start"
                   name={inputFields[day]["start"]}
                   ampm={false}
-                  value={dataDays && dataDays[day].start ? dayjs(dataDays[day].date + " " + dataDays[day].start, "DD/MM/YYYY HH:mm") : null}
+                  value={
+                    dataDays && dataDays[day].start
+                      ? dayjs(
+                          dataDays[day].date + " " + dataDays[day].start,
+                          "DD/MM/YYYY HH:mm",
+                        )
+                      : null
+                  }
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
                 <TimePicker
                   label="End"
                   name={inputFields[day]["end"]}
                   ampm={false}
-                  value={dataDays && dataDays[day].end ? dayjs(dataDays[day].date + " " + dataDays[day].end, "DD/MM/YYYY HH:mm") : null}
+                  value={
+                    dataDays && dataDays[day].end
+                      ? dayjs(
+                          dataDays[day].date + " " + dataDays[day].end,
+                          "DD/MM/YYYY HH:mm",
+                        )
+                      : null
+                  }
                   sx={{ ml: 1 }} // Add margin to separate from Start
                 />
                 <TextField

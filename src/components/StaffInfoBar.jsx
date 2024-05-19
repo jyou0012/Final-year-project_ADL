@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider'; 
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
 
 export default function StaffInfoBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,8 +22,8 @@ export default function StaffInfoBar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    window.location.href = 'http://localhost:3000';
+    localStorage.removeItem("userToken");
+    window.location.href = "http://localhost:3000";
     handleClose();
   };
 
@@ -48,20 +48,20 @@ export default function StaffInfoBar() {
           id="menu-appbar"
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
           keepMounted
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
           open={open}
           onClose={handleClose}
         >
           <MenuItem onClick={handleClose}>Overview</MenuItem>
           <MenuItem onClick={handleClose}>Import Students</MenuItem>
-          <Divider /> 
+          <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>

@@ -1,17 +1,26 @@
 import { Fragment } from "react";
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import { getStudentTimesheets, checkDraftsAndSendEmails } from "../../database/timesheet";
+import {
+  getStudentTimesheets,
+  checkDraftsAndSendEmails,
+} from "../../database/timesheet";
 import { verifySession } from "../../session";
 import { STATE } from "../../const";
 
 export default async function Layout() {
-  const session = await verifySession()
-  const studentId = session.userId
-  const draftTimesheets = await getStudentTimesheets({ student: studentId, state: STATE.draft })
-  const finalTimesheets = await getStudentTimesheets({ student: studentId, state: STATE.final })
-  console.log(122, finalTimesheets)
-//  await checkDraftsAndSendEmails(data);
+  const session = await verifySession();
+  const studentId = session.userId;
+  const draftTimesheets = await getStudentTimesheets({
+    student: studentId,
+    state: STATE.draft,
+  });
+  const finalTimesheets = await getStudentTimesheets({
+    student: studentId,
+    state: STATE.final,
+  });
+  console.log(122, finalTimesheets);
+  //  await checkDraftsAndSendEmails(data);
 
   return (
     <Fragment>
