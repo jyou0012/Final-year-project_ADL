@@ -30,6 +30,7 @@ export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesh
   const [selectedWeek, setWeek] = useState(weeks.includes(paramWeek) ? paramWeek : weeks[0]);
   const [formState, formAction] = useFormState(action, null);
 
+/*
   useEffect(() => {
     // Calculate the current week based on the semester start and breaks
     const currentWeek = getCurrentWeek(SEMESTER_START_DATE, SEMESTER_BREAKS);
@@ -38,7 +39,7 @@ export default function TimesheetFormTabs({ action, draftTimesheets, finalTimesh
     // Optionally update the URL or handle navigation
     router.push(`/students?week=${currentWeekLabel}`);
   }, []); // Empty dependency array to only run once on mount
-
+*/
   const tabChange = (event, newWeek) => {
     setWeek(newWeek);
     router.push(`/students?week=${newWeek}`);

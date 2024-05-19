@@ -5,10 +5,9 @@ import { getStudent } from "../database/student";
 import { createSession } from "../session";
 
 export default async function loginAction(formData) {
-	console.log(formData)
-	const student = getStudent(formData.password)
-	if ( student.name == formData.username ) {
-		createSession(formData.password)
+	const student = await getStudent(formData.get("password"))
+	if ( student.name == formData.get("username") ) {
+		createSession(formData.get("password"))
 		redirect("/students")
 	}
 }

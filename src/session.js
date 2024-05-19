@@ -1,4 +1,6 @@
+import { cache } from 'react';
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { SignJWT, jwtVerify } from 'jose'
 
 const secretKey = process.env.SESSION_SECRET
@@ -39,3 +41,14 @@ export async function createSession(userId) {
 export function deleteSession() {
   cookies().delete('session')
 }
+
+export const verifySession = cache(async () => {
+  const cookie = cookies().get('session').value
+  const session = await decrypt(cookie)
+
+  if (!session.userId) {
+    redirect('/')
+  }
+
+  return { isAuth: true, userId: session.userId }
+})

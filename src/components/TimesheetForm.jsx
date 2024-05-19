@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useState, useEffect, Fragment } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
@@ -10,7 +11,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { TimePicker, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
@@ -56,13 +56,6 @@ const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   return start.add(totalDaysToAdd, 'days');
 };
 
-
-
-
-
-
-
-
 export default function TimesheetForm({ week, action, draftTimesheet, finalTimesheet }) {
   if (finalTimesheet) {
   	var state = STATE.final
@@ -74,13 +67,16 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
   	var state = STATE.empty
   	var dataDays = null
   }
-  
+  console.log(333, state)
+
+
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
   const [totalHours, setTotalHours] = useState(Array(5).fill('0.00'));
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
+/*
   useEffect(() => {
     const weekNumber = weeks.indexOf(week) + 1;
     const startOfWeek = calculateStartDateForWeek(weekNumber, SEMESTER_START_DATE, SEMESTER_BREAKS);
@@ -93,7 +89,7 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
         console.log("New Date for " + i + ":", newDate);
     }
     setDates(newDates);
-  }, [week]); 
+  }, [week]);
 
   const handleDateChange = (newValue, index) => {
     const newDates = [...dates];
@@ -113,6 +109,7 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
     }
     calculateTotalHours(index);
   };
+*/
 
   const calculateTotalHours = (index) => {
     if (startTimes[index] && endTimes[index]) {
@@ -156,28 +153,21 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
                 <DatePicker
                   label="Date"
                   name={inputFields[day]["date"]}
-                  renderInput={(params) => <TextField {...params} />}
-                  value={dates[index]}
-                  onChange={(newValue) => handleDateChange(newValue, index)}
-                  shouldDisableDate={(date) => date.weekday() !== index}
+                  value={dataDays && dataDays[day].date ? dayjs(dataDays[day].date, "DD/MM/YYYY") : null}
                   format="DD/MM/YYYY"
                 />
                 <TimePicker
                   label="Start"
                   name={inputFields[day]["start"]}
                   ampm={false}
-                  renderInput={(params) => <TextField {...params} />}
-                  value={startTimes[index]}
-                  onChange={(newValue) => handleTimeChange(newValue, index, true)}
+                  value={dataDays && dataDays[day].start ? dayjs(dataDays[day].date + " " + dataDays[day].start, "DD/MM/YYYY HH:mm") : null}
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
                 <TimePicker
                   label="End"
                   name={inputFields[day]["end"]}
                   ampm={false}
-                  renderInput={(params) => <TextField {...params} />}
-                  value={endTimes[index]}
-                  onChange={(newValue) => handleTimeChange(newValue, index, false)}
+                  value={dataDays && dataDays[day].end ? dayjs(dataDays[day].date + " " + dataDays[day].end, "DD/MM/YYYY HH:mm") : null}
                   sx={{ ml: 1 }} // Add margin to separate from Start
                 />
                 <TextField
@@ -266,4 +256,3 @@ export default function TimesheetForm({ week, action, draftTimesheet, finalTimes
     </Fragment>
   );
 }
-

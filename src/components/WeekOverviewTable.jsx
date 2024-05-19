@@ -1,5 +1,6 @@
 "use client";
 
+import dayjs from "dayjs";
 import { Fragment, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Collapse from "@mui/material/Collapse";
@@ -18,7 +19,8 @@ import { weeks, weekdays } from "../const";
 
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);
-
+  console.log(student, finalTimesheets[student])
+  console.log(9999, dayjs(finalTimesheets['a1876736']['Week 1']['Mon'].date + " " + finalTimesheets['a1876736']['Week 1']['Mon'].end, "DD/MM/YYYY HH:mm").diff(dayjs(finalTimesheets['a1876736']['Week 1']['Mon'].date + " " + finalTimesheets['a1876736']['Week 1']['Mon'].start, "DD/MM/YYYY HH:mm"), "hour"))
   return (
     <Fragment>
       <TableRow>
@@ -41,7 +43,7 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
           <Collapse in={open} unmountOnExit>
                 <BarChart
       series={
-        weekdays.map((day) => ({ data: weeks.map((week) => week in finalTimesheets[student] ? finalTimesheets[student]["end"] - finalTimesheets[student]["start"] : 0), stack: 'A', label: day }))
+        weekdays.map((day) => ({ data: weeks.map((week) => week in finalTimesheets[student] && finalTimesheets[student][week][day].end && finalTimesheets[student][week][day].start ? dayjs(finalTimesheets[student][week][day].date + " " + finalTimesheets[student][week][day].end, "DD/MM/YYYY HH:mm").diff(dayjs(finalTimesheets[student][week][day].date + " " + finalTimesheets[student][week][day].start, "DD/MM/YYYY HH:mm"), "hour")  : 0), stack: 'A', label: day }))
       }
       xAxis={[{scaleType: 'band', data: weeks.map((week) => week)}]}
       height={300}

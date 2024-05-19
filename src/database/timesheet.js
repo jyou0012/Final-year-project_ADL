@@ -7,6 +7,8 @@ const database = client.db("TimesheetDashboard");
 
 export const timesheet = database.collection("timesheet");
 
+//await timesheet.deleteMany({});
+
 export function DayFields({ date, start, end, task, fit, outcome }) {
   this.date = date;
   this.start = start;
@@ -51,7 +53,7 @@ export async function getWeekTimesheets({group, state}) {
 		timesheets[s.id] = {}
 	}
 
-	for (const t of await timesheet.find({ student: { $in: students }, state: state }).toArray()) {
+	for (const t of await timesheet.find({ student: { $in: students.map((student) => student.id) }, state: state }).toArray()) {
 		timesheets[t.student][t.week] = t
 	}
 
