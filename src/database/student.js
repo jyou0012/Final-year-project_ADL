@@ -36,3 +36,7 @@ export async function upsertStudent(studentDoc) {
     { upsert: true },
   );
 }
+
+export async function getAllStudents() {
+  return await studentCollection.find({}).toArray();
+}

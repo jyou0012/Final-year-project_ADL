@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import { formAction } from "./action";
+import { formAction, fetchStudents } from "./action";
 import {
   Box,
   Button,
@@ -21,10 +21,13 @@ import {
 export default function Page() {
   const { pending } = useFormStatus();
   const [file, setFile] = useState(null);
-  const [fileContent, setFileContent] = useState("");
-  const [showTable, setShowTable] = useState(false);
+  const [students, setStudents] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(20); // Rows per page set to 20
+  const [rowsPerPage, setRowsPerPage] = useState(20);
+
+  useEffect(() => {
+    fetchAndDisplayStudents(); 
+  }, []);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -39,13 +42,17 @@ export default function Page() {
 
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const text = e.target.result;
-      setFileContent(text);
-      setShowTable(true);
-      const response = await formAction({ fileContent: text });
+      const csv = e.target.result;
+      const response = await formAction({ csv });
+      await fetchAndDisplayStudents(); 
       alert(response);
     };
     reader.readAsText(file);
+  };
+
+  const fetchAndDisplayStudents = async () => {
+    const loadedStudents = await fetchStudents();
+    setStudents(loadedStudents);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -53,25 +60,20 @@ export default function Page() {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const rows = fileContent.split("\n").slice(1); // Split and skip header
 
   return (
     <Container maxWidth="md" style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
         Student Information Import
       </Typography>
-      <Box
-        component="form"
-        action={formAction}
-        style={{ marginBottom: "20px" }}
-      >
+      <Box component="form" onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
         <TextField
           name="csv"
           type="file"
+          onChange={handleFileChange}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -86,42 +88,42 @@ export default function Page() {
           {pending ? "Submitting..." : "Submit"}
         </Button>
       </Box>
-      {showTable && rows.length > 0 ? (
-        <>
-          <Paper style={{ padding: "20px" }}>
-            <Typography variant="h6">File Content:</Typography>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Student ID</TableCell>
-                  <TableCell>Group Number</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Client</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((line, index) => (
-                    <TableRow key={index}>
-                      {line.split(",").map((cell, cellIndex) => (
-                        <TableCell key={cellIndex}>{cell}</TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-            <TablePagination
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
-        </>
+      {students.length > 0 ? (
+        <Paper style={{ padding: "20px" }}>
+          <Typography variant="h6">Student Information:</Typography>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Student ID</TableCell>
+                <TableCell>Group Number</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Client</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {students
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((student, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.id}</TableCell>
+                    <TableCell>{student.group}</TableCell>
+                    <TableCell>{student.email}</TableCell>
+                    <TableCell>{student.client}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+          <TablePagination
+            component="div"
+            count={students.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
       ) : (
         <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
           No student information available.

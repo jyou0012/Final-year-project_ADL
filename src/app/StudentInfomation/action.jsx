@@ -1,25 +1,27 @@
 "use server";
 
+import { Readable } from 'stream';
+import { csvParser } from 'csv-parser'; 
+import { MongoClient } from "mongodb";
 import { StudentDoc, upsertStudent } from "../../database/student";
 
-export async function formAction(formData) {
-  const { Readable } = require("stream");
-  const csvParser = require("csv-parser");
+const client = new MongoClient(process.env.MONGODB_URI);
+const database = client.db("TimesheetDashboard");
+const studentCollection = database.collection("student");
 
-  const csv = formData.get("csv");
-  for await (const data of Readable.from(
-    Buffer.from(await csv.arrayBuffer()),
-  ).pipe(csvParser())) {
-    await upsertStudent(
-      new StudentDoc({
-        name: data["Name"],
-        id: data["StudentID"],
-        group: data["GroupNumber"],
-        email: data["Email"],
-        client: data["Client"],
-      }),
+export async function formAction({ csv }) {
+  const rows = csv.split("\n").slice(1);  
+  for (const row of rows) {
+    const [name, id, group, email, client] = row.split(",");
+    await studentCollection.updateOne(
+      { id },
+      { $set: { name, id, group, email, client } },
+      { upsert: true }
     );
   }
+  return "Data uploaded and student records updated.";
+}
 
-  return "Form request received, file content logged.";
+export async function fetchStudents() {
+  return await studentCollection.find({}).toArray();
 }
