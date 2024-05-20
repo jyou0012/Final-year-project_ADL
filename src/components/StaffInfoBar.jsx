@@ -23,7 +23,7 @@ export default function StaffInfoBar() {
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    window.location.href = "http://localhost:3000";
+    window.location.href = "/";
     handleClose();
   };
 
