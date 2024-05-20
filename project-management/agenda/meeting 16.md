@@ -19,3 +19,8 @@ Team **25** / Meeting **16** / Date **21-05-2024** / Time **10:30 - 11:00** / Lo
 
 - create staff accounts
 - generate fake data
+
+### 1.4 Email Module
+
+- scan all student to find out those who miss their timesheets
+- set schedule to send notification email
