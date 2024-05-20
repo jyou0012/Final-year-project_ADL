@@ -21,3 +21,8 @@ Team **25** / Meeting **15** / Date **14-05-2024** / Time **10:30 - 11:00** / Lo
 - How to manage session?
 - How to authentication user?
 - How to recognize different roles?
+
+### 1.4 Email Module
+
+- scan all student to find out those who miss their timesheets
+- set schedule to send notification email
