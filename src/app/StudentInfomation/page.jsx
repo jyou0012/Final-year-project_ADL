@@ -26,7 +26,7 @@ export default function Page() {
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
   useEffect(() => {
-    fetchAndDisplayStudents(); 
+    fetchAndDisplayStudents();
   }, []);
 
   const handleFileChange = (event) => {
@@ -44,7 +44,7 @@ export default function Page() {
     reader.onload = async (e) => {
       const csv = e.target.result;
       const response = await formAction({ csv });
-      await fetchAndDisplayStudents(); 
+      await fetchAndDisplayStudents();
       alert(response);
     };
     reader.readAsText(file);
@@ -69,7 +69,11 @@ export default function Page() {
       <Typography variant="h4" gutterBottom>
         Student Information Import
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        style={{ marginBottom: "20px" }}
+      >
         <TextField
           name="csv"
           type="file"

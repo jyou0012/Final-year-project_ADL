@@ -29,7 +29,7 @@ function delay(ms) {
 }
 
 // Function to send email
-const sendEmail = ({ to = 'youjiayu99@gmail.com', subject, text, html }) => {
+const sendEmail = ({ to = "youjiayu99@gmail.com", subject, text, html }) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: to,
@@ -65,7 +65,6 @@ async function sendDraftReminders() {
     const studentDocuments = new Map(
       documents.map((doc) => [doc.student, doc.state]),
     );
-    
 
     for (const student of studentList) {
       const studentId = student.id; // or whatever the identifier field is
@@ -74,27 +73,28 @@ async function sendDraftReminders() {
       const hasFinal = studentDocuments.get(studentId) === "final";
       const hasDraft = studentDocuments.get(studentId) === "draft";
       console.log("email:", email);
-      const timesheetUrl = `http://localhost:3000/students?week=${encodeURIComponent('Week ' + currentWeek)}`;
-
+      const timesheetUrl = `http://localhost:3000/students?week=${encodeURIComponent("Week " + currentWeek)}`;
 
       if (!hasFinal) {
-        console.log(`No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,);
+        console.log(
+          `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+        );
         sendEmail({
           to: email,
           subject: "Reminder: Final Document Submission Required",
           text: `Your final document for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
-          html: `Your final document for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`
+          html: `Your final document for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`,
         });
-      if (!hasDraft) {
-        console.log(`Also no draft document found for student ${studentId}.`);
-        // Additional reminders or actions can be triggered here if no draft exists.
-        /* sendEmail({
+        if (!hasDraft) {
+          console.log(`Also no draft document found for student ${studentId}.`);
+          // Additional reminders or actions can be triggered here if no draft exists.
+          /* sendEmail({
           to: email,
           subject: "Reminder: Weekly timesheet submission required",
           text: `Your submission for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
           html: `Your submission for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`
         }); */
-      }
+        }
         await delay(500); //wait 500ms for next email
       } else {
         //console.log(`Final document exists for student ${studentId} for Week ${currentWeek}. No email will be sent.`,);
