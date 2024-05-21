@@ -67,7 +67,7 @@ export default function Page() {
   return (
     <Container maxWidth="md" style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
-        Student Information Import
+        Student Import
       </Typography>
       <Box
         component="form"
@@ -87,14 +87,12 @@ export default function Page() {
           variant="contained"
           color="primary"
           disabled={pending}
-          fullWidth
         >
           {pending ? "Submitting..." : "Submit"}
         </Button>
       </Box>
       {students.length > 0 ? (
         <Paper style={{ padding: "20px" }}>
-          <Typography variant="h6">Student Information:</Typography>
           <Table size="small">
             <TableHead>
               <TableRow>

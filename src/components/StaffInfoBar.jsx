@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from '@mui/material/Link';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -48,8 +49,8 @@ export default function StaffInfoBar() {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Timesheet Overview</MenuItem>
-          <MenuItem onClick={handleClose}>Student Import</MenuItem>
+          <MenuItem onClick={() => {window.location.href = "/staff/overview"; handleClose()}}>Timesheet Overview</MenuItem>
+          <MenuItem onClick={() => {window.location.href = "/staff/import"; handleClose()}}>Student Import</MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>

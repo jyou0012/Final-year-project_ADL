@@ -3,7 +3,7 @@
 import { Readable } from "stream";
 import { csvParser } from "csv-parser";
 import { MongoClient } from "mongodb";
-import { StudentDoc, upsertStudent } from "../../database/student";
+import { StudentDoc, upsertStudent } from "../../../database/student";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
