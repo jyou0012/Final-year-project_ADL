@@ -9,7 +9,7 @@ export default async function StudentsLayout({ children }) {
 
   return (
     <Fragment>
-      <StudentInfoBar student={student} />
+      <StudentInfoBar student={JSON.parse(JSON.stringify(student))} />
       {/* Layout UI */}
       {children}
     </Fragment>

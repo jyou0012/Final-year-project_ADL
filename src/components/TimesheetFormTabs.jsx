@@ -117,16 +117,16 @@ export default function TimesheetFormTabs({
                   action={formAction}
                   dataDays={
                     week in finalTimesheets
-                      ? finalTimesheets[week]
+                      ? JSON.parse(JSON.stringify(finalTimesheets[week]))
                       : week in draftTimesheets
-                        ? draftTimesheets[week]
+                        ? JSON.parse(JSON.stringify(draftTimesheets[week]))
                         : {}
                   }
                   draftTimesheet={
-                    week in draftTimesheets ? draftTimesheets[week] : null
+                    week in draftTimesheets ? JSON.parse(JSON.stringify(draftTimesheets[week])) : null
                   }
                   finalTimesheet={
-                    week in finalTimesheets ? finalTimesheets[week] : null
+                    week in finalTimesheets ? JSON.parse(JSON.stringify(finalTimesheets[week])) : null
                   }
                   readonly={readonly}
                 />

@@ -25,11 +25,7 @@ import {
 } from "../const";
 
 dayjs.extend(weekday);
-dayjs.extend(updateLocale);
-
-dayjs.updateLocale("en", {
-  weekStart: 1,
-});
+//dayjs.extend(updateLocale);
 
 const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   let start = dayjs(startDate);
@@ -82,11 +78,12 @@ export default function TimesheetForm({
     var dataDays = null;
   }
 
+  console.log(333, dataDays)
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
   const [totalHours, setTotalHours] = useState(Array(5).fill("0.00"));
-  const [expanded, setExpanded] = useState(Array(5).fill(true));
+  const [expanded, setExpanded] = useState(Array(5).fill(false));
 
   /*
   useEffect(() => {
@@ -174,6 +171,7 @@ export default function TimesheetForm({
                       ? dayjs(dataDays[day].date, "DD/MM/YYYY")
                       : null
                   }
+                  shouldDisableDate={(date) => date.weekday() !== index + 1}
                   disabled={readonly}
                   format="DD/MM/YYYY"
                 />
