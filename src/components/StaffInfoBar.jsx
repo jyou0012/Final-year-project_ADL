@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
@@ -33,34 +33,23 @@ export default function StaffInfoBar() {
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Dashboard
         </Typography>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Staff: Dr.Cruz
-        </Typography>
+          Dr. Cruz
         <IconButton
           color="inherit"
           aria-label="menu"
           edge="end"
           onClick={handleMenu}
         >
-          <MenuIcon />
+          <AccountCircleIcon />
         </IconButton>
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Overview</MenuItem>
-          <MenuItem onClick={handleClose}>Import Students</MenuItem>
+          <MenuItem onClick={handleClose}>Timesheet Overview</MenuItem>
+          <MenuItem onClick={handleClose}>Student Import</MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>

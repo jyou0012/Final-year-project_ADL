@@ -53,7 +53,7 @@ export default function TimesheetFormTabs({
 */
   const tabChange = (event, newWeek) => {
     setWeek(newWeek);
-    router.push(`/students?week=${newWeek}`);
+    router.push(`?week=${newWeek}`);
   };
 
   return (

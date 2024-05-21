@@ -1,10 +1,7 @@
 import { Fragment } from "react";
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
 import timesheetFormAction from "./actions";
-import {
-  getStudentTimesheets,
-  checkDraftsAndSendEmails,
-} from "../../database/timesheet";
+import { getStudentTimesheets } from "../../database/timesheet";
 import { verifySession } from "../../session";
 import { STATE } from "../../const";
 
@@ -20,7 +17,6 @@ export default async function Layout() {
     state: STATE.final,
   });
   console.log(122, finalTimesheets);
-  //  await checkDraftsAndSendEmails(data);
 
   return (
     <Fragment>
@@ -28,6 +24,7 @@ export default async function Layout() {
         action={timesheetFormAction}
         draftTimesheets={JSON.parse(JSON.stringify(draftTimesheets))}
         finalTimesheets={JSON.parse(JSON.stringify(finalTimesheets))}
+        readonly={false}
       />
     </Fragment>
   );

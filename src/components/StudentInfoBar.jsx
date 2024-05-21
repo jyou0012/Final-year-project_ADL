@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
@@ -34,6 +34,7 @@ export default function StudentInfoBar({ student }) {
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Form
         </Typography>
+	{student.name}
         <IconButton
           color="inherit"
           aria-label="menu"
@@ -41,27 +42,18 @@ export default function StudentInfoBar({ student }) {
           onClick={handleMenu}
           sx={{ ml: "auto" }}
         >
-          <MenuIcon />
+          <AccountCircleIcon />
         </IconButton>
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
           open={open}
           onClose={handleClose}
         >
-          <ListItemText primary={"Name: " + student.name} sx={{ px: 2 }} />
-          <ListItemText primary={"ID: " + student.id} sx={{ px: 2 }} />
-          <ListItemText primary={"Group: " + student.group} sx={{ px: 2 }} />
-          <ListItemText primary={"Client: " + student.client} sx={{ px: 2 }} />
+          <ListItemText primary={"Name:"} secondary={student.name} sx={{ width: "120px", px: 2 }} />
+          <ListItemText primary={"ID:"} secondary={student.id} sx={{ px: 2 }} />
+          <ListItemText primary={"Group:"} secondary={student.group} sx={{ px: 2 }} />
+          <ListItemText primary={"Client:"} secondary={student.client} sx={{ px: 2 }} />
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>

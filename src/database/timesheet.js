@@ -7,7 +7,7 @@ const database = client.db("TimesheetDashboard");
 
 export const timesheet = database.collection("timesheet");
 
-//await timesheet.deleteMany({});
+// await timesheet.deleteMany({});
 
 export function DayFields({ date, start, end, task, fit, outcome }) {
   this.date = date;

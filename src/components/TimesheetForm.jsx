@@ -86,7 +86,7 @@ export default function TimesheetForm({
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
   const [totalHours, setTotalHours] = useState(Array(5).fill("0.00"));
-  const [expanded, setExpanded] = useState(Array(5).fill(false));
+  const [expanded, setExpanded] = useState(Array(5).fill(true));
 
   /*
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function TimesheetForm({
           finalUpdatedTime={finalTimesheet ? finalTimesheet.updatedTime : null}
         />
       </Box>
-      <Box component="form" action={action}>
+      <Box my="2%" component="form" action={action}>
         <Input
           name={inputFields["week"]}
           value={week}
@@ -258,6 +258,7 @@ export default function TimesheetForm({
             </AccordionDetails>
           </Accordion>
         ))}
+	{readonly === false && (
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           {state == STATE.empty && (
             <Button
@@ -293,6 +294,7 @@ export default function TimesheetForm({
             </Button>
           )}
         </Box>
+        )}
       </Box>
     </Fragment>
   );
