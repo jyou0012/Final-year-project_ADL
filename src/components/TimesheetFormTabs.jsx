@@ -29,6 +29,7 @@ export default function TimesheetFormTabs({
   action,
   draftTimesheets,
   finalTimesheets,
+  readonly,
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -127,6 +128,7 @@ export default function TimesheetFormTabs({
                   finalTimesheet={
                     week in finalTimesheets ? finalTimesheets[week] : null
                   }
+                  readonly={readonly}
                 />
               ),
           )}

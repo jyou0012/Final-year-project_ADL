@@ -1,4 +1,4 @@
-import StudentOverviewTabs from "../../../../../../../components/StudentOverviewTabs";
+import TimesheetFormTabs from "../../../../../../../components/TimesheetFormTabs";
 import { getStudentTimesheets } from "../../../../../../../database/timesheet";
 import { STATE } from "../../../../../../../const";
 
@@ -13,10 +13,11 @@ export default async function Page({ params }) {
   });
 
   return (
-    <StudentOverviewTabs
+    <TimesheetFormTabs
       studentId={params.id}
       draftTimesheets={JSON.parse(JSON.stringify(draftTimesheets))}
       finalTimesheets={JSON.parse(JSON.stringify(finalTimesheets))}
+      readonly={true}
     />
   );
 }

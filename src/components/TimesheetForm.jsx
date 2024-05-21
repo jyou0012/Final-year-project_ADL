@@ -69,6 +69,7 @@ export default function TimesheetForm({
   action,
   draftTimesheet,
   finalTimesheet,
+  readonly,
 }) {
   if (finalTimesheet) {
     var state = STATE.final;
@@ -80,7 +81,6 @@ export default function TimesheetForm({
     var state = STATE.empty;
     var dataDays = null;
   }
-  console.log(333, state);
 
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
@@ -174,6 +174,7 @@ export default function TimesheetForm({
                       ? dayjs(dataDays[day].date, "DD/MM/YYYY")
                       : null
                   }
+                  disabled={readonly}
                   format="DD/MM/YYYY"
                 />
                 <TimePicker
@@ -188,6 +189,7 @@ export default function TimesheetForm({
                         )
                       : null
                   }
+                  disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
                 <TimePicker
@@ -202,12 +204,14 @@ export default function TimesheetForm({
                         )
                       : null
                   }
+                  disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Start
                 />
                 <TextField
                   label="Total Hours"
                   value={totalHours[index]}
                   InputProps={{ readOnly: true }}
+                  disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from End
                 />
               </LocalizationProvider>
@@ -215,6 +219,7 @@ export default function TimesheetForm({
               <TextField
                 label="Tasks"
                 name={inputFields[day]["task"]}
+                disabled={readonly}
                 multiline
                 fullWidth
                 rows={4}
@@ -227,6 +232,7 @@ export default function TimesheetForm({
                   <TextField
                     label="How does it fit to project plan"
                     name={inputFields[day]["fit"]}
+                    disabled={readonly}
                     multiline
                     fullWidth
                     rows={4}
@@ -239,6 +245,7 @@ export default function TimesheetForm({
                   <TextField
                     label="Outcome/Next action"
                     name={inputFields[day]["outcome"]}
+                    disabled={readonly}
                     multiline
                     fullWidth
                     rows={4}
