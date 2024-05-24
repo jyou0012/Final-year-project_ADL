@@ -12,6 +12,10 @@ import FormLabel from "@mui/material/FormLabel";
 export default function LoginForm({ action }) {
   const [role, setRole] = useState("student");
 
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   return (
     <Box
       component="form"
@@ -31,7 +35,13 @@ export default function LoginForm({ action }) {
     >
       <FormControl component="fieldset">
         <FormLabel component="legend">Role</FormLabel>
-        <RadioGroup row aria-label="role" name="role" value={role}>
+        <RadioGroup
+          row
+          aria-label="role"
+          name="role"
+          value={role}
+          onChange={handleRoleChange}
+        >
           <FormControlLabel
             value="student"
             control={<Radio />}
