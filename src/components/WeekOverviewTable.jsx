@@ -16,7 +16,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { BarChart } from "@mui/x-charts/BarChart";
 import StatusIndicator from "./Indicator";
-import { weeks, weekdays } from "../const";
+import { weeks, weekdays, STATE } from "../const";
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
@@ -27,12 +27,13 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   return (
     <Fragment>
       <TableRow>
-        <TableCell>
+        <TableCell rowSpan="2">
           <IconButton size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{student}</TableCell>
+        <TableCell rowSpan="2">{student}</TableCell>
+        <TableCell>{STATE.draft}</TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
             <Link
@@ -40,6 +41,13 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
             >
               <StatusIndicator completed={week in finalTimesheets[student]} />
             </Link>
+          </TableCell>
+        ))}
+      </TableRow>
+      <TableRow>
+        <TableCell>{STATE.final}</TableCell>
+        {weeks.map((week) => (
+          <TableCell key={week}>
             <Link
               href={`/staff/overview/group/0/student/${student}?week=${week}`}
             >
@@ -98,6 +106,7 @@ export default function WeekOverviewTable({
           <TableRow>
             <TableCell></TableCell>
             <TableCell>Student</TableCell>
+            <TableCell>State</TableCell>
             {weeks.map((week) => (
               <TableCell key={week}>{week}</TableCell>
             ))}
