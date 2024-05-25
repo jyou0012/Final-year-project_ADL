@@ -22,7 +22,6 @@ export default async function Layout() {
   return (
     <Fragment>
       <TimesheetFormTabs
-       disabled={false}
         action={timesheetFormAction}
         draftTimesheets={JSON.parse(JSON.stringify(draftTimesheets))}
         finalTimesheets={JSON.parse(JSON.stringify(finalTimesheets))}
