@@ -13,6 +13,17 @@ export function StudentDoc({ name, id, group, email, client }) {
   this.client = client;
 }
 
+export async function getAllGroups() {
+  return Object.fromEntries(
+    Array.from(
+      await studentCollection
+        .aggregate([{ $group: { _id: "$group", count: { $sum: 1 } } }])
+        .toArray(),
+      (group) => [group._id, group.count],
+    ),
+  );
+}
+
 export async function getStudent(id) {
   return await studentCollection.findOne({ id: id });
 }
@@ -38,5 +49,10 @@ export async function upsertStudent(studentDoc) {
 }
 
 export async function getAllStudents() {
+  console.log(
+    await studentCollection
+      .aggregate([{ $group: { _id: "$group" } }])
+      .toArray(),
+  );
   return await studentCollection.find({}).toArray();
 }

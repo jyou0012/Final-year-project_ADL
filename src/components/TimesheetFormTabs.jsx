@@ -123,10 +123,14 @@ export default function TimesheetFormTabs({
                         : {}
                   }
                   draftTimesheet={
-                    week in draftTimesheets ? JSON.parse(JSON.stringify(draftTimesheets[week])) : null
+                    week in draftTimesheets
+                      ? JSON.parse(JSON.stringify(draftTimesheets[week]))
+                      : null
                   }
                   finalTimesheet={
-                    week in finalTimesheets ? JSON.parse(JSON.stringify(finalTimesheets[week])) : null
+                    week in finalTimesheets
+                      ? JSON.parse(JSON.stringify(finalTimesheets[week]))
+                      : null
                   }
                   readonly={readonly}
                 />

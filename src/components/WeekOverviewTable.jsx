@@ -18,8 +18,8 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
 
-var customParseFormat = require('dayjs/plugin/customParseFormat')
-dayjs.extend(customParseFormat)
+var customParseFormat = require("dayjs/plugin/customParseFormat");
+dayjs.extend(customParseFormat);
 
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);

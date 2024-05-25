@@ -78,7 +78,7 @@ export default function TimesheetForm({
     var dataDays = null;
   }
 
-  console.log(333, dataDays)
+  console.log(333, dataDays);
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
@@ -256,42 +256,42 @@ export default function TimesheetForm({
             </AccordionDetails>
           </Accordion>
         ))}
-	{readonly === false && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          {state == STATE.empty && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.draft}
-            >
-              Save Draft
-            </Button>
-          )}
-          {state == STATE.draft && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.draft}
-            >
-              Edit Draft
-            </Button>
-          )}
-          {state == STATE.draft && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.final}
-            >
-              Submit Final
-            </Button>
-          )}
-        </Box>
+        {readonly === false && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+            {state == STATE.empty && (
+              <Button
+                sx={{ mr: 2 }}
+                variant="contained"
+                type="submit"
+                name={inputFields.state}
+                value={STATE.draft}
+              >
+                Save Draft
+              </Button>
+            )}
+            {state == STATE.draft && (
+              <Button
+                sx={{ mr: 2 }}
+                variant="contained"
+                type="submit"
+                name={inputFields.state}
+                value={STATE.draft}
+              >
+                Edit Draft
+              </Button>
+            )}
+            {state == STATE.draft && (
+              <Button
+                sx={{ mr: 2 }}
+                variant="contained"
+                type="submit"
+                name={inputFields.state}
+                value={STATE.final}
+              >
+                Submit Final
+              </Button>
+            )}
+          </Box>
         )}
       </Box>
     </Fragment>

@@ -13,11 +13,14 @@ export async function formAction({ csv }) {
   const rows = csv.split("\n").slice(1);
   for (const row of rows) {
     const [name, id, group, email, client] = row.split(",");
-    await studentCollection.updateOne(
-      { id },
-      { $set: { name, id, group, email, client } },
-      { upsert: true },
-    );
+    if (name && id && group && email && client) {
+      console.log(group);
+      await studentCollection.updateOne(
+        { id },
+        { $set: { name, id, group, email, client } },
+        { upsert: true },
+      );
+    }
   }
   return "Data uploaded and student records updated.";
 }
