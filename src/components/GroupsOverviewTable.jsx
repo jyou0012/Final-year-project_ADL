@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import { green, orange, red } from "@mui/material/colors";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Collapse from "@mui/material/Collapse";
@@ -13,6 +14,10 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import SignalCellular0BarIcon from "@mui/icons-material/SignalCellular0Bar";
+import SignalCellular1BarIcon from "@mui/icons-material/SignalCellular2Bar";
+import SignalCellular3BarIcon from "@mui/icons-material/SignalCellular2Bar";
+import SignalCellular4BarIcon from "@mui/icons-material/SignalCellular4Bar";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { weeks, weekdays, STATE } from "../const";
 
@@ -33,7 +38,19 @@ function GroupsTableRow({ group, groupTimesheets }) {
 
         {weeks.map((week) => (
           <TableCell key={week}>
-            {groupTimesheets[group][week].groupTotalHours}
+            {groupTimesheets[group][week].finalCount ===
+            groupTimesheets[group][week].studentCount ? (
+              <SignalCellular4BarIcon sx={{ color: green[500] }} />
+            ) : groupTimesheets[group][week].finalCount === 0 ? (
+              <SignalCellular0BarIcon />
+            ) : groupTimesheets[group][week].finalCount >
+              groupTimesheets[group][week].studentCount / 2 ? (
+              <SignalCellular3BarIcon sx={{ color: orange[500] }} />
+            ) : (
+              <SignalCellular1BarIcon sx={{ color: red[500] }} />
+            )}
+            {groupTimesheets[group][week].finalCount} /{" "}
+            {groupTimesheets[group][week].studentCount}
           </TableCell>
         ))}
       </TableRow>
