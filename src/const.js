@@ -27,6 +27,7 @@ export const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 export const inputFields = {
   week: "week",
   state: "state",
+  weeklyTotalHours: "weekly-total-hours",
   Mon: {
     date: "mon-date",
     start: "mon-start",
@@ -34,6 +35,7 @@ export const inputFields = {
     task: "mon-task",
     fit: "mon-fit",
     outcome: "mon-outcome",
+    totalHours: "mon-total-hours",
   },
   Tue: {
     date: "tue-date",
@@ -42,6 +44,7 @@ export const inputFields = {
     task: "tue-task",
     fit: "tue-fit",
     outcome: "tue-outcome",
+    totalHours: "tue-total-hours",
   },
   Wed: {
     date: "wed-date",
@@ -50,6 +53,7 @@ export const inputFields = {
     task: "wed-task",
     fit: "wed-fit",
     outcome: "wed-outcome",
+    totalHours: "wed-total-hours",
   },
   Thu: {
     date: "thu-date",
@@ -58,6 +62,7 @@ export const inputFields = {
     task: "thu-task",
     fit: "thu-fit",
     outcome: "thu-outcome",
+    totalHours: "thu-total-hours",
   },
   Fri: {
     date: "fri-date",
@@ -66,6 +71,7 @@ export const inputFields = {
     task: "fri-task",
     fit: "fri-fit",
     outcome: "fri-outcome",
+    totalHours: "fri-total-hours",
   },
 };
 

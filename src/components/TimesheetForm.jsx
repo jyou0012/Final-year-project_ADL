@@ -76,7 +76,7 @@ export default function TimesheetForm({
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
-  const [totalHours, setTotalHours] = useState(Array(5).fill("0.00"));
+  const [totalHours, setTotalHours] = useState(weekdays.map((day) => dataDays ? (dataDays[day]["totalHours"] || "0.0") : "0.0"))
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function TimesheetForm({
     if (start && end) {
       const hours = dayjs(end).diff(dayjs(start), "hour", true);
       const newTotalHours = [...totalHours];
-      newTotalHours[index] = hours.toFixed(2);
+      newTotalHours[index] = hours.toFixed(1);
       setTotalHours(newTotalHours);
     }
   };
@@ -191,6 +191,7 @@ export default function TimesheetForm({
                 />
                 <TextField
                   label="Total Hours"
+                  name={inputFields[day]["totalHours"]}
                   value={totalHours[index]}
                   InputProps={{ readOnly: true }}
                   disabled={readonly}
@@ -244,7 +245,8 @@ export default function TimesheetForm({
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
             <TextField
               label="Weekly Total Hours"
-              value={totalHours.reduce((acc, curr) => acc + parseFloat(curr), 0).toFixed(2)}
+              name={inputFields["weeklyTotalHours"]}
+              value={totalHours.reduce((acc, curr) => acc + parseFloat(curr), 0).toFixed(1)}
               InputProps={{ readOnly: true }}
               sx={{ width: 150, mt: 2 }}
               size="small"

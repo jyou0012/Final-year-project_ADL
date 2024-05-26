@@ -9,13 +9,14 @@ export const timesheet = database.collection("timesheet");
 
 // await timesheet.deleteMany({});
 
-export function DayFields({ date, start, end, task, fit, outcome }) {
+export function DayFields({ date, start, end, task, fit, outcome, totalHours }) {
   this.date = date;
   this.start = start;
   this.end = end;
   this.task = task;
   this.fit = fit;
   this.outcome = outcome;
+  this.totalHours = totalHours;
 }
 
 export function TimesheetDoc() {
@@ -25,6 +26,7 @@ export function TimesheetDoc() {
   this.group = null;
   this.createdTime = null;
   this.updatedTime = null;
+  this.weeklyTotalHours = null;
 
   for (const day of weekdays) {
     this[day] = {
@@ -34,6 +36,7 @@ export function TimesheetDoc() {
       task: null,
       fit: null,
       outcome: null,
+      totalHours: null,
     };
   }
 }
@@ -118,7 +121,7 @@ export async function dbTimesheetUpsert({
   group,
   week,
   state,
-  totalHours,
+  weeklyTotalHours,
   weekFields,
 }) {
   const sendEmail = require("../sendEmail");
@@ -137,7 +140,7 @@ export async function dbTimesheetUpsert({
         state: state,
         student: student,
         group: group,
-        totalHours: totalHours,
+        weeklyTotalHours: weeklyTotalHours,
         createdTime: now,
         updatedTime: now,
         ...weekFields,

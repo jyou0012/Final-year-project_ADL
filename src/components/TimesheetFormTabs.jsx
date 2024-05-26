@@ -65,20 +65,6 @@ export default function TimesheetFormTabs({
         <Card sx={{ maxWidth: 480 }}>
           <CardContent>
             <Alert severity="success">{formState}</Alert>
-            <Box my="5%" px="10%">
-              <ProgressStepper
-                draftUpdatedTime={
-                  selectedWeek in draftTimesheets
-                    ? draftTimesheets[selectedWeek].updatedTime
-                    : null
-                }
-                finalUpdatedTime={
-                  selectedWeek in finalTimesheets
-                    ? finalTimesheets[selectedWeek].updatedTime
-                    : null
-                }
-              />
-            </Box>
             <Typography gutterBottom variant="h5" component="div"></Typography>
             <Typography variant="body2" color="text.secondary"></Typography>
           </CardContent>
