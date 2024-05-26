@@ -63,7 +63,7 @@ function GroupsTableRow({ group, groupTimesheets }) {
 export default function GroupsOverviewTable({ groupTimesheets }) {
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" sx={{my: "1%"}}>
+      <Table aria-label="collapsible table" sx={{ my: "1%" }}>
         <TableHead>
           <TableRow>
             <TableCell></TableCell>

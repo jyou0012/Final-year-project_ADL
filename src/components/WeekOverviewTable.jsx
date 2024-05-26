@@ -14,14 +14,13 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
 
 var customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
-
 
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);
@@ -102,31 +101,31 @@ export default function WeekOverviewTable({
   finalTimesheets,
 }) {
   return (
-<Fragment>
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" sx={{ my: "1%"}}>
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell>Student</TableCell>
-            <TableCell>State</TableCell>
-            {weeks.map((week) => (
-              <TableCell key={week}>{week}</TableCell>
+    <Fragment>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table" sx={{ my: "1%" }}>
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>Student</TableCell>
+              <TableCell>State</TableCell>
+              {weeks.map((week) => (
+                <TableCell key={week}>{week}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.keys(draftTimesheets).map((student) => (
+              <WeekTableRow
+                key={student}
+                student={student}
+                draftTimesheets={draftTimesheets}
+                finalTimesheets={finalTimesheets}
+              />
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.keys(draftTimesheets).map((student) => (
-            <WeekTableRow
-              key={student}
-              student={student}
-              draftTimesheets={draftTimesheets}
-              finalTimesheets={finalTimesheets}
-            />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Fragment>
   );
 }

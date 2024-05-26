@@ -9,7 +9,15 @@ export const timesheet = database.collection("timesheet");
 
 // await timesheet.deleteMany({});
 
-export function DayFields({ date, start, end, task, fit, outcome, totalHours }) {
+export function DayFields({
+  date,
+  start,
+  end,
+  task,
+  fit,
+  outcome,
+  totalHours,
+}) {
   this.date = date;
   this.start = start;
   this.end = end;

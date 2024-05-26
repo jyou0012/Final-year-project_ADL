@@ -14,7 +14,9 @@ export default function ProgressStepper({
         <StepLabel>
           {draftUpdatedTime
             ? "Draft Saved (" +
-              dayjs(new Date(draftUpdatedTime).toISOString()).format("DD/MM/YYYY") +
+              dayjs(new Date(draftUpdatedTime).toISOString()).format(
+                "DD/MM/YYYY",
+              ) +
               ")"
             : "Draft Unsaved"}
         </StepLabel>
@@ -23,7 +25,9 @@ export default function ProgressStepper({
         <StepLabel>
           {finalUpdatedTime
             ? "Final Submitted (" +
-              dayjs(new Date(finalUpdatedTime).toISOString()).format("DD/MM/YYYY") +
+              dayjs(new Date(finalUpdatedTime).toISOString()).format(
+                "DD/MM/YYYY",
+              ) +
               ")"
             : "Final Unsubmitted"}
         </StepLabel>

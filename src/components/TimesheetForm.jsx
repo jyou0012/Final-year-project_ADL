@@ -76,24 +76,40 @@ export default function TimesheetForm({
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
-  const [totalHours, setTotalHours] = useState(weekdays.map((day) => dataDays ? (dataDays[day]["totalHours"] || "0.0") : "0.0"))
+  const [totalHours, setTotalHours] = useState(
+    weekdays.map((day) =>
+      dataDays ? dataDays[day]["totalHours"] || "0.0" : "0.0",
+    ),
+  );
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
   useEffect(() => {
     if (dataDays) {
-      const newDates = weekdays.map(day =>
-        dataDays[day].date ? dayjs(dataDays[day].date, "DD/MM/YYYY") : null
+      const newDates = weekdays.map((day) =>
+        dataDays[day].date ? dayjs(dataDays[day].date, "DD/MM/YYYY") : null,
       );
-      const newStartTimes = weekdays.map(day =>
-        dataDays[day].start ? dayjs(dataDays[day].date + " " + dataDays[day].start, "DD/MM/YYYY HH:mm") : null
+      const newStartTimes = weekdays.map((day) =>
+        dataDays[day].start
+          ? dayjs(
+              dataDays[day].date + " " + dataDays[day].start,
+              "DD/MM/YYYY HH:mm",
+            )
+          : null,
       );
-      const newEndTimes = weekdays.map(day =>
-        dataDays[day].end ? dayjs(dataDays[day].date + " " + dataDays[day].end, "DD/MM/YYYY HH:mm") : null
+      const newEndTimes = weekdays.map((day) =>
+        dataDays[day].end
+          ? dayjs(
+              dataDays[day].date + " " + dataDays[day].end,
+              "DD/MM/YYYY HH:mm",
+            )
+          : null,
       );
       setDates(newDates);
       setStartTimes(newStartTimes);
       setEndTimes(newEndTimes);
-      newStartTimes.forEach((startTime, index) => calculateTotalHours(index, startTime, newEndTimes[index]));
+      newStartTimes.forEach((startTime, index) =>
+        calculateTotalHours(index, startTime, newEndTimes[index]),
+      );
     }
   }, [dataDays]);
 
@@ -159,9 +175,7 @@ export default function TimesheetForm({
                 <DatePicker
                   label="Date"
                   name={inputFields[day]["date"]}
-                  value={
-                    dates[index]
-                  }
+                  value={dates[index]}
                   shouldDisableDate={(date) => date.weekday() !== index + 1}
                   disabled={readonly}
                   format="DD/MM/YYYY"
@@ -171,10 +185,10 @@ export default function TimesheetForm({
                   label="Start"
                   name={inputFields[day]["start"]}
                   ampm={false}
-                  value={
-                    startTimes[index]
+                  value={startTimes[index]}
+                  onChange={(newValue) =>
+                    handleTimeChange(newValue, index, true)
                   }
-                  onChange={(newValue) => handleTimeChange(newValue, index, true)}
                   disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
@@ -182,10 +196,10 @@ export default function TimesheetForm({
                   label="End"
                   name={inputFields[day]["end"]}
                   ampm={false}
-                  value={
-                    endTimes[index]
+                  value={endTimes[index]}
+                  onChange={(newValue) =>
+                    handleTimeChange(newValue, index, false)
                   }
-                  onChange={(newValue) => handleTimeChange(newValue, index, false)}
                   disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Start
                 />
@@ -242,11 +256,20 @@ export default function TimesheetForm({
           </Accordion>
         ))}
         {readonly === false && (
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mt: 2,
+            }}
+          >
             <TextField
               label="Weekly Total Hours"
               name={inputFields["weeklyTotalHours"]}
-              value={totalHours.reduce((acc, curr) => acc + parseFloat(curr), 0).toFixed(1)}
+              value={totalHours
+                .reduce((acc, curr) => acc + parseFloat(curr), 0)
+                .toFixed(1)}
               InputProps={{ readOnly: true }}
               sx={{ width: 150, mt: 2 }}
               size="small"

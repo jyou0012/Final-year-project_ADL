@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import StyledBreadcrumb from "../../../components/StyledBreadcrumb";
 import GroupsOverviewTable from "../../../components/GroupsOverviewTable";
 import { getGroupsTimesheets } from "../../../database/timesheet";
@@ -11,11 +11,9 @@ export default async function Page() {
   return (
     <Box sx={{ p: 2 }}>
       <Breadcrumbs aria-label="breadcrumb">
-        <StyledBreadcrumb
-          label="Overview"
-        />
+        <StyledBreadcrumb label="Overview" />
       </Breadcrumbs>
-	<GroupsOverviewTable groupTimesheets={groupTimesheets} />
-</Box>
-);
+      <GroupsOverviewTable groupTimesheets={groupTimesheets} />
+    </Box>
+  );
 }
