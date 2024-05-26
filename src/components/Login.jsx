@@ -21,7 +21,7 @@ export default function LoginForm({ action }) {
       component="form"
       action={action}
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        "& > :not(style)": { m: 1, width: "300px" },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

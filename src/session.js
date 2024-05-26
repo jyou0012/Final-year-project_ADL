@@ -25,9 +25,9 @@ export async function decrypt(session) {
   }
 }
 
-export async function createSession(userId) {
+export async function createSession(role, userId) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ role, userId, expiresAt });
 
   cookies().set("session", session, {
     httpOnly: true,
@@ -42,9 +42,13 @@ export function deleteSession() {
   cookies().delete("session");
 }
 
-export const verifySession = cache(async () => {
+export const verifySession = cache(async (role) => {
   const cookie = cookies().get("session").value;
   const session = await decrypt(cookie);
+
+  if (session.role !== role) {
+    redirect("/");
+  }
 
   if (!session.userId) {
     redirect("/");

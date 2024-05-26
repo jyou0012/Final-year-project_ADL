@@ -12,14 +12,14 @@ export default async function loginAction(formData) {
 
   if (role === "student") {
     const student = await getStudent(password);
-    if (student.name === username) {
-      createSession(password);
+    if (student && student.name === username) {
+      createSession("student", password);
       redirect("/students");
     }
   } else if (role === "staff") {
     const staff = await getStaff(password);
-    if (staff.name === username) {
-      createSession(password);
+    if (staff && staff.name === username) {
+      createSession("staff", password);
       redirect("/staff/overview");
     }
   }

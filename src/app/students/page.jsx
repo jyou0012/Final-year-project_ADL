@@ -6,7 +6,7 @@ import { verifySession } from "../../session";
 import { STATE } from "../../const";
 
 export default async function Layout() {
-  const session = await verifySession();
+  const session = await verifySession("student");
   const studentId = session.userId;
   const draftTimesheets = await getStudentTimesheets({
     student: studentId,

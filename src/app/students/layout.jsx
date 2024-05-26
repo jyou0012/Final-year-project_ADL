@@ -4,7 +4,7 @@ import { getStudent } from "../../database/student";
 import StudentInfoBar from "../../components/StudentInfoBar";
 
 export default async function StudentsLayout({ children }) {
-  const session = await verifySession();
+  const session = await verifySession("student");
   const student = await getStudent(session.userId);
 
   return (
