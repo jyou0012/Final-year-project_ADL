@@ -25,33 +25,27 @@ import {
 } from "../const";
 
 dayjs.extend(weekday);
-//dayjs.extend(updateLocale);
 
 const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
   let start = dayjs(startDate);
-  let totalDaysToAdd = 0; // Total days to add to the semester start date
+  let totalDaysToAdd = 0;
 
-  // Sort the breaks by start date
   breaks.sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1));
 
-  // Calculate the effective start of each week accounting for breaks
   let effectiveStartDate = start;
 
   for (let currentWeek = 1; currentWeek <= weekNumber; currentWeek++) {
     let weekStart = effectiveStartDate.add(totalDaysToAdd, "days");
 
-    // Check each break to see if it affects the current week
     breaks.forEach((breakPeriod) => {
       const breakStart = dayjs(breakPeriod.start);
       const breakEnd = dayjs(breakPeriod.end);
 
       if (weekStart.isBetween(breakStart, breakEnd, null, "[]")) {
-        // Adjust start date if the calculated week start falls during a break
         totalDaysToAdd += breakEnd.diff(weekStart, "days") + 1;
       }
     });
 
-    // Only add 7 days for the next week if we're not at the target week
     if (currentWeek < weekNumber) {
       totalDaysToAdd += 7;
     }
@@ -78,27 +72,30 @@ export default function TimesheetForm({
     var dataDays = null;
   }
 
-  console.log(333, dataDays)
+  console.log(333, dataDays);
   const [dates, setDates] = useState(Array(5).fill(null));
   const [startTimes, setStartTimes] = useState(Array(5).fill(null));
   const [endTimes, setEndTimes] = useState(Array(5).fill(null));
   const [totalHours, setTotalHours] = useState(Array(5).fill("0.00"));
   const [expanded, setExpanded] = useState(Array(5).fill(false));
 
-  /*
   useEffect(() => {
-    const weekNumber = weeks.indexOf(week) + 1;
-    const startOfWeek = calculateStartDateForWeek(weekNumber, SEMESTER_START_DATE, SEMESTER_BREAKS);
-    console.log("Start of Week:", startOfWeek.toString());
-
-    const newDates = [];
-    for (let i = 0; i < 5; i++) {
-        const newDate = dayjs(startOfWeek).add(i, 'days');
-        newDates.push(newDate);
-        console.log("New Date for " + i + ":", newDate);
+    if (dataDays) {
+      const newDates = weekdays.map(day =>
+        dataDays[day].date ? dayjs(dataDays[day].date, "DD/MM/YYYY") : null
+      );
+      const newStartTimes = weekdays.map(day =>
+        dataDays[day].start ? dayjs(dataDays[day].date + " " + dataDays[day].start, "DD/MM/YYYY HH:mm") : null
+      );
+      const newEndTimes = weekdays.map(day =>
+        dataDays[day].end ? dayjs(dataDays[day].date + " " + dataDays[day].end, "DD/MM/YYYY HH:mm") : null
+      );
+      setDates(newDates);
+      setStartTimes(newStartTimes);
+      setEndTimes(newEndTimes);
+      newStartTimes.forEach((startTime, index) => calculateTotalHours(index, startTime, newEndTimes[index]));
     }
-    setDates(newDates);
-  }, [week]);
+  }, [dataDays]);
 
   const handleDateChange = (newValue, index) => {
     const newDates = [...dates];
@@ -111,22 +108,18 @@ export default function TimesheetForm({
       const newStartTimes = [...startTimes];
       newStartTimes[index] = newValue;
       setStartTimes(newStartTimes);
+      calculateTotalHours(index, newValue, endTimes[index]);
     } else {
       const newEndTimes = [...endTimes];
       newEndTimes[index] = newValue;
       setEndTimes(newEndTimes);
+      calculateTotalHours(index, startTimes[index], newValue);
     }
-    calculateTotalHours(index);
   };
-*/
 
-  const calculateTotalHours = (index) => {
-    if (startTimes[index] && endTimes[index]) {
-      const hours = dayjs(endTimes[index]).diff(
-        dayjs(startTimes[index]),
-        "hour",
-        true,
-      );
+  const calculateTotalHours = (index, start, end) => {
+    if (start && end) {
+      const hours = dayjs(end).diff(dayjs(start), "hour", true);
       const newTotalHours = [...totalHours];
       newTotalHours[index] = hours.toFixed(2);
       setTotalHours(newTotalHours);
@@ -167,26 +160,21 @@ export default function TimesheetForm({
                   label="Date"
                   name={inputFields[day]["date"]}
                   value={
-                    dataDays && dataDays[day].date
-                      ? dayjs(dataDays[day].date, "DD/MM/YYYY")
-                      : null
+                    dates[index]
                   }
                   shouldDisableDate={(date) => date.weekday() !== index + 1}
                   disabled={readonly}
                   format="DD/MM/YYYY"
+                  onChange={(newValue) => handleDateChange(newValue, index)}
                 />
                 <TimePicker
                   label="Start"
                   name={inputFields[day]["start"]}
                   ampm={false}
                   value={
-                    dataDays && dataDays[day].start
-                      ? dayjs(
-                          dataDays[day].date + " " + dataDays[day].start,
-                          "DD/MM/YYYY HH:mm",
-                        )
-                      : null
+                    startTimes[index]
                   }
+                  onChange={(newValue) => handleTimeChange(newValue, index, true)}
                   disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Date
                 />
@@ -195,13 +183,9 @@ export default function TimesheetForm({
                   name={inputFields[day]["end"]}
                   ampm={false}
                   value={
-                    dataDays && dataDays[day].end
-                      ? dayjs(
-                          dataDays[day].date + " " + dataDays[day].end,
-                          "DD/MM/YYYY HH:mm",
-                        )
-                      : null
+                    endTimes[index]
                   }
+                  onChange={(newValue) => handleTimeChange(newValue, index, false)}
                   disabled={readonly}
                   sx={{ ml: 1 }} // Add margin to separate from Start
                 />
@@ -256,42 +240,51 @@ export default function TimesheetForm({
             </AccordionDetails>
           </Accordion>
         ))}
-	{readonly === false && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          {state == STATE.empty && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.draft}
-            >
-              Save Draft
-            </Button>
-          )}
-          {state == STATE.draft && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.draft}
-            >
-              Edit Draft
-            </Button>
-          )}
-          {state == STATE.draft && (
-            <Button
-              sx={{ mr: 2 }}
-              variant="contained"
-              type="submit"
-              name={inputFields.state}
-              value={STATE.final}
-            >
-              Submit Final
-            </Button>
-          )}
-        </Box>
+        {readonly === false && (
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
+            <TextField
+              label="Weekly Total Hours"
+              value={totalHours.reduce((acc, curr) => acc + parseFloat(curr), 0).toFixed(2)}
+              InputProps={{ readOnly: true }}
+              sx={{ width: 150, mt: 2 }}
+              size="small"
+            />
+            <Box>
+              {state == STATE.empty && (
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  type="submit"
+                  name={inputFields.state}
+                  value={STATE.draft}
+                >
+                  Save Draft
+                </Button>
+              )}
+              {state == STATE.draft && (
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  type="submit"
+                  name={inputFields.state}
+                  value={STATE.draft}
+                >
+                  Edit Draft
+                </Button>
+              )}
+              {state == STATE.draft && (
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  type="submit"
+                  name={inputFields.state}
+                  value={STATE.final}
+                >
+                  Submit Final
+                </Button>
+              )}
+            </Box>
+          </Box>
         )}
       </Box>
     </Fragment>
