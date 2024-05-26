@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { getStudentByGroup } from "./student";
+import { getAllGroups, getStudentByGroup } from "./student";
 import { weeks, weekdays, STATE } from "../const";
 
 const client = new MongoClient(process.env.MONGODB_URI);
@@ -22,6 +22,7 @@ export function TimesheetDoc() {
   this.week = null;
   this.state = STATE.empty;
   this.student = null;
+  this.group = null;
   this.createdTime = null;
   this.updatedTime = null;
 
@@ -68,6 +69,37 @@ export async function getWeekTimesheets({ group, state }) {
   return timesheets;
 }
 
+export async function getGroupsTimesheets({ state }) {
+  let timesheets = {};
+
+  const groups = await getAllGroups();
+
+  for (const g of Object.keys(groups)) {
+    timesheets[g] = {};
+    timesheets[g]["students"] = Array.from(
+      await getStudentByGroup(g),
+      (student) => student.id,
+    );
+    for (const week of weeks) {
+      timesheets[g][week] = {
+        totalHours: 0,
+        studentCount: groups[g],
+        finalCount: 0,
+      };
+    }
+  }
+
+  console.log(timesheets);
+  for (const t of await timesheet.find({ state: state }).toArray()) {
+    console.log(t);
+    timesheets[t.group][t.week].finalCount += 1;
+    timesheets[t.group][t.week].totalHours += t.totalHours;
+    timesheets[t.group][t.week][t.student] = t.totalHours;
+  }
+
+  return timesheets;
+}
+
 export function TimesheetOutput({ student }) {
   this.student = student;
 
@@ -81,15 +113,14 @@ export function TimesheetOutput({ student }) {
   }
 }
 
-export function WeekOverviewOutput({ team }) {
-  this.team = team;
-
-  const students = ["a123457"];
-  for (const student of students) {
-  }
-}
-
-export async function dbTimesheetUpsert({ student, week, state, weekFields }) {
+export async function dbTimesheetUpsert({
+  student,
+  group,
+  week,
+  state,
+  totalHours,
+  weekFields,
+}) {
   const sendEmail = require("../sendEmail");
   const now = Date.now();
   /*  sendEmail({
@@ -105,6 +136,8 @@ export async function dbTimesheetUpsert({ student, week, state, weekFields }) {
         week: week,
         state: state,
         student: student,
+        group: group,
+        totalHours: totalHours,
         createdTime: now,
         updatedTime: now,
         ...weekFields,

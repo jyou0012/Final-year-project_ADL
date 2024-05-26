@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import Link from '@mui/material/Link';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
@@ -34,7 +33,7 @@ export default function StaffInfoBar() {
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Dashboard
         </Typography>
-          Dr. Cruz
+        Dr. Cruz
         <IconButton
           color="inherit"
           aria-label="menu"
@@ -49,8 +48,22 @@ export default function StaffInfoBar() {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => {window.location.href = "/staff/overview"; handleClose()}}>Timesheet Overview</MenuItem>
-          <MenuItem onClick={() => {window.location.href = "/staff/import"; handleClose()}}>Student Import</MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/staff/overview";
+              handleClose();
+            }}
+          >
+            Timesheet Overview
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/staff/import";
+              handleClose();
+            }}
+          >
+            Student Import
+          </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>

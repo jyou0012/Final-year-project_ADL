@@ -2,16 +2,20 @@
 
 import { verifySession } from "../../session";
 import { DayFields, dbTimesheetUpsert } from "../../database/timesheet";
+import { getStudent } from "../../database/student";
 import { weekdays, inputFields, STATE } from "../../const";
 
 export default async function timesheetFormAction(prevState, formData) {
   const session = await verifySession();
 
-  console.log(44, formData);
+  const student = await getStudent(session.userId);
+
   dbTimesheetUpsert({
-    student: session.userId,
+    student: student.id,
+    group: student.group,
     week: formData.get(inputFields["week"]),
     state: formData.get(inputFields["state"]),
+    totalHours: 3.3,
     weekFields: Object.fromEntries(
       weekdays.map((day) => [
         day,

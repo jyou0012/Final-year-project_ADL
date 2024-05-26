@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -13,7 +14,7 @@ export default function ProgressStepper({
         <StepLabel>
           {draftUpdatedTime
             ? "Draft Saved (" +
-              new Date(draftUpdatedTime).toLocaleDateString() +
+              dayjs(new Date(draftUpdatedTime).toISOString()).format("DD/MM/YYYY") +
               ")"
             : "Draft Unsaved"}
         </StepLabel>
@@ -22,7 +23,7 @@ export default function ProgressStepper({
         <StepLabel>
           {finalUpdatedTime
             ? "Final Submitted (" +
-              new Date(finalUpdatedTime).toLocaleDateString() +
+              dayjs(new Date(finalUpdatedTime).toISOString()).format("DD/MM/YYYY") +
               ")"
             : "Final Unsubmitted"}
         </StepLabel>

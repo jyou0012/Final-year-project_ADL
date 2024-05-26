@@ -4,7 +4,7 @@ import { getStudentTimesheets } from "../../../../../../../database/timesheet";
 import { STATE } from "../../../../../../../const";
 
 async function Action() {
-	return null
+  return null;
 }
 
 export default async function Page({ params }) {
