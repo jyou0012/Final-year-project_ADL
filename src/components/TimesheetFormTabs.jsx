@@ -80,7 +80,7 @@ export default function TimesheetFormTabs({
           </CardActions>
         </Card>
       </Backdrop>
-      <Grid container mx="5%">
+      <Grid container mx="5%" my="1%">
         <Grid item xs={1}>
           <Tabs
             orientation="vertical"

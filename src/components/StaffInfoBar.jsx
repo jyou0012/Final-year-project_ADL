@@ -54,7 +54,7 @@ export default function StaffInfoBar() {
               handleClose();
             }}
           >
-            Timesheet Overview
+            Overview
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -62,7 +62,7 @@ export default function StaffInfoBar() {
               handleClose();
             }}
           >
-            Student Import
+            Import
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>

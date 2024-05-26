@@ -14,12 +14,14 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Typography from '@mui/material/Typography';
 import { BarChart } from "@mui/x-charts/BarChart";
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
 
 var customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
+
 
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const [open, setOpen] = useState(false);
@@ -39,7 +41,7 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
             <Link
               href={`/staff/overview/group/0/student/${student}?week=${week}`}
             >
-              <StatusIndicator completed={week in finalTimesheets[student]} />
+              <StatusIndicator completed={week in draftTimesheets[student]} />
             </Link>
           </TableCell>
         ))}
@@ -51,7 +53,7 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
             <Link
               href={`/staff/overview/group/0/student/${student}?week=${week}`}
             >
-              <StatusIndicator completed={week in draftTimesheets[student]} />
+              <StatusIndicator completed={week in finalTimesheets[student]} />
             </Link>
           </TableCell>
         ))}
@@ -100,8 +102,9 @@ export default function WeekOverviewTable({
   finalTimesheets,
 }) {
   return (
+<Fragment>
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" sx={{ my: "1%"}}>
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
@@ -124,5 +127,6 @@ export default function WeekOverviewTable({
         </TableBody>
       </Table>
     </TableContainer>
+    </Fragment>
   );
 }

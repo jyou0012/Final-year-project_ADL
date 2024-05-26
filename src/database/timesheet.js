@@ -85,7 +85,7 @@ export async function getGroupsTimesheets({ state }) {
     );
     for (const week of weeks) {
       timesheets[g][week] = {
-        totalHours: 0,
+        groupTotalHours: 0,
         studentCount: groups[g],
         finalCount: 0,
       };
@@ -96,8 +96,8 @@ export async function getGroupsTimesheets({ state }) {
   for (const t of await timesheet.find({ state: state }).toArray()) {
     console.log(t);
     timesheets[t.group][t.week].finalCount += 1;
-    timesheets[t.group][t.week].totalHours += t.totalHours;
-    timesheets[t.group][t.week][t.student] = t.totalHours;
+    timesheets[t.group][t.week].groupTotalHours += t.weeklyTotalHours;
+    timesheets[t.group][t.week][t.student] = t.weeklyTotalHours;
   }
 
   return timesheets;

@@ -15,7 +15,7 @@ export default async function timesheetFormAction(prevState, formData) {
     group: student.group,
     week: formData.get(inputFields["week"]),
     state: formData.get(inputFields["state"]),
-    weeklyTotalHours: formData.get(inputFields["weeklyTotalHours"]),
+    weeklyTotalHours: parseFloat(formData.get(inputFields["weeklyTotalHours"])) || null,
     weekFields: Object.fromEntries(
       weekdays.map((day) => [
         day,
@@ -26,7 +26,7 @@ export default async function timesheetFormAction(prevState, formData) {
           task: formData.get(inputFields[day]["task"]) || null,
           fit: formData.get(inputFields[day]["fit"]) || null,
           outcome: formData.get(inputFields[day]["outcome"]) || null,
-          totalHours: formData.get(inputFields[day]["totalHours"]) || null,
+          totalHours: parseFloat(formData.get(inputFields[day]["totalHours"])) || null,
         }),
       ]),
     ),
