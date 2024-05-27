@@ -12,6 +12,7 @@ const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
 const students = database.collection("student");
+const notifications = database.collection("notification");
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -50,7 +51,6 @@ const sendEmail = ({ to = "youjiayu99@gmail.com", subject, text, html }) => {
 // Fetch drafts and send reminder emails
 async function sendDraftReminders() {
   //week num 有问题
-  //找有没有这个学生的final-》有就不发邮件 没有就发邮件
   try {
     await client.connect();
     console.log("Connected to MongoDB server successfully.");
@@ -79,12 +79,23 @@ async function sendDraftReminders() {
         console.log(
           `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
         );
+        
         sendEmail({
           to: email,
           subject: "Reminder: Final Document Submission Required",
           text: `Your final document for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
           html: `Your final document for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`,
         });
+        await notifications.updateOne(
+          { student: studentId },
+          {$set:{
+            message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+          },
+        },
+          { upsert: true },
+          
+        );
+
         if (!hasDraft) {
           console.log(`Also no draft document found for student ${studentId}.`);
           // Additional reminders or actions can be triggered here if no draft exists.
@@ -110,7 +121,7 @@ async function sendDraftReminders() {
 
 //At 16:00 on Friday send draft reminders
 //https://crontab.guru/#00_16_*_*_5
-cron.schedule("00 16 * * 5", () => {
+cron.schedule("*/2 * * * *", () => {
   console.log("Running scheduled task to send draft reminders...");
   sendDraftReminders();
 });
