@@ -7,12 +7,12 @@ const {
   SEMESTER_BREAKS,
   weeks,
 } = require("./const");
+const { upsertNotification, NotificationDoc } = require("./database/notification");
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 const timesheet = database.collection("timesheet");
 const students = database.collection("student");
-const notifications = database.collection("notification");
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -50,7 +50,6 @@ const sendEmail = ({ to = "youjiayu99@gmail.com", subject, text, html }) => {
 
 // Fetch drafts and send reminder emails
 export default async function sendDraftReminders() {
-  //week num 有问题
   try {
     await client.connect();
     console.log("Connected to MongoDB server successfully.");
@@ -59,16 +58,14 @@ export default async function sendDraftReminders() {
     const weekQuery = { week: `Week ${currentWeek}` };
 
     console.log("currentWeek:", currentWeek);
-    //console.log("student: ",studentList);
 
     const documents = await timesheet.find(weekQuery).toArray();
     const studentDocuments = new Map(
-      documents.map((doc) => [doc.student, doc.state]),
+      documents.map((doc) => [doc.student, doc.state])
     );
 
     for (const student of studentList) {
       const studentId = student.id; // or whatever the identifier field is
-      //console.log(student);
       const email = student.email;
       const hasFinal = studentDocuments.get(studentId) === "final";
       const hasDraft = studentDocuments.get(studentId) === "draft";
@@ -77,49 +74,43 @@ export default async function sendDraftReminders() {
 
       if (!hasFinal) {
         console.log(
-          `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+          `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`
         );
-        
+
         sendEmail({
           to: email,
           subject: "Reminder: Final Document Submission Required",
           text: `Your final document for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
           html: `Your final document for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`,
         });
-        await notifications.updateOne(
-          { student: studentId },
-          {$set:{
-            message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
-            sendTime: Date.now(),
-          },
-        },
-          { upsert: true },
-          
-        );
+
+        const notification = new NotificationDoc({
+          id: studentId,
+          message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+          time: new Date(),
+        });
+
+        await upsertNotification(notification);
 
         if (!hasDraft) {
           console.log(`Also no draft document found for student ${studentId}.`);
           // Additional reminders or actions can be triggered here if no draft exists.
           /* sendEmail({
-          to: email,
-          subject: "Reminder: Weekly timesheet submission required",
-          text: `Your submission for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
-          html: `Your submission for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`
-        }); */
+            to: email,
+            subject: "Reminder: Weekly timesheet submission required",
+            text: `Your submission for Week ${currentWeek} is missing. Please submit it as soon as possible. You can access the timesheet website here: ${timesheetUrl}`,
+            html: `Your submission for <strong>Week ${currentWeek}</strong> is missing. Please submit it as soon as possible. You can access the timesheet website <a href="${timesheetUrl}">here</a>.`
+          }); */
         }
-        await delay(500); //wait 500ms for next email
+        await delay(500); // wait 500ms for next email
       } else {
-        //console.log(`Final document exists for student ${studentId} for Week ${currentWeek}. No email will be sent.`,);
+        // console.log(`Final document exists for student ${studentId} for Week ${currentWeek}. No email will be sent.`);
       }
     }
   } catch (error) {
-    //console.error("Failed to send reminders:", error);
+    console.error("Failed to send reminders:", error);
   } finally {
     await client.close();
     console.log("MongoDB connection closed.");
   }
 }
-
-
-
-//module.exports = sendEmail;
