@@ -49,7 +49,7 @@ const sendEmail = ({ to = "youjiayu99@gmail.com", subject, text, html }) => {
 };
 
 // Fetch drafts and send reminder emails
-async function sendDraftReminders() {
+export default async function sendDraftReminders() {
   //week num 有问题
   try {
     await client.connect();
@@ -90,6 +90,7 @@ async function sendDraftReminders() {
           { student: studentId },
           {$set:{
             message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+            sendTime: Date.now(),
           },
         },
           { upsert: true },
@@ -119,11 +120,6 @@ async function sendDraftReminders() {
   }
 }
 
-//At 16:00 on Friday send draft reminders
-//https://crontab.guru/#00_16_*_*_5
-cron.schedule("*/2 * * * *", () => {
-  console.log("Running scheduled task to send draft reminders...");
-  sendDraftReminders();
-});
 
-module.exports = sendEmail;
+
+//module.exports = sendEmail;
