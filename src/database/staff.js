@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-
+import { upsertScheduler } from "./scheduler";
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 
@@ -17,6 +17,7 @@ export async function getStaff(password) {
 (async () => {
   await client.connect();
   await upsertStaff(new StaffDoc({ name: "Cruz", password: "staff123" }));
+  await upsertScheduler({ cronSchedule: "* * * * *" });
 })();
 
 export async function upsertStaff(staffDoc) {
