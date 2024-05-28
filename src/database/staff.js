@@ -1,5 +1,11 @@
 import { MongoClient } from "mongodb";
 import { upsertScheduler } from "./scheduler";
+import {
+  getSemesterStartDate,
+  getSemesterBreaks,
+  setSemesterStartDate,
+  setSemesterBreaks
+} from "./semesterTime";
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 
@@ -18,6 +24,8 @@ export async function getStaff(password) {
   await client.connect();
   await upsertStaff(new StaffDoc({ name: "Cruz", password: "staff123" }));
   await upsertScheduler({ cronSchedule: "* * * * *" });
+  await setSemesterStartDate("2024-02-26");
+  await setSemesterBreaks(["2024-04-08", "2024-04-21"]);
 })();
 
 export async function upsertStaff(staffDoc) {
