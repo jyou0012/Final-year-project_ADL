@@ -6,7 +6,7 @@ import { getStudent } from "../../database/student";
 import { weekdays, inputFields, STATE } from "../../const";
 
 export default async function timesheetFormAction(prevState, formData) {
-  const session = await verifySession();
+  const session = await verifySession("student");
 
   const student = await getStudent(session.userId);
 
