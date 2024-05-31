@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getScheduler, checkCronStatus, setCronStatus } from '../../../database/scheduler';
+import { getScheduler, checkCronStatus, setCronStatus, resetCronStatus } from '../../../database/scheduler';
 import cron from 'node-cron';
 import sendDraftReminders from '../../../sendEmail';
 
@@ -7,14 +7,15 @@ let isCronScheduled = false;
 
 export async function POST(req) {
   try {
+    // Reset the cron status on server start
+    await resetCronStatus();
+
     const cronSchedule = await getScheduler();
-    console.log("Cron schedule:", cronSchedule);
     if (!cronSchedule) {
       return NextResponse.json({ error: 'Cron schedule not found' }, { status: 404 });
     }
 
     const isCronRunning = await checkCronStatus();
-    console.log("Cron job status:", isCronRunning);
     if (!isCronRunning && !isCronScheduled) {
       cron.schedule(cronSchedule, () => {
         console.log("Running scheduled task to send draft reminders...");

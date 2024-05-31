@@ -19,7 +19,7 @@ export async function getScheduler() {
       console.error('Error fetching scheduler from database:', error);
       throw error;
     }
-  }
+}
 
 export async function upsertScheduler(scheduleDoc) {
     //console.log('Upserting scheduler...', scheduleDoc);
@@ -42,9 +42,9 @@ export async function checkCronStatus() {
       console.error('Error checking cron status from database:', error);
       throw error;
     }
-  }
+}
   
-  export async function setCronStatus(isRunning) {
+export async function setCronStatus(isRunning) {
     try {
       const result = await timeScheduler.updateOne(
         { scheduleName: 'draftReminderSchedule' },
@@ -54,6 +54,21 @@ export async function checkCronStatus() {
       return result;
     } catch (error) {
       console.error('Error setting cron status in database:', error);
+      throw error;
+    }
+}
+
+export async function resetCronStatus() {
+    try {
+      const result = await timeScheduler.updateOne(
+        { scheduleName: 'draftReminderSchedule' },
+        { $set: { isRunning: false } },
+        { upsert: true }
+      );
+      console.log('Cron status reset to false');
+      return result;
+    } catch (error) {
+      console.error('Error resetting cron status in database:', error);
       throw error;
     }
   }
