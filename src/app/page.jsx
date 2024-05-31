@@ -1,35 +1,40 @@
-import React from "react";
-import loginAction from "./actions";
-import LoginForm from "../components/Login";
-import sendDraftReminders from "../sendEmail";
-import { getScheduler } from "../database/scheduler";
-import { MongoClient } from "mongodb";
-const client = new MongoClient(process.env.MONGODB_URI);
-const database = client.db("TimesheetDashboard");
-export const timeScheduler = database.collection("scheduler");
+import React from 'react';
+import loginAction from './actions';
+import LoginForm from '../components/Login';
 
-const cron = require("node-cron");
+export const metadata = {
+  title: 'Login',
+};
 
-const scheduler = await timeScheduler.findOne({ scheduleName: 'draftReminderSchedule' });
-const cronSchedule = scheduler.cronSchedule;
+async function scheduleCronJob() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  try {
+    const response = await fetch(`${baseUrl}/api/cron`, {
+      method: 'POST',
+    });
+    const data = await response.json();
 
-//At 16:00 on Friday send draft reminders
-//https://crontab.guru/#00_16_*_*_5
-cron.schedule(cronSchedule, () => {
-  console.log("Running scheduled task to send draft reminders...");
-  sendDraftReminders();
-});
+    if (!response.ok) {
+      console.error('Error scheduling cron job:', data.error);
+    } else {
+      console.log(data.message);
+    }
+  } catch (error) {
+    console.error('Error calling cron API route:', error);
+  }
+}
+
+scheduleCronJob();
 
 export default function LoginPage() {
-  console.log("Scheduler: ", cronSchedule);
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
       }}
     >
       <h1>LOGIN</h1>

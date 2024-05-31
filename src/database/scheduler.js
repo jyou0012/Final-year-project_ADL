@@ -6,16 +6,20 @@ const database = client.db("TimesheetDashboard");
 export const timeScheduler = database.collection("scheduler");
 
 export async function getScheduler() {
-    const scheduleDoc = await timeScheduler.findOne({ scheduleName: 'draftReminderSchedule' });
-    if (scheduleDoc && scheduleDoc.cronSchedule) {
-        //console.log('Schedule found in database:', scheduleDoc.cronSchedule, typeof(scheduleDoc.cronSchedule));
-        const returnedSchedule = scheduleDoc.cronSchedule;
-        console.log('Returned schedule:', returnedSchedule);
-        return returnedSchedule;
+    try {
+      const scheduleDoc = await timeScheduler.findOne({ scheduleName: 'draftReminderSchedule' });
+      if (scheduleDoc && scheduleDoc.cronSchedule) {
+        console.log('Schedule found in database:', scheduleDoc.cronSchedule);
+        return scheduleDoc.cronSchedule;
       } else {
         console.log('Schedule not found in database');
+        return null;
       }
-}
+    } catch (error) {
+      console.error('Error fetching scheduler from database:', error);
+      throw error;
+    }
+  }
 
 export async function upsertScheduler(scheduleDoc) {
     //console.log('Upserting scheduler...', scheduleDoc);
@@ -29,3 +33,27 @@ export async function upsertScheduler(scheduleDoc) {
         { upsert: true },
     );
 }
+
+export async function checkCronStatus() {
+    try {
+      const statusDoc = await timeScheduler.findOne({ scheduleName: 'draftReminderSchedule' });
+      return statusDoc ? statusDoc.isRunning : false;
+    } catch (error) {
+      console.error('Error checking cron status from database:', error);
+      throw error;
+    }
+  }
+  
+  export async function setCronStatus(isRunning) {
+    try {
+      const result = await timeScheduler.updateOne(
+        { scheduleName: 'draftReminderSchedule' },
+        { $set: { isRunning } },
+        { upsert: true }
+      );
+      return result;
+    } catch (error) {
+      console.error('Error setting cron status in database:', error);
+      throw error;
+    }
+  }
