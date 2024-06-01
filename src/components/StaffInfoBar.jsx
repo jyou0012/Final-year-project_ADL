@@ -64,6 +64,17 @@ export default function StaffInfoBar() {
           >
             Import
           </MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              window.location.href = "/staff/email";
+              handleClose();
+            }}
+          >
+            Email History
+          </MenuItem>
+
+
           <Divider />
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
