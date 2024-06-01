@@ -14,15 +14,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
-import {
-  weekdays,
-  inputFields,
-  STATE,
-  getCurrentWeek,
-  SEMESTER_START_DATE,
-  SEMESTER_BREAKS,
-  weeks,
-} from "../const";
+import { weekdays, inputFields, STATE, weeks } from "../const";
+import { fetchSemesterInfo } from "../app/staff/time/action"; // Import fetchSemesterInfo action
 
 dayjs.extend(weekday);
 
@@ -43,6 +36,15 @@ const calculateStartDateForWeek = (weekNumber, startDate, breaks) => {
 
       if (weekStart.isBetween(breakStart, breakEnd, null, "[]")) {
         totalDaysToAdd += breakEnd.diff(weekStart, "days") + 1;
+        // If breakEnd is on a weekend, move to the next Monday
+        const breakEndDay = dayjs(breakEnd).day();
+        if (breakEndDay === 5) {
+          totalDaysToAdd += 2; // Move from Friday to Monday
+        } else if (breakEndDay === 6) {
+          totalDaysToAdd += 2; // Move from Saturday to Monday
+        } else if (breakEndDay === 0) {
+          totalDaysToAdd += 1; // Move from Sunday to Monday
+        }
       }
     });
 
@@ -82,6 +84,34 @@ export default function TimesheetForm({
     ),
   );
   const [expanded, setExpanded] = useState(Array(5).fill(false));
+  const [semesterInfo, setSemesterInfo] = useState(null);
+
+  useEffect(() => {
+    async function loadSemesterInfo() {
+      const result = await fetchSemesterInfo();
+      if (result.success && result.data.length > 0) {
+        setSemesterInfo(result.data[0]);
+      }
+    }
+    loadSemesterInfo();
+  }, []);
+
+  useEffect(() => {
+    if (semesterInfo) {
+      const { semesterStart, middleBreakStart, middleBreakEnd } = semesterInfo;
+      const weekNumber = weeks.indexOf(week) + 1;
+      const startOfWeek = calculateStartDateForWeek(weekNumber, semesterStart, [
+        { start: middleBreakStart, end: middleBreakEnd },
+      ]);
+
+      const newDates = [];
+      for (let i = 0; i < 5; i++) {
+        const newDate = dayjs(startOfWeek).add(i, "days");
+        newDates.push(newDate);
+      }
+      setDates(newDates);
+    }
+  }, [semesterInfo, week]);
 
   useEffect(() => {
     if (dataDays) {
