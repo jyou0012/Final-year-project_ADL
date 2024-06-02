@@ -132,7 +132,7 @@ export async function dbTimesheetUpsert({
   weeklyTotalHours,
   weekFields,
 }) {
-  const sendEmail = require("../sendEmail");
+
   const now = Date.now();
   /*  sendEmail({
     to: student + '@adelaide.edu.au',
@@ -159,7 +159,7 @@ export async function dbTimesheetUpsert({
 }
 
 // Function to check the documents and send emails
-export const checkDraftsAndSendEmails = async (timesheetOutput) => {
+/* export const checkDraftsAndSendEmails = async (timesheetOutput) => {
   const sendEmail = require("../sendEmail");
   try {
     let emailPromises = [];
@@ -190,4 +190,4 @@ export const checkDraftsAndSendEmails = async (timesheetOutput) => {
   } catch (err) {
     console.error("Error sending email reminders for drafts", err);
   }
-};
+}; */
