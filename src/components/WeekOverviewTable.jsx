@@ -18,22 +18,74 @@ import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
 
 var customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
 
+
 function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open2 = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+
+
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
+
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          open={open2}
+          onClose={handleClose}
+        >
+          <ListItemText
+            primary={"Name:"}
+            secondary={student.name}
+            sx={{ width: "120px", px: 2 }}
+          />
+          <ListItemText primary={"ID:"} secondary={student.id} sx={{ px: 2 }} />
+          <ListItemText
+            primary={"Group:"}
+            secondary={student.group}
+            sx={{ px: 2 }}
+          />
+          <ListItemText
+            primary={"Client:"}
+            secondary={student.client}
+            sx={{ px: 2 }}
+          />
+          
+          <ListItemText
+            primary={"Email:"}
+            secondary={student.email}
+            sx={{ px: 2 }}
+          />
+
+        </Menu>
+
       <TableRow>
         <TableCell rowSpan="2">
           <IconButton size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell rowSpan="2">{student}</TableCell>
+        <TableCell rowSpan="2" onClick={handleMenu}>{student}</TableCell>
         <TableCell>{STATE.draft}</TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>

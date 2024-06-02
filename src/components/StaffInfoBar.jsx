@@ -100,6 +100,18 @@ export default function StaffInfoBar() {
           </MenuItem>
           <MenuItem
             onClick={() => {
+              window.location.href = "/staff/email";
+              handleClose();
+            }}
+          >
+            Email History
+          </MenuItem>
+
+
+          <Divider />
+
+          <MenuItem
+            onClick={() => {
               window.location.href = "/staff/time";
               handleSetupClose();
               handleClose();
@@ -107,6 +119,7 @@ export default function StaffInfoBar() {
           >
             Time
           </MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
