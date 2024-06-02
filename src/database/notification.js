@@ -5,8 +5,11 @@ const database = client.db("TimesheetDashboard");
 
 export const notificationCollection = database.collection("notification");
 
-export function NotificationDoc({ id, message, time }) {
+export function NotificationDoc({ name, id, group, email, message, time }) {
+  this.name = name;
   this.id = id;
+  this.group = group;
+  this.email = email;
   this.message = message;
   this.time = time;
 }
@@ -40,6 +43,10 @@ export async function upsertNotification(notificationDoc) {
       { id: notificationDoc.id },
       {
         $set: {
+          name: notificationDoc.name,
+          id: notificationDoc.id,
+          group: notificationDoc.group,
+          email: notificationDoc.email,
           message: notificationDoc.message,
           time: notificationDoc.time,
         },

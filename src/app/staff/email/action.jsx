@@ -1,30 +1,50 @@
 "use server";
 
-import { Readable } from "stream";
-import { csvParser } from "csv-parser";
 import { MongoClient } from "mongodb";
-import { StudentDoc, upsertStudent } from "../../../database/student";
+import { notificationCollection } from "../../../database/notification";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
-const studentCollection = database.collection("student");
 
 export async function formAction({ csv }) {
   const rows = csv.split("\n").slice(1);
   for (const row of rows) {
     const [name, id, group, email, client] = row.split(",");
     if (name && id && group && email && client) {
-      console.log(group);
-      await studentCollection.updateOne(
+      await notificationCollection.updateOne(
         { id },
         { $set: { name, id, group, email, client } },
         { upsert: true },
       );
     }
   }
-  return "Data uploaded and student records updated.";
+  return "Data uploaded and records updated.";
 }
 
-export async function fetchStudents() {
-  return await studentCollection.find({}).toArray();
+export async function fetchNotifications(query) {
+  await client.connect();
+  const searchQuery = query
+    ? {
+        $or: [
+          { message: { $regex: query, $options: "i" } },
+          { id: { $regex: query, $options: "i" } },
+          { name: { $regex: query, $options: "i" } },
+          { studentId: { $regex: query, $options: "i" } },
+          { group: { $regex: query, $options: "i" } },
+        ],
+      }
+    : {};
+  const notifications = await notificationCollection.find(searchQuery).toArray();
+  await client.close();
+
+  // Transform the documents to plain objects and format date
+  return notifications.map(notification => ({
+    id: notification.id,
+    name: notification.name,
+    studentId: notification.studentId,
+    group: notification.group,
+    email: notification.email,
+    message: notification.message,
+    time: notification.time.toISOString(), // Convert Date to string
+  }));
 }

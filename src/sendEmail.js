@@ -85,7 +85,10 @@ export default async function sendDraftReminders() {
         });
 
         const notification = new NotificationDoc({
+          name: student.name,
           id: studentId,
+          group: student.group,
+          email: student.email,
           message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
           time: new Date(),
         });

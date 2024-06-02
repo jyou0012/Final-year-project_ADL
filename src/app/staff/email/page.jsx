@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import { formAction, fetchStudents } from "./action";
+import { formAction, fetchNotifications } from "./action";
 import {
   Box,
   Button,
@@ -20,39 +20,27 @@ import {
 
 export default function Page() {
   const { pending } = useFormStatus();
-  const [file, setFile] = useState(null);
-  const [students, setStudents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [notifications, setNotifications] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
   useEffect(() => {
-    fetchAndDisplayStudents();
+    fetchAndDisplayNotifications();
   }, []);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!file) {
-      alert("Please select a file first!");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const csv = e.target.result;
-      const response = await formAction({ csv });
-      await fetchAndDisplayStudents();
-      alert(response);
-    };
-    reader.readAsText(file);
+    await fetchAndDisplayNotifications(searchQuery);
   };
 
-  const fetchAndDisplayStudents = async () => {
-    const loadedStudents = await fetchStudents();
-    setStudents(loadedStudents);
+  const fetchAndDisplayNotifications = async (query = "") => {
+    const loadedNotifications = await fetchNotifications(query);
+    setNotifications(loadedNotifications);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -76,10 +64,12 @@ export default function Page() {
         style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}
       >
         <TextField
-          name="SeachContent"
+          name="searchContent"
+          value={searchQuery}
+          onChange={handleSearchChange}
           variant="outlined"
           margin="normal"
-          style={{ marginRight: "20px" , width: "600px"}}
+          style={{ marginRight: "20px", width: "600px" }}
         />
         <Button
           type="submit"
@@ -89,39 +79,39 @@ export default function Page() {
         >
           {pending ? "Submitting..." : "Search"}
         </Button>
-
       </Box>
-      {students.length > 0 ? (
+
+      {notifications.length > 0 ? (
         <Paper style={{ padding: "20px" }}>
           <Table size="small">
             <TableHead>
               <TableRow>
+                <TableCell>ID</TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Student ID</TableCell>
-                <TableCell>Group Number</TableCell>
+                <TableCell>Group</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>State</TableCell>
-                <TableCell>SendTime</TableCell>
+                <TableCell>Message</TableCell>
+                <TableCell>Time</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {students
+              {notifications
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((student, index) => (
+                .map((notification, index) => (
                   <TableRow key={index}>
-                    <TableCell>{student.name}</TableCell>
-                    <TableCell>{student.id}</TableCell>
-                    <TableCell>{student.group}</TableCell>
-                    <TableCell>{student.email}</TableCell>
-                    <TableCell> send</TableCell>
-                    <TableCell> 2007-9-9</TableCell>
+                    <TableCell>{notification.id}</TableCell>
+                    <TableCell>{notification.name}</TableCell>
+                    <TableCell>{notification.group}</TableCell>
+                    <TableCell>{notification.email}</TableCell>
+                    <TableCell>{notification.message}</TableCell>
+                    <TableCell>{new Date(notification.time).toLocaleString()}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
           <TablePagination
             component="div"
-            count={students.length}
+            count={notifications.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -130,10 +120,9 @@ export default function Page() {
         </Paper>
       ) : (
         <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
-          No student information available.
+          No notifications available.
         </Typography>
       )}
     </Container>
   );
 }
-
