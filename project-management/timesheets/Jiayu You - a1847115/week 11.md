@@ -4,7 +4,7 @@ Team **25** / Name **Jiayu You** / ID **a1847115** / Week **11** / Total Hours 8
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
-| Mon | 20-05-2024 | 11:00   | 12:00    | 1.5           | Self studing on coding | Acquaintance with pertinent programming frameworks and coding abilities | familer with coding |
+| Mon | 20-05-2024 | 12:30   | 13:00    | 0.5           | meet with client |  | test the email |
 | Tue | 21-05-2024 |         |          |             |   || |
 | Wed | 22-05-2024 | 16:00   | 15:00    | 1           | Meet up with Team Members | Discuss project tasks for milestone1 | |
 | Thu | 23-05-2024 | 15:00   | 16:00    | 1.5           | Client meeting with Dr.Cruz| Presenting and evaluating the optimal objective for Milestone 1| Start coding|
