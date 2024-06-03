@@ -1,6 +1,6 @@
 # MCI Project Weekly Time Sheet
 
-Team **25** / Name **Jiayu You** / ID **a1847115** / Week **9** / Total Hours 4.5
+Team **25** / Name **Jiayu You** / ID **a1847115** / Week **9** / Total Hours 12.5
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
