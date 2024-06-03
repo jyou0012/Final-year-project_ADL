@@ -1,12 +1,12 @@
 # MCI Project Weekly Time Sheet
 
-Team **25** / Name **Jiayu You** / ID **a1847115** / Week **5** / Total Hours 6.75
+Team **25** / Name **Jiayu You** / ID **a1847115** / Week **10** / Total Hours 7
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
-| Mon | 13-05-2024 | 11:45   | 13:00    | 1.25        | Client meeting with Dr.Cruz| Pitch slides reviews| submit pitch slides|
-| Tue | 14-05-2024 | 11:00   | 12:00    | 1           | Refining oral presentation abilities| Presenting pitch material to clients | Start recording|
-| Wed | 15-05-2024 | 16:00   | 15:00    | 1           | Meet up with Team Members | Debate the business case, prepare a draft plan, and complete the video presentation. | submit video|
-| Thu | 16-05-2024 | 10:00   | 11:00    | 0.5           | Developing a business case and formulating a draft plan| Maintain concentration on the essentials: the What, the Why, and the Goals.| Continue preparing bussiness case & draft plan|
-| Fri | 17-05-2024 | 13:00   | 15:00    | 2           | Developing a business case and formulating a draft plan| Maintain concentration on the essentials: the What, the Why, and the Goals.| 
-| Sat | 18-05-2024 | 10:30   | 11:30    | 1           | Meet up with Team Members| Define front-end and back-end languages, tools and storage platforms | Getting start with node.js
+| Mon | 13-05-2024 | 15:30   | 19:30    | 4.00        | Meeting with team member; Bug fix| Automatic email sending| - display proper week number; - update send email function to check if that particular student have final draft or not. if not send email; - set delay function to prevent several messages send at same time.|
+| Tue | 14-05-2024 | 12:30   | 13:00    | 0.5           | Work on Test plan | Testing plan | |
+| Wed | 15-05-2024 |    |     |            |  |  | |
+| Thu | 16-05-2024 | 10:00   | 11:00    | 1          | Group meeting for issues | Milestone 2 | Change email sending format|
+| Fri | 17-05-2024 |  |     |           | | | 
+| Sat | 18-05-2024 | 15:00   | 16:30    | 1.5           | modify the email format| email notification in HTML format with direct URL to that submission website | continue
