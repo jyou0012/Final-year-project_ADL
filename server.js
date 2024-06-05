@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const { startCronManager } = require('./src/database/cronManager');
 require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -8,11 +9,11 @@ const handle = app.getRequestHandler();
 
 const port = process.env.PORT || 3000;
 
-// Import and run the initialization script
-require('./initCron');
-
 app.prepare().then(() => {
   const server = express();
+
+  // Start the cron manager to check for schedule changes
+  startCronManager(10000);
 
   server.all('*', (req, res) => {
     return handle(req, res);
