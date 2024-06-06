@@ -18,7 +18,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import TimesheetForm from "./TimesheetForm";
 import ProgressStepper from "./ProgressStepper";
-import { getCurrentWeek, weeks } from "../const";
+import {
+  getCurrentWeek,
+  weeks,
+} from "../const";
 
 export default function TimesheetFormTabs({
   action,
@@ -35,36 +38,6 @@ export default function TimesheetFormTabs({
     weeks.includes(paramWeek) ? paramWeek : weeks[0],
   );
   const [formState, formAction] = useFormState(action, null);
-  const [semesterInfo, setSemesterInfo] = useState(null);
-
-  useEffect(() => {
-    const fetchSemesterInfo = async () => {
-      try {
-        const response = await fetch('/api/config/semester');
-        const data = await response.json();
-        console.log('Fetched semester info:', data);
-        setSemesterInfo(data);
-      } catch (error) {
-        console.error('Failed to fetch semester info:', error);
-      }
-    };
-
-    fetchSemesterInfo();
-  }, []);
-
-  useEffect(() => {
-    if (semesterInfo) {
-      if (!semesterInfo.semesterStart || !semesterInfo.breaks) {
-        console.error('Incomplete semester info:', semesterInfo);
-        return;
-      }
-
-      const currentWeek = getCurrentWeek(semesterInfo.semesterStart, semesterInfo.breaks);
-      const currentWeekLabel = weeks[currentWeek - 1];
-      setWeek(currentWeekLabel);
-      router.push(`/students?week=${currentWeekLabel}`);
-    }
-  }, [semesterInfo]);
 
   const tabChange = (event, newWeek) => {
     setWeek(newWeek);

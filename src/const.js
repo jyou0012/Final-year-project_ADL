@@ -1,8 +1,14 @@
-// src/const.js
 import { parseISO, differenceInCalendarDays, isWithinInterval } from "date-fns";
-import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URI);
+let MongoClient;
+if (typeof window === 'undefined') {
+  MongoClient = require('mongodb').MongoClient;
+}
+
+let client;
+if (typeof window === 'undefined') {
+  client = new MongoClient(process.env.MONGODB_URI);
+}
 
 export const STATE = {
   empty: null,
@@ -108,45 +114,61 @@ export async function fetchSemesterInfo() {
 }
 
 export async function getCurrentWeek() {
-  const { semesterStart, breaks } = await fetchSemesterInfo();
+  try {
+    await client.connect();
+    const database = client.db('TimesheetDashboard');
+    const semesterInfoCollection = database.collection('semesterInfo');
+    const semesterInfo = await semesterInfoCollection.findOne({});
+    const { semesterStart, middleBreakStart, middleBreakEnd } = semesterInfo;
 
-  if (!semesterStart) {
-    throw new Error('Semester start date is undefined');
+    if (!semesterStart) {
+      throw new Error('Semester start date is undefined');
+    }
+
+    const start = parseISO(semesterStart);
+    let today = new Date();
+    let days = differenceInCalendarDays(today, start);
+
+    console.log(`Today's date: ${today.toISOString()}`);
+    console.log(`Semester start date: ${start.toISOString()}`);
+    console.log(`Days since semester start: ${days}`);
+
+    const breaks = [{ start: middleBreakStart, end: middleBreakEnd }];
+    breaks.forEach((breakPeriod) => {
+      const breakStart = parseISO(breakPeriod.start);
+      const breakEnd = parseISO(breakPeriod.end);
+
+      console.log(`Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`);
+
+      if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
+        console.log(`Today is within the break.`);
+        const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
+        console.log(`Days in current break (up to today): ${daysInBreak}`);
+        days -= daysInBreak;
+      } else if (today > breakEnd) {
+        const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
+        console.log(`Past break duration subtracted: ${breakDuration} days`);
+        days -= breakDuration;
+      }
+    });
+
+    const currentWeek = Math.ceil((days + 1) / 7);
+    console.log(`Calculated current week: ${currentWeek}`);
+    return currentWeek;
+  } finally {
+    await client.close();
   }
+}
 
-  const start = parseISO(semesterStart);
-  let today = new Date();
-  let days = differenceInCalendarDays(today, start);
-
-  console.log(`Today's date: ${today.toISOString()}`);
-  console.log(`Semester start date: ${start.toISOString()}`);
-  console.log(`Days since semester start: ${days}`);
-
-  breaks.forEach((breakPeriod) => {
-    if (!breakPeriod.start || !breakPeriod.end) {
-      throw new Error('Break period start or end date is undefined');
-    }
-
-    const breakStart = parseISO(breakPeriod.start);
-    const breakEnd = parseISO(breakPeriod.end);
-
-    console.log(
-      `Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`,
-    );
-
-    if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
-      console.log(`Today is within the break.`);
-      const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
-      console.log(`Days in current break (up to today): ${daysInBreak}`);
-      days -= daysInBreak;
-    } else if (today > breakEnd) {
-      const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
-      console.log(`Past break duration subtracted: ${breakDuration} days`);
-      days -= breakDuration;
-    }
-  });
-
-  const currentWeek = Math.ceil((days + 1) / 7);
-  console.log(`Calculated current week: ${currentWeek}`);
-  return currentWeek;
+export async function fetchSemesterDates() {
+  if (typeof window === 'undefined') {
+    await client.connect();
+    const database = client.db("TimesheetDashboard");
+    const semesterInfo = database.collection("semesterInfo");
+    const result = await semesterInfo.findOne({});
+    await client.close();
+    return result;
+  } else {
+    return {}; // return empty object if executed on client side
+  }
 }

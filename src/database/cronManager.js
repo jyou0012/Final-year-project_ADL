@@ -1,6 +1,6 @@
 import { getScheduler, setCronStatus } from './scheduler';
 import cron from 'node-cron';
-import sendDraftReminders from '../sendEmail';
+import { sendDraftReminders } from '../sendEmail';
 
 let scheduledJob = null;
 let currentSchedule = null;
@@ -24,9 +24,9 @@ async function checkAndUpdateCronSchedule() {
       }
 
       // Schedule the new job
-      scheduledJob = cron.schedule(newSchedule, () => {
+      scheduledJob = cron.schedule(newSchedule, async () => {
         console.log("Cron Job: Running scheduled task to send draft reminders...");
-        sendDraftReminders();
+        await sendDraftReminders();
       });
       console.log("Cron Manager: New cron job scheduled with schedule:", newSchedule);
 

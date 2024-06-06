@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import cron from 'node-cron';
 import { MongoClient } from 'mongodb';
 import { getCurrentWeek } from './const';
 import { upsertNotification, NotificationDoc } from './database/notification';
@@ -44,21 +43,21 @@ export const sendEmail = ({ to = "youjiayu99@gmail.com", subject, text, html }) 
 };
 
 // Fetch drafts and send reminder emails
-export default async function sendDraftReminders() {
+export async function sendDraftReminders() {
   try {
     await client.connect();
     console.log("Connected to MongoDB server successfully.");
     console.log("Fetching current week...");
-    
-    const currentWeek = await getCurrentWeek();
-    //console.log("Current week:", currentWeek);
+
+    const currentWeek = await getCurrentWeek(); // Await the promise
+    console.log("Current week:", currentWeek);
     
     const studentList = await students.find({}).toArray();
-    //console.log("Fetched student list:", studentList);
+    console.log("Fetched student list:", studentList);
     
     const weekQuery = { week: `Week ${currentWeek}` };
     const documents = await timesheet.find(weekQuery).toArray();
-    //console.log("Fetched timesheet documents:", documents);
+    console.log("Fetched timesheet documents:", documents);
 
     const studentDocuments = new Map(
       documents.map((doc) => [doc.student, doc.state])
@@ -108,5 +107,3 @@ export default async function sendDraftReminders() {
     console.log("MongoDB connection closed.");
   }
 }
-
-
