@@ -1,8 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { formAction, fetchStudents } from "./action";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Grid from "@mui/material/Grid";
+import SchoolIcon from '@mui/icons-material/School';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import {
   Box,
   Button,
@@ -65,15 +71,27 @@ export default function Page() {
   };
 
   return (
-    <Container maxWidth="md" style={{ marginTop: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        Student Import
-      </Typography>
+	<Fragment>
+      <Grid container mx="5%" my="1%">
+        <Grid item xs={2}>
+          <Tabs
+          	orientation="vertical"
+		value={2}
+          >
+              <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}} />
+              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}} />
+              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}} />
+          </Tabs>
+        </Grid>
+        <Grid item xs={8}>
       <Box
         component="form"
         onSubmit={handleSubmit}
-        style={{ marginBottom: "20px" }}
+        sx={{ m: "20px"}}
       >
+      <Typography variant="h4" gutterBottom>
+        Import Students
+      </Typography>
         <TextField
           name="csv"
           type="file"
@@ -92,7 +110,7 @@ export default function Page() {
         </Button>
       </Box>
       {students.length > 0 ? (
-        <Paper style={{ padding: "20px" }}>
+        <Paper sx={{ m: "20px"}}>
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -127,10 +145,12 @@ export default function Page() {
           />
         </Paper>
       ) : (
-        <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
+        <Typography variant="subtitle1" sx={{ m: "20px" }}>
           No student information available.
         </Typography>
       )}
-    </Container>
+        </Grid>
+      </Grid>
+    </Fragment>
   );
 }
