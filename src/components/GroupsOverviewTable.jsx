@@ -22,6 +22,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from '@mui/x-charts/PieChart';
+import { LineChart } from '@mui/x-charts/LineChart';
 import { weeks, weekdays, STATE } from "../const";
 
 function GroupsTableRow({ group, groupTimesheets }) {
@@ -41,7 +42,7 @@ function GroupsTableRow({ group, groupTimesheets }) {
 
         {weeks.map((week) => (
           <TableCell key={week}>
-<Stack direction="row" spacing={2} sx={{display: "flex", "flex-direction": "row", "align-items": "center"}}>
+<Stack direction="row" spacing={2} sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
 	<Box>
             {groupTimesheets[group][week].finalCount ===
             groupTimesheets[group][week].studentCount ? (
@@ -128,7 +129,7 @@ export default function GroupsOverviewTable({ groupTimesheets }) {
             </TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
-<Stack direction="row" spacing={2} sx={{display: "flex", "flex-direction": "row", "align-items": "center"}}>
+<Stack direction="row" spacing={2} sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
 	<Box>
             {groupTimesheets["all"][week].finalCount ===
             groupTimesheets["all"].studentCount ? (
@@ -150,6 +151,41 @@ export default function GroupsOverviewTable({ groupTimesheets }) {
           </TableCell>
         ))}
 	  </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={14}>
+          <Collapse in={open}  unmountOnExit>
+<Stack direction="row" spacing={2}>
+
+<LineChart
+   series={Object.keys(groupTimesheets).filter((key) => key !== "all").map((group) => (
+                { data: weeks.map(
+                  (week) =>  groupTimesheets[group][week]["groupWeeklyTotalHours"] || 0,
+                ),
+                label: `group ${group}`,
+              }))}
+   xAxis={[{ scaleType: "band", data: weeks.map((week) => week) }]}
+
+  width={800}
+  height={300}
+/>
+            <PieChart
+  series={[
+    {
+      data: Object.keys(groupTimesheets).filter((key) => key !== "all").map((group) => ({
+	value: groupTimesheets["all"][group] || 0,
+	label: `group ${group}`,
+	}))
+    },
+  ]}
+  width={500}
+  height={300}
+sx={{ my: "50px" }}
+/>
+</Stack>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+
           {Object.keys(groupTimesheets).map((group) => (
 	    group !== "all" &&
             <GroupsTableRow

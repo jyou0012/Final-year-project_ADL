@@ -23,7 +23,7 @@ export default async function Page({ params }) {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs aria-label="breadcrumb" sx={{ mb: "16px" }}>
         <StyledBreadcrumb
           component="a"
           href="/staff/overview"

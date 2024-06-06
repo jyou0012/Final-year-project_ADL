@@ -13,7 +13,7 @@ export default async function Page() {
       <Breadcrumbs aria-label="breadcrumb">
         <StyledBreadcrumb label="Overview" sx={{mb: "16px"}}/>
       </Breadcrumbs>
-      <GroupsOverviewTable groupTimesheets={groupTimesheets} />
+      <GroupsOverviewTable groupTimesheets={JSON.parse(JSON.stringify(groupTimesheets))} />
     </Box>
   );
 }
