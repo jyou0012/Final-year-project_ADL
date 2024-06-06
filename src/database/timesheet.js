@@ -65,7 +65,7 @@ export async function getWeekTimesheets({ group, state }) {
   const students = await getStudentByGroup(group);
 
   for (const s of students) {
-    timesheets[s.id] = {};
+    timesheets[s.id] = {studentTotalHours: 0};
   }
 
   for (const t of await timesheet
@@ -75,6 +75,7 @@ export async function getWeekTimesheets({ group, state }) {
     })
     .toArray()) {
     timesheets[t.student][t.week] = t;
+    timesheets[t.student]["studentTotalHours"] += t.weeklyTotalHours
   }
 
   return timesheets;

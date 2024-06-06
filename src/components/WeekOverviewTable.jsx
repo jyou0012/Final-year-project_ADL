@@ -18,6 +18,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from '@mui/x-charts/PieChart';
+import { LineChart } from '@mui/x-charts/LineChart';
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
 import Menu from "@mui/material/Menu";
@@ -150,7 +151,7 @@ export default function WeekOverviewTable({
 }) {
   const [open, setOpen] = useState(false);
 
-  console.log(finalTimesheets)
+  console.log(222, finalTimesheets)
   return (
     <Fragment>
       <TableContainer component={Paper}>
@@ -189,7 +190,44 @@ export default function WeekOverviewTable({
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-	  </TableRow>
+</TableRow>
+
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={14}>
+          <Collapse in={open}  unmountOnExit>
+<Stack direction="row" spacing={2}>
+
+<LineChart
+   series={Object.keys(finalTimesheets).map((student) => (
+                { data: weeks.map(
+                  (week) => week in finalTimesheets[student] ? finalTimesheets[student][week]["weeklyTotalHours"] : 0,
+                ),
+                label: student,
+              }))}
+   xAxis={[{ scaleType: "band", data: weeks.map((week) => week) }]}
+
+  width={800}
+  height={300}
+/>
+            <PieChart
+  series={[
+    {
+      data: Object.keys(finalTimesheets).map((student) => ({
+	value: finalTimesheets[student]["studentTotalHours"] || 0,
+	label: student,
+	}))
+    },
+  ]}
+  width={500}
+  height={300}
+sx={{ my: "50px" }}
+/>
+</Stack>
+          </Collapse>
+        </TableCell>
+
+</TableRow>
+
 
 
             {Object.keys(draftTimesheets).map((student) => (
