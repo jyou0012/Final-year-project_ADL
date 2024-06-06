@@ -32,6 +32,12 @@ Format codes:
 $ npm run prettier
 ```
 
+Create stuff:
+
+```
+$ node scripts/staff.js <staff name> <staff password>
+```
+
 ## Project Management
 
 ### Minutes

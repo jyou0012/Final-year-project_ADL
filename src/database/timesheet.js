@@ -91,9 +91,14 @@ export async function getGroupsTimesheets({ state }) {
       await getStudentByGroup(g),
       (student) => student.id,
     );
+
+    timesheets[g]["studentTotalHours"] = Object.fromEntries(
+	Array.from(await getStudentByGroup(g),
+	(student) => [student.id, 0]
+	));
     for (const week of weeks) {
       timesheets[g][week] = {
-        groupTotalHours: 0,
+        groupWeeklyTotalHours: 0,
         studentCount: groups[g],
         finalCount: 0,
       };
@@ -104,7 +109,8 @@ export async function getGroupsTimesheets({ state }) {
   for (const t of await timesheet.find({ state: state }).toArray()) {
     console.log(t);
     timesheets[t.group][t.week].finalCount += 1;
-    timesheets[t.group][t.week].groupTotalHours += t.weeklyTotalHours;
+    timesheets[t.group][t.week].groupWeeklyTotalHours += t.weeklyTotalHours;
+    timesheets[t.group]["studentTotalHours"][t.student] += t.weeklyTotalHours;
     timesheets[t.group][t.week][t.student] = t.weeklyTotalHours;
   }
 
