@@ -6,6 +6,7 @@ import {
   setSemesterStartDate,
   setSemesterBreaks
 } from "./semesterTime";
+
 const client = new MongoClient(process.env.MONGODB_URI);
 const database = client.db("TimesheetDashboard");
 
@@ -16,17 +17,9 @@ export function StaffDoc({ name, password }) {
   this.password = password;
 }
 
-export async function getStaff(password) {
-  return await staffCollection.findOne({ password: password });
+export async function getStaff(name) {
+  return await staffCollection.findOne({ name: name });
 }
-
-(async () => {
-  await client.connect();
-  await upsertStaff(new StaffDoc({ name: "Cruz", password: "staff123" }));
-  await upsertScheduler({ cronSchedule: "* * * * *" });
-  await setSemesterStartDate("2024-02-26");
-  await setSemesterBreaks(["2024-04-08", "2024-04-21"]);
-})();
 
 export async function upsertStaff(staffDoc) {
   await staffCollection.updateOne(
@@ -40,3 +33,12 @@ export async function upsertStaff(staffDoc) {
     { upsert: true },
   );
 }
+
+(async () => {
+  await client.connect();
+  await upsertStaff(new StaffDoc({ name: "Staff1", password: "staff123" }));
+  await upsertStaff(new StaffDoc({ name: "Staff2", password: "staff123" }));
+  await upsertScheduler({ cronSchedule: "* * * * *" });
+  await setSemesterStartDate("2024-02-26");
+  await setSemesterBreaks(["2024-04-08", "2024-04-21"]);
+})();

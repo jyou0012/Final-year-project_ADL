@@ -17,9 +17,9 @@ export default async function loginAction(formData) {
       redirect("/students");
     }
   } else if (role === "staff") {
-    const staff = await getStaff(password);
+    const staff = await getStaff(username);
     if (staff && staff.name === username) {
-      createSession("staff", password);
+      createSession("staff", staff.name);
       redirect("/staff/overview");
     }
   }

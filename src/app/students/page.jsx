@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import TimesheetFormTabs from "../../components/TimesheetFormTabs";
-import GroupDailyHoursChart from "../../components/GroupDailyHoursChart";
 import timesheetFormAction from "./actions";
 import { getStudentTimesheets } from "../../database/timesheet";
 import { verifySession } from "../../session";
@@ -23,7 +22,7 @@ export default async function Layout() {
     student: studentId,
     state: STATE.final,
   });
-  
+
   const weeklyHoursData = await getAllStudentWeeklyHours(group);
 
   console.log(111, draftTimesheets);
@@ -37,7 +36,6 @@ export default async function Layout() {
         finalTimesheets={JSON.parse(JSON.stringify(finalTimesheets))}
         readonly={false}
       />
-      <GroupDailyHoursChart data={weeklyHoursData} />
     </Fragment>
   );
 }

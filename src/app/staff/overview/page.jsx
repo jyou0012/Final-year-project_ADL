@@ -11,7 +11,7 @@ export default async function Page() {
   return (
     <Box sx={{ p: 2 }}>
       <Breadcrumbs aria-label="breadcrumb">
-        <StyledBreadcrumb label="Overview" />
+        <StyledBreadcrumb label="Overview" sx={{mb: "16px"}}/>
       </Breadcrumbs>
       <GroupsOverviewTable groupTimesheets={groupTimesheets} />
     </Box>

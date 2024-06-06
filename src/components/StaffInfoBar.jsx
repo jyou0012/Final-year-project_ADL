@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-export default function StaffInfoBar() {
+export default function StaffInfoBar({ staff }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [setupAnchorEl, setSetupAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -30,21 +30,13 @@ export default function StaffInfoBar() {
     handleClose();
   };
 
-  const handleSetupMenu = (event) => {
-    setSetupAnchorEl(event.currentTarget);
-  };
-
-  const handleSetupClose = () => {
-    setSetupAnchorEl(null);
-  };
-
   return (
     <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Timesheet Dashboard
         </Typography>
-        Dr. Cruz
+        {staff.name}
         <IconButton
           color="inherit"
           aria-label="menu"
@@ -64,31 +56,22 @@ export default function StaffInfoBar() {
               window.location.href = "/staff/overview";
               handleClose();
             }}
+	  sx={{ width: "140px" }}
           >
             Overview
           </MenuItem>
           <MenuItem
-            onClick={handleSetupMenu}
+            onClick={() => {
+              window.location.href = "/staff/email";
+              handleClose();
+            }}
           >
-            Set up <ArrowRightIcon />
+            Reminder
           </MenuItem>
-          <Divider />
+
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>
-        <Menu
-          id="setup-menu"
-          anchorEl={setupAnchorEl}
-          open={setupOpen}
-          onClose={handleSetupClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-        >
+
+	  <Divider textAlign="left">settings</Divider>
           <MenuItem
             onClick={() => {
               window.location.href = "/staff/import";
@@ -98,17 +81,6 @@ export default function StaffInfoBar() {
           >
             Import
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              window.location.href = "/staff/email";
-              handleClose();
-            }}
-          >
-            Email History
-          </MenuItem>
-
-
-          <Divider />
 
           <MenuItem
             onClick={() => {
@@ -119,7 +91,6 @@ export default function StaffInfoBar() {
           >
             Time
           </MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
