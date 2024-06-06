@@ -19,6 +19,7 @@ import SignalCellular1BarIcon from "@mui/icons-material/SignalCellular2Bar";
 import SignalCellular3BarIcon from "@mui/icons-material/SignalCellular2Bar";
 import SignalCellular4BarIcon from "@mui/icons-material/SignalCellular4Bar";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart } from '@mui/x-charts/PieChart';
 import { weeks, weekdays, STATE } from "../const";
 
 function GroupsTableRow({ group, groupTimesheets }) {
@@ -57,7 +58,7 @@ function GroupsTableRow({ group, groupTimesheets }) {
 
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={14}>
-          <Collapse in={open} unmountOnExit>
+          <Collapse in={open}  unmountOnExit>
             <BarChart
               series={groupTimesheets[group]["students"].map((student) => ({
                 data: weeks.map(
@@ -70,6 +71,18 @@ function GroupsTableRow({ group, groupTimesheets }) {
               height={300}
               width={800}
             />
+            <PieChart
+  series={[
+    {
+      data: groupTimesheets[group]["students"].map((student) => ({
+	value: groupTimesheets[group]["studentTotalHours"][student],
+	label: student,
+	}))
+    },
+  ]}
+  width={400}
+  height={200}
+/>
           </Collapse>
         </TableCell>
       </TableRow>
