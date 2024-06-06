@@ -85,18 +85,29 @@ export async function getGroupsTimesheets({ state }) {
 
   const groups = await getAllGroups();
 
+  timesheets["all"] = {
+	studentCount: 0,
+}
+
   for (const g of Object.keys(groups)) {
+	const students = await getStudentByGroup(g)
+
     timesheets[g] = {};
     timesheets[g]["students"] = Array.from(
-      await getStudentByGroup(g),
+      students,
       (student) => student.id,
     );
 
     timesheets[g]["studentTotalHours"] = Object.fromEntries(
-	Array.from(await getStudentByGroup(g),
+	Array.from(students,
 	(student) => [student.id, 0]
 	));
+
+    timesheets["all"]["studentCount"] += students.length
     for (const week of weeks) {
+      timesheets["all"][week] = {
+	finalCount: 0,
+	}
       timesheets[g][week] = {
         groupWeeklyTotalHours: 0,
         studentCount: groups[g],
@@ -108,6 +119,7 @@ export async function getGroupsTimesheets({ state }) {
   console.log(timesheets);
   for (const t of await timesheet.find({ state: state }).toArray()) {
     console.log(t);
+    timesheets["all"][t.week].finalCount += 1;
     timesheets[t.group][t.week].finalCount += 1;
     timesheets[t.group][t.week].groupWeeklyTotalHours += t.weeklyTotalHours;
     timesheets[t.group]["studentTotalHours"][t.student] += t.weeklyTotalHours;
