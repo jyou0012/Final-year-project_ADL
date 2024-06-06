@@ -1,5 +1,12 @@
 "use client";
-import React, { useState } from "react";
+
+import { Fragment, useState } from "react";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Grid from "@mui/material/Grid";
+import SchoolIcon from '@mui/icons-material/School';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -34,9 +41,35 @@ export default function TimeSetup() {
   };
 
   return (
+	<Fragment>
+      <Grid container mx="5%" my="1%">
+        <Grid item xs={2}>
+          <Tabs
+          	orientation="vertical"
+		value={3}
+          >
+              <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/profile";
+                        }}
+              />
+              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}}
+
+                        onClick={() => {
+                            window.location.href = "/staff/import";
+                        }}
+              />
+              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/time";
+                        }}
+              />
+          </Tabs>
+        </Grid>
+        <Grid item xs={8}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 600, mx: "auto", p: 2 }}>
-        <Typography variant="h6" gutterBottom>Set Up Semester Time</Typography>
+      <Box component="form" onSubmit={handleSubmit} sx={{ mx: "50px", my: "10px"}}>
+        <Typography variant="h4" gutterBottom>Setup Calendar</Typography>
         <TextField
           label="Semester Name"
           value={semesterName}
@@ -75,5 +108,8 @@ export default function TimeSetup() {
         </Box>
       </Box>
     </LocalizationProvider>
+        </Grid>
+      </Grid>
+    </Fragment>
   );
 }

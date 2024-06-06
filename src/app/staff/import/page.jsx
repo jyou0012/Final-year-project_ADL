@@ -78,16 +78,29 @@ export default function Page() {
           	orientation="vertical"
 		value={2}
           >
-              <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}} />
-              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}} />
-              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}} />
+              <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/profile";
+                        }}
+
+              />
+              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/import";
+                        }}
+              />
+              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/time";
+                        }}
+              />
           </Tabs>
         </Grid>
         <Grid item xs={8}>
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{ m: "20px"}}
+        sx={{ mx: "50px", my: "10px" }}
       >
       <Typography variant="h4" gutterBottom>
         Import Students
@@ -110,7 +123,9 @@ export default function Page() {
         </Button>
       </Box>
       {students.length > 0 ? (
-        <Paper sx={{ m: "20px"}}>
+        <Paper
+        sx={{ mx: "50px", my: "10px" }}
+        >
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -145,7 +160,9 @@ export default function Page() {
           />
         </Paper>
       ) : (
-        <Typography variant="subtitle1" sx={{ m: "20px" }}>
+        <Typography variant="subtitle1"
+                sx={{ mx: "50px", my: "10px" }}
+	>
           No student information available.
         </Typography>
       )}
