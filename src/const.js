@@ -1,3 +1,9 @@
+// src/const.js
+import { parseISO, differenceInCalendarDays, isWithinInterval } from "date-fns";
+import { MongoClient } from "mongodb";
+
+const client = new MongoClient(process.env.MONGODB_URI);
+
 export const STATE = {
   empty: null,
   draft: "draft",
@@ -75,14 +81,40 @@ export const inputFields = {
   },
 };
 
-export const SEMESTER_START_DATE = "2024-02-26"; // YYYY-MM-DD format
+export async function fetchSemesterInfo() {
+  try {
+    await client.connect();
+    const database = client.db('TimesheetDashboard');
+    const configCollection = database.collection('semesterInfo');
+    const config = await configCollection.findOne({ semesterName: '2024S1' });
 
-export const SEMESTER_BREAKS = [{ start: "2024-04-08", end: "2024-04-21" }];
+    if (!config) {
+      throw new Error('Semester info not found');
+    }
 
-import { parseISO, differenceInCalendarDays, isWithinInterval } from "date-fns";
+    console.log('Fetched semester info:', config);
+    return {
+      semesterStart: config.semesterStart,
+      breaks: [
+        { start: config.middleBreakStart, end: config.middleBreakEnd }
+      ]
+    };
+  } catch (error) {
+    console.error('Failed to fetch semester info:', error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+}
 
-export function getCurrentWeek(startDate, breaks) {
-  const start = parseISO(startDate);
+export async function getCurrentWeek() {
+  const { semesterStart, breaks } = await fetchSemesterInfo();
+
+  if (!semesterStart) {
+    throw new Error('Semester start date is undefined');
+  }
+
+  const start = parseISO(semesterStart);
   let today = new Date();
   let days = differenceInCalendarDays(today, start);
 
@@ -91,6 +123,10 @@ export function getCurrentWeek(startDate, breaks) {
   console.log(`Days since semester start: ${days}`);
 
   breaks.forEach((breakPeriod) => {
+    if (!breakPeriod.start || !breakPeriod.end) {
+      throw new Error('Break period start or end date is undefined');
+    }
+
     const breakStart = parseISO(breakPeriod.start);
     const breakEnd = parseISO(breakPeriod.end);
 
