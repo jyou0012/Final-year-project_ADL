@@ -11,6 +11,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { TimePicker, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { LineChart } from '@mui/x-charts/LineChart';
 import weekday from "dayjs/plugin/weekday";
 import updateLocale from "dayjs/plugin/updateLocale";
 import ProgressStepper from "./ProgressStepper";
@@ -61,6 +62,7 @@ export default function TimesheetForm({
   action,
   draftTimesheet,
   finalTimesheet,
+  weekTimesheets,
   readonly,
 }) {
   if (finalTimesheet) {
@@ -340,6 +342,27 @@ export default function TimesheetForm({
               )}
             </Box>
           </Box>
+        )}
+        { readonly === false && (
+        	<Box>
+        	{state === STATE.final && (
+      <Box my="2%" px="25%">
+<LineChart
+   series={Object.keys(weekTimesheets).map((student) => (
+                { data: weekdays.map(
+                  (day) => week in weekTimesheets[student] ? weekTimesheets[student][week][day]["totalHours"] : 0,
+                ),
+                label: student,
+              }))}
+   xAxis={[{ scaleType: "band", data: weekdays.map((day) => day) }]}
+
+  width={800}
+  height={300}
+/>
+        	</Box>
+
+        	)}
+        	</Box>
         )}
       </Box>
     </Fragment>

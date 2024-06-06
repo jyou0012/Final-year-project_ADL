@@ -29,6 +29,7 @@ export default function TimesheetFormTabs({
   action,
   draftTimesheets,
   finalTimesheets,
+  weekTimesheets,
   readonly,
 }) {
   const router = useRouter();
@@ -118,6 +119,7 @@ export default function TimesheetFormTabs({
                       ? JSON.parse(JSON.stringify(finalTimesheets[week]))
                       : null
                   }
+                  weekTimesheets={weekTimesheets}
                   readonly={readonly}
                 />
               ),
