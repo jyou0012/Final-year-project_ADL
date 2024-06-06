@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { Fragment, useState } from "react";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
+import Stack from '@mui/material/Stack';
 import Collapse from "@mui/material/Collapse";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,6 +17,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart } from '@mui/x-charts/PieChart';
 import StatusIndicator from "./Indicator";
 import { weeks, weekdays, STATE } from "../const";
 import Menu from "@mui/material/Menu";
@@ -39,9 +41,6 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-
 
   const [open, setOpen] = useState(false);
 
@@ -70,7 +69,6 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
             secondary={student.client}
             sx={{ px: 2 }}
           />
-          
           <ListItemText
             primary={"Email:"}
             secondary={student.email}
@@ -86,7 +84,7 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
           </IconButton>
         </TableCell>
         <TableCell rowSpan="2" onClick={handleMenu}>{student}</TableCell>
-        <TableCell>{STATE.draft}</TableCell>
+        <TableCell><b>{STATE.draft}</b></TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
             <Link
@@ -98,7 +96,7 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
         ))}
       </TableRow>
       <TableRow>
-        <TableCell>{STATE.final}</TableCell>
+        <TableCell><b>{STATE.final}</b></TableCell>
         {weeks.map((week) => (
           <TableCell key={week}>
             <Link
@@ -112,27 +110,11 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={14}>
           <Collapse in={open} unmountOnExit>
+
+<Stack direction="row" spacing={2} sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
             <BarChart
               series={weekdays.map((day) => ({
-                data: weeks.map((week) =>
-                  week in finalTimesheets[student] &&
-                  finalTimesheets[student][week][day].end &&
-                  finalTimesheets[student][week][day].start
-                    ? dayjs(
-                        finalTimesheets[student][week][day].date +
-                          " " +
-                          finalTimesheets[student][week][day].end,
-                        "DD/MM/YYYY HH:mm",
-                      ).diff(
-                        dayjs(
-                          finalTimesheets[student][week][day].date +
-                            " " +
-                            finalTimesheets[student][week][day].start,
-                          "DD/MM/YYYY HH:mm",
-                        ),
-                        "hour",
-                      )
-                    : 0,
+                data: weeks.map((week) => week in finalTimesheets[student] ? finalTimesheets[student][week][day].totalHours : 0,
                 ),
                 stack: "A",
                 label: day,
@@ -141,6 +123,20 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
               height={300}
               width={800}
             />
+
+                        <PieChart
+  series={[
+    {
+      data: weeks.map((week) => week in finalTimesheets[student] ? {value: finalTimesheets[student][week].weeklyTotalHours, label: week} : {value: 0, label: week})
+
+    },
+  ]}
+  width={700}
+  height={300}
+sx={{ my: "50px" }}
+/>
+</Stack>
+
           </Collapse>
         </TableCell>
       </TableRow>
@@ -152,10 +148,13 @@ export default function WeekOverviewTable({
   draftTimesheets,
   finalTimesheets,
 }) {
+  const [open, setOpen] = useState(false);
+
+  console.log(finalTimesheets)
   return (
     <Fragment>
       <TableContainer component={Paper}>
-        <Table aria-label="collapsible table" sx={{ my: "1%" }}>
+        <Table aria-label="collapsible table" sx={{ mt: "1%" }}>
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
@@ -167,6 +166,32 @@ export default function WeekOverviewTable({
             </TableRow>
           </TableHead>
           <TableBody>
+
+          	  <TableRow>
+        <TableCell>
+          <IconButton size="small" onClick={() => setOpen(!open)}>
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+            <TableCell>
+		ALL
+            </TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+	  </TableRow>
+
+
             {Object.keys(draftTimesheets).map((student) => (
               <WeekTableRow
                 key={student}
