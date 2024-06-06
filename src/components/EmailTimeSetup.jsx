@@ -14,30 +14,26 @@ import { formAction } from "../app/staff/time/action";
 import dayjs from "dayjs";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
-export default function TimeSetup() {
+export default function EmailTimeSetup() {
+  
   const [semesterName, setSemesterName] = useState("");
-  const [semesterStart, setSemesterStart] = useState(null);
-  const [semesterEnd, setSemesterEnd] = useState(null);
-  const [middleBreakStart, setMiddleBreakStart] = useState(null);
-  const [middleBreakEnd, setMiddleBreakEnd] = useState(null);
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
+     
       semesterName,
-      semesterStart: semesterStart ? semesterStart.format("YYYY-MM-DD") : "",
-      semesterEnd: semesterEnd ? semesterEnd.format("YYYY-MM-DD") : "",
-      middleBreakStart: middleBreakStart ? middleBreakStart.format("YYYY-MM-DD") : "",
-      middleBreakEnd: middleBreakEnd ? middleBreakEnd.format("YYYY-MM-DD") : "",
+      
     };
     console.log(data);
 
     // 发送数据到API端点
     const result = await formAction(data);
     if (result.success) {
-      alert('Semester info saved successfully');
+      alert('Email Time saved successfully');
     } else {
-      alert('Failed to save semester info');
+      alert('Failed to save Email Time');
     }
   };
 
@@ -47,7 +43,7 @@ export default function TimeSetup() {
         <Grid item xs={2}>
           <Tabs
           	orientation="vertical"
-		value={3}
+		value={4}
           >
               <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}}
                         onClick={() => {
@@ -75,38 +71,17 @@ export default function TimeSetup() {
         <Grid item xs={8}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box component="form" onSubmit={handleSubmit} sx={{ mx: "50px", my: "10px"}}>
-        <Typography variant="h4" gutterBottom>Setup Calendar</Typography>
+        <Typography variant="h4" gutterBottom>Setup EmailTime</Typography>
+        
+        
         <TextField
-          label="Semester Name"
+          label="Email Time"
           value={semesterName}
           onChange={(e) => setSemesterName(e.target.value)}
           fullWidth
           margin="normal"
         />
-        <DatePicker
-          label="Semester Start"
-          value={semesterStart}
-          onChange={(newValue) => setSemesterStart(newValue)}
-          slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
-        />
-        <DatePicker
-          label="Semester End"
-          value={semesterEnd}
-          onChange={(newValue) => setSemesterEnd(newValue)}
-          slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
-        />
-        <DatePicker
-          label="Middle Break Start"
-          value={middleBreakStart}
-          onChange={(newValue) => setMiddleBreakStart(newValue)}
-          slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
-        />
-        <DatePicker
-          label="Middle Break End"
-          value={middleBreakEnd}
-          onChange={(newValue) => setMiddleBreakEnd(newValue)}
-          slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
-        />
+        
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button type="submit" variant="contained" color="primary">
             Save
