@@ -38,7 +38,5 @@ export async function upsertStaff(staffDoc) {
   await client.connect();
   await upsertStaff(new StaffDoc({ name: "Staff1", password: "staff123" }));
   await upsertStaff(new StaffDoc({ name: "Staff2", password: "staff123" }));
-  await upsertScheduler({ cronSchedule: "* * * * *" });
-  await setSemesterStartDate("2024-02-26");
-  await setSemesterBreaks(["2024-04-08", "2024-04-21"]);
+  
 })();

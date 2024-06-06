@@ -5,13 +5,14 @@ const database = client.db("TimesheetDashboard");
 
 export const notificationCollection = database.collection("notification");
 
-export function NotificationDoc({ name, id, group, email, message, time }) {
+export function NotificationDoc({ name, id, group, email, message, time , week}) {
   this.name = name;
   this.id = id;
   this.group = group;
   this.email = email;
   this.message = message;
   this.time = time;
+  this.week = week;
 }
 
 export async function getNotification(id) {
@@ -39,8 +40,11 @@ export async function getAllNotifications() {
 export async function upsertNotification(notificationDoc) {
   try {
     await client.connect();
+    // Create a unique identifier using both student ID and week
+    const uniqueId = `${notificationDoc.id}-${notificationDoc.week}`;
+    
     await notificationCollection.updateOne(
-      { id: notificationDoc.id },
+      { uniqueId: uniqueId }, // Use the unique identifier for upsert
       {
         $set: {
           name: notificationDoc.name,
@@ -49,6 +53,7 @@ export async function upsertNotification(notificationDoc) {
           email: notificationDoc.email,
           message: notificationDoc.message,
           time: notificationDoc.time,
+          week: notificationDoc.week, // Ensure the week field is set
         },
       },
       { upsert: true }
@@ -59,3 +64,4 @@ export async function upsertNotification(notificationDoc) {
     await client.close();
   }
 }
+
