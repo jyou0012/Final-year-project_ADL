@@ -59,6 +59,7 @@ export default function EmailTimeSetup() {
     <Fragment>
       <Grid container mx="5%" my="1%">
         <Grid item xs={2}>
+<<<<<<< Updated upstream
           <Tabs orientation="vertical" value={4}>
             <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{ justifyContent: "left" }}
               onClick={() => {
@@ -80,6 +81,28 @@ export default function EmailTimeSetup() {
                 window.location.href = "/staff/emailtime";
               }}
             />
+=======
+          <Tabs
+          	orientation="vertical"
+		value={4}
+          >
+              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}}
+
+                        onClick={() => {
+                            window.location.href = "/staff/import";
+                        }}
+              />
+              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/time";
+                        }}
+              />
+               <Tab iconPosition="start" icon={<AccessAlarmIcon />} label="Setup EmailTime" value={4} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/emailtime";
+                        }}
+              />
+>>>>>>> Stashed changes
           </Tabs>
         </Grid>
         <Grid item xs={8}>

@@ -48,36 +48,6 @@ function WeekTableRow({ student, draftTimesheets, finalTimesheets }) {
   return (
     <Fragment>
 
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          open={open2}
-          onClose={handleClose}
-        >
-          <ListItemText
-            primary={"Name:"}
-            secondary={student.name}
-            sx={{ width: "120px", px: 2 }}
-          />
-          <ListItemText primary={"ID:"} secondary={student.id} sx={{ px: 2 }} />
-          <ListItemText
-            primary={"Group:"}
-            secondary={student.group}
-            sx={{ px: 2 }}
-          />
-          <ListItemText
-            primary={"Client:"}
-            secondary={student.client}
-            sx={{ px: 2 }}
-          />
-          <ListItemText
-            primary={"Email:"}
-            secondary={student.email}
-            sx={{ px: 2 }}
-          />
-
-        </Menu>
-
       <TableRow>
         <TableCell rowSpan="2">
           <IconButton size="small" onClick={() => setOpen(!open)}>

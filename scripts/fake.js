@@ -52,6 +52,10 @@ async function getAllStudents() {
 	const students = await getAllStudents()
 
 	for (let student of students) {
+		if (student.group === "6") {
+			continue
+		
+		}
 		for (let state of ["draft", "final"]) {
 			for (let week of weeks) {
 				if (student.id === "a1878349" && (week === "Week 12" || week === "Week 11")) {

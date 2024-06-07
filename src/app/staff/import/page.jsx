@@ -79,12 +79,6 @@ export default function Page() {
           	orientation="vertical"
 		value={2}
           >
-              <Tab iconPosition="start" icon={<PersonPinIcon />} label="Profile" value={1} sx={{"justify-content": "left"}}
-                        onClick={() => {
-                            window.location.href = "/staff/profile";
-                        }}
-
-              />
               <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}}
                         onClick={() => {
                             window.location.href = "/staff/import";

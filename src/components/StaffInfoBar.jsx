@@ -69,9 +69,6 @@ export default function StaffInfoBar({ staff }) {
             Reminder
           </MenuItem>
 
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-
-	  <Divider textAlign="left">settings</Divider>
           <MenuItem
             onClick={() => {
               window.location.href = "/staff/import";
@@ -79,18 +76,9 @@ export default function StaffInfoBar({ staff }) {
               handleClose();
             }}
           >
-            Import
+            Settings
           </MenuItem>
-
-          <MenuItem
-            onClick={() => {
-              window.location.href = "/staff/time";
-              handleSetupClose();
-              handleClose();
-            }}
-          >
-            Time
-          </MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
