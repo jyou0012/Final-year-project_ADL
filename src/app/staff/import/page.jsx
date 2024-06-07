@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import SchoolIcon from '@mui/icons-material/School';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import {
   Box,
   Button,
@@ -92,6 +93,11 @@ export default function Page() {
               <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
                         onClick={() => {
                             window.location.href = "/staff/time";
+                        }}
+              />
+                <Tab iconPosition="start" icon={<AccessAlarmIcon />} label="Setup EmailTime" value={4} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/emailtime";
                         }}
               />
           </Tabs>

@@ -87,6 +87,7 @@ export async function sendDraftReminders() {
           group: student.group,
           email: student.email,
           message: `No final document found for student ${studentId} for Week ${currentWeek}. Sending reminder email.`,
+          week: `Week ${currentWeek}`,
           time: new Date(),
         });
 

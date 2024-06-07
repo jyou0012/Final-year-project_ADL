@@ -12,6 +12,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { formAction } from "../app/staff/time/action";
 import dayjs from "dayjs";
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
 export default function TimeSetup() {
   const [semesterName, setSemesterName] = useState("");
@@ -62,6 +63,11 @@ export default function TimeSetup() {
               <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
                         onClick={() => {
                             window.location.href = "/staff/time";
+                        }}
+              />
+               <Tab iconPosition="start" icon={<AccessAlarmIcon />} label="Setup EmailTime" value={4} sx={{"justify-content": "left"}}
+                        onClick={() => {
+                            window.location.href = "/staff/emailtime";
                         }}
               />
           </Tabs>
