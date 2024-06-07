@@ -20,8 +20,6 @@ import TimesheetForm from "./TimesheetForm";
 import ProgressStepper from "./ProgressStepper";
 import {
   getCurrentWeek,
-  SEMESTER_START_DATE,
-  SEMESTER_BREAKS,
   weeks,
 } from "../const";
 
@@ -42,16 +40,6 @@ export default function TimesheetFormTabs({
   );
   const [formState, formAction] = useFormState(action, null);
 
-  /*
-  useEffect(() => {
-    // Calculate the current week based on the semester start and breaks
-    const currentWeek = getCurrentWeek(SEMESTER_START_DATE, SEMESTER_BREAKS);
-    const currentWeekLabel = weeks[currentWeek - 1]; // Adjust if the index is off due to the calculation
-    setWeek(currentWeekLabel);
-    // Optionally update the URL or handle navigation
-    router.push(`/students?week=${currentWeekLabel}`);
-  }, []); // Empty dependency array to only run once on mount
-*/
   const tabChange = (event, newWeek) => {
     setWeek(newWeek);
     router.push(`?week=${newWeek}`);

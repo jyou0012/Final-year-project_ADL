@@ -1,3 +1,15 @@
+import { parseISO, differenceInCalendarDays, isWithinInterval } from "date-fns";
+
+let MongoClient;
+if (typeof window === 'undefined') {
+  MongoClient = require('mongodb').MongoClient;
+}
+
+let client;
+if (typeof window === 'undefined') {
+  client = new MongoClient(process.env.MONGODB_URI);
+}
+
 export const STATE = {
   empty: null,
   draft: "draft",
@@ -75,42 +87,88 @@ export const inputFields = {
   },
 };
 
-export const SEMESTER_START_DATE = "2024-02-26"; // YYYY-MM-DD format
+export async function fetchSemesterInfo() {
+  try {
+    await client.connect();
+    const database = client.db('TimesheetDashboard');
+    const configCollection = database.collection('semesterInfo');
+    const config = await configCollection.findOne({ semesterName: '2024S1' });
 
-export const SEMESTER_BREAKS = [{ start: "2024-04-08", end: "2024-04-21" }];
-
-import { parseISO, differenceInCalendarDays, isWithinInterval } from "date-fns";
-
-export function getCurrentWeek(startDate, breaks) {
-  const start = parseISO(startDate);
-  let today = new Date();
-  let days = differenceInCalendarDays(today, start);
-
-  console.log(`Today's date: ${today.toISOString()}`);
-  console.log(`Semester start date: ${start.toISOString()}`);
-  console.log(`Days since semester start: ${days}`);
-
-  breaks.forEach((breakPeriod) => {
-    const breakStart = parseISO(breakPeriod.start);
-    const breakEnd = parseISO(breakPeriod.end);
-
-    console.log(
-      `Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`,
-    );
-
-    if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
-      console.log(`Today is within the break.`);
-      const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
-      console.log(`Days in current break (up to today): ${daysInBreak}`);
-      days -= daysInBreak;
-    } else if (today > breakEnd) {
-      const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
-      console.log(`Past break duration subtracted: ${breakDuration} days`);
-      days -= breakDuration;
+    if (!config) {
+      throw new Error('Semester info not found');
     }
-  });
 
-  const currentWeek = Math.ceil((days + 1) / 7);
-  console.log(`Calculated current week: ${currentWeek}`);
-  return currentWeek;
+    console.log('Fetched semester info:', config);
+    return {
+      semesterStart: config.semesterStart,
+      breaks: [
+        { start: config.middleBreakStart, end: config.middleBreakEnd }
+      ]
+    };
+  } catch (error) {
+    console.error('Failed to fetch semester info:', error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+}
+
+export async function getCurrentWeek() {
+  try {
+    await client.connect();
+    const database = client.db('TimesheetDashboard');
+    const semesterInfoCollection = database.collection('semesterInfo');
+    const semesterInfo = await semesterInfoCollection.findOne({});
+    const { semesterStart, middleBreakStart, middleBreakEnd } = semesterInfo;
+
+    if (!semesterStart) {
+      throw new Error('Semester start date is undefined');
+    }
+
+    const start = parseISO(semesterStart);
+    let today = new Date();
+    let days = differenceInCalendarDays(today, start);
+
+    console.log(`Today's date: ${today.toISOString()}`);
+    console.log(`Semester start date: ${start.toISOString()}`);
+    console.log(`Days since semester start: ${days}`);
+
+    const breaks = [{ start: middleBreakStart, end: middleBreakEnd }];
+    breaks.forEach((breakPeriod) => {
+      const breakStart = parseISO(breakPeriod.start);
+      const breakEnd = parseISO(breakPeriod.end);
+
+      console.log(`Break from ${breakStart.toISOString()} to ${breakEnd.toISOString()}`);
+
+      if (isWithinInterval(today, { start: breakStart, end: breakEnd })) {
+        console.log(`Today is within the break.`);
+        const daysInBreak = differenceInCalendarDays(today, breakStart) + 1;
+        console.log(`Days in current break (up to today): ${daysInBreak}`);
+        days -= daysInBreak;
+      } else if (today > breakEnd) {
+        const breakDuration = differenceInCalendarDays(breakEnd, breakStart) + 1;
+        console.log(`Past break duration subtracted: ${breakDuration} days`);
+        days -= breakDuration;
+      }
+    });
+
+    const currentWeek = Math.ceil((days + 1) / 7);
+    console.log(`Calculated current week: ${currentWeek}`);
+    return currentWeek;
+  } finally {
+    await client.close();
+  }
+}
+
+export async function fetchSemesterDates() {
+  if (typeof window === 'undefined') {
+    await client.connect();
+    const database = client.db("TimesheetDashboard");
+    const semesterInfo = database.collection("semesterInfo");
+    const result = await semesterInfo.findOne({});
+    await client.close();
+    return result;
+  } else {
+    return {}; // return empty object if executed on client side
+  }
 }
