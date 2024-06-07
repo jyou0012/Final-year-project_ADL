@@ -25,5 +25,8 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "prettier": "prettier -w src"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
   }
 }

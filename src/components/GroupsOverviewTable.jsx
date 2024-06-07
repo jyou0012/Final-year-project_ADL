@@ -128,13 +128,13 @@ export default function GroupsOverviewTable({ groupTimesheets }) {
             <TableCell>
 		ALL
             </TableCell>
-        {weeks.map((week) => (
+        { Object.keys(groupTimesheets).length > 1 && weeks.map((week) => (
           <TableCell key={week}>
 <Stack direction="row" spacing={2} sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
 	<Box>
             {groupTimesheets["all"][week].finalCount ===
             groupTimesheets["all"].studentCount ? (
-		<CheckCircleOutlineIcon sx={{ color: green[500] }} />
+		<CheckCircleIcon sx={{ color: green[500] }} />
             ) : groupTimesheets["all"][week].finalCount === 0 ? (
 		<PublishedWithChangesIcon />
             ) : groupTimesheets["all"][week].finalCount >

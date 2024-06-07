@@ -75,7 +75,7 @@ export async function getWeekTimesheets({ group, state }) {
     })
     .toArray()) {
     timesheets[t.student][t.week] = t;
-    timesheets[t.student]["studentTotalHours"] += t.weeklyTotalHours
+    timesheets[t.student]["studentTotalHours"] += parseFloat(t.weeklyTotalHours)
   }
 
   return timesheets;
@@ -123,11 +123,11 @@ export async function getGroupsTimesheets({ state }) {
   for (const t of await timesheet.find({ state: state }).toArray()) {
     console.log(t);
     timesheets["all"][t.week].finalCount += 1;
-    timesheets["all"][t.group] += t.weeklyTotalHours
+    timesheets["all"][t.group] += parseFloat(t.weeklyTotalHours);
     timesheets[t.group][t.week].finalCount += 1;
-    timesheets[t.group][t.week].groupWeeklyTotalHours += t.weeklyTotalHours;
-    timesheets[t.group]["studentTotalHours"][t.student] += t.weeklyTotalHours;
-    timesheets[t.group][t.week][t.student] = t.weeklyTotalHours;
+    timesheets[t.group][t.week].groupWeeklyTotalHours += parseFloat(t.weeklyTotalHours);
+    timesheets[t.group]["studentTotalHours"][t.student] += parseFloat(t.weeklyTotalHours);
+    timesheets[t.group][t.week][t.student] = parseFloat(t.weeklyTotalHours);
   }
 
   return timesheets;
