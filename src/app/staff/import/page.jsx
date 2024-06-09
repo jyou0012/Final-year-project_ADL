@@ -79,17 +79,17 @@ export default function Page() {
           	orientation="vertical"
 		value={2}
           >
-              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{"justify-content": "left"}}
+              <Tab iconPosition="start" icon={<SchoolIcon />} label="Import Students" value={2} sx={{justifyContent: "left"}}
                         onClick={() => {
                             window.location.href = "/staff/import";
                         }}
               />
-              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{"justify-content": "left"}}
+              <Tab iconPosition="start" icon={<CalendarMonthIcon />} label="Setup Calendar" value={3} sx={{justifyContent: "left"}}
                         onClick={() => {
                             window.location.href = "/staff/time";
                         }}
               />
-                <Tab iconPosition="start" icon={<AccessAlarmIcon />} label="Setup EmailTime" value={4} sx={{"justify-content": "left"}}
+                <Tab iconPosition="start" icon={<AccessAlarmIcon />} label="Setup EmailTime" value={4} sx={{justifyContent: "left"}}
                         onClick={() => {
                             window.location.href = "/staff/emailtime";
                         }}

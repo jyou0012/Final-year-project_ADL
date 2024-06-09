@@ -23,6 +23,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
+    "prod": "next start",
     "lint": "next lint",
     "prettier": "prettier -w src"
   },

@@ -42,7 +42,7 @@ async function checkAndUpdateCronSchedule() {
 }
 
 // Function to start the periodic check
-export function startCronManager(interval = 60000) { // Check every minute by default
+export function startCronManager(interval = 10000) { // Check every minute by default
   checkAndUpdateCronSchedule(); // Initial check
   setInterval(checkAndUpdateCronSchedule, interval);
 }
