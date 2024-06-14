@@ -1,5 +1,5 @@
 - # Roles:	
-Front-end developer; Code test
+Front-end developer; Code test (Participated in some backend）
 - I was served as a chair for meetings 1, 6, and 7, and secretary for meetings 2, 3, and 5.
 - Contributed to the Business Case & Draft Plan, Milestone 1 Report, Second Milestone Plan, Pitch Presentation, Final Presentation, and Test Plan.
 
