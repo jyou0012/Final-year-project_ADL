@@ -13,9 +13,9 @@
 
   The first version of the product requirements prototype drawing
   
-  The first version of the database management system structure drawing Team-25/blob/main/design/Database%20structure%20diagram.jpg 
+  The first version of the database management system structure drawing. Team-25/blob/main/design/Database%20structure%20diagram.jpg 
   
-  Drawing of user flow chart after milestone2  Team-25/blob/main/design/user%20flow%20chart.jpg 
+  Drawing of user flow chart after milestone2.  Team-25/blob/main/design/user%20flow%20chart.jpg 
   
   Requirement research of the project : including the use of the student side pain points collection 
   
