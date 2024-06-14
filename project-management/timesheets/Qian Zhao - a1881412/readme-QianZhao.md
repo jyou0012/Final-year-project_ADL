@@ -51,7 +51,7 @@ Responsible for developing in the unit testing and integration testing of the pr
 
 5.Project effort 
 
-Average: 3.07 hours
+Average: 3.07 hours per day
 
 Total: 305 hours (totally 13 weeks, from week2 to week12, including two weeks of mid-break)
 
