@@ -1,6 +1,6 @@
 # MCI Project Weekly Time Sheet
 
-Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **11** / Total Hours 
+Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **11** / Total Hours 13.5
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
