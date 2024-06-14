@@ -5,15 +5,19 @@
   
   Organisation and report management submission for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2, test plan, final presentation)
   
+  Project various output documents writiing： such as pitch presentation, milestone1 document, milestone2 document, test plan and other documents writing.
+  
   
   
 2、Product requirements management
 
   The first version of the product requirements prototype drawing
   
-  The first version of the database management system structure drawing
+  The first version of the database management system structure drawing(https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/design/Database%20structure%20diagram.jpg)
   
-  Drawing of user flow chart after milestone2
+  Drawing of user flow chart after milestone2(https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/design/user%20flow%20chart.jpg)
+  
+  Requirement research of the project : including the use of the student side pain points collection 
   
   
   
@@ -30,6 +34,6 @@
   
    
    
-3、Project Testing	
+4、Project Testing	
 
 Responsible for developing in the unit testing and integration testing of the project, as well as the testing of the interaction with other modules in the integration testing.
