@@ -25,6 +25,7 @@ export default async function Page({ params }) {
         />
         <StyledBreadcrumb label={"Group " + params.num} />
       </Breadcrumbs>
+      //group
       <WeekOverviewTable
         group={params.num}
         //xuyao student
