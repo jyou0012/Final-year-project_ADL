@@ -12,7 +12,7 @@
   
 2、Product requirements management
 
-  The first version of the product requirements prototype drawing
+  The first version of the product requirements prototype drawing（sorry cannot find the file）
   
   The first version of the database management system structure drawing. (https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/design/Database%20structure%20diagram.jpg)
   
