@@ -8,7 +8,7 @@
     client meeting https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/minutes
 
   
-  Report writing、 management 、 organisation and submission for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2,       test plan, final presentation)
+  Management 、organisation for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2,  test plan, final presentation)
   
   Project various output documents writiing： such as pitch presentation, milestone1 document, milestone2 document, test plan and other documents writing.
   
