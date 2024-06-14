@@ -8,11 +8,12 @@ Team **25** / Meeting **8** / Date **20-05-2024** / Time **11:45 - 12:45** / Loc
 ## 1 Discussion Topics
 
 ### 1.1  Demonstration of project functions:
-1. Demonstration of whole project function part
-2. Staff-side student information import page and function.
-3. Login module
-3. Staff-side group overview and student page.
-4. Staff-side student's weekly submission page.
+1. Show that we have solved last week’s problem and imported real data.
+2. Demonstration of whole project function part
+3. Staff-side student information import page and function.
+4. Login module
+5. Staff-side group overview and student page.
+6. Staff-side student's weekly submission page.
 
 ### 1.2 Modification of project details:
 1、There were technical errors during the presentation, which were later discovered to be backend import failures and browser compatibility issues, which were fixed after the meeting. 
