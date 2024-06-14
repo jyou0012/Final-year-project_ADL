@@ -42,8 +42,8 @@ Staff group detail overview page  -- to view the student draft and final page im
 Responsible for developing in the unit testing and integration testing of the project, as well as the testing of the interaction with other modules in the integration testing.
 
 
-5.Project effort Average: 15 hours
-Total: 240 hours (totally 13 weeks, from week2 to week12, including two weeks of mid-break)
+5.Project effort Average: 3.07 hours
+Total: 305 hours (totally 13 weeks, from week2 to week12, including two weeks of mid-break)
 
  
   
