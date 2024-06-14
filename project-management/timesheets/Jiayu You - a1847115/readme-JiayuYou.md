@@ -1,6 +1,4 @@
-# Roles:	
--Backend developer
--Code test
+# Roles:	Backend developer; Code test
 
 # Github:	
 - Build the structure and logics of seperating the submission with status of draft and final. Work can be found in commit [9b901c66ae32e7439c3bc2303cc4bc3afe4ea6cb](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/commit/9b901c66ae32e7439c3bc2303cc4bc3afe4ea6cb);
@@ -12,5 +10,5 @@
 - Build the structure and logics of display notifications get from database. Work can be found at [33a22586de26e2a4b431a36c306548a1f4212158](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/commit/33a22586de26e2a4b431a36c306548a1f4212158);
 - Build the structure and logics of frequently check cron code inside the databse, work can be found at [135ecf465f5d6caa9a11514cfc4cafa3f1e8c608](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/commit/135ecf465f5d6caa9a11514cfc4cafa3f1e8c608);
 # Project effort 	
-- **Total**: 109 hours (totally 12 weeks, from week2 to week13, including two weeks of mid-break)
-- **Average** : 9 hours
+- **Total**: 183 hours (totally 12 weeks, from week2 to week13, including two weeks of mid-break)
+- **Average** : 15.2 hours
