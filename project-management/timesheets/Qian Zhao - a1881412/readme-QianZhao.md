@@ -1,7 +1,10 @@
 
 1、 Project management
 
-  Minute writing for each meeting with our client (MEETING2, 3, 4, 5, 6)
+  Minute writing for each meeting with our client and team meeting (MEETING2, 3, 4, 5, 6)
+  team meeting   https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/agenda
+  client meeting https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/minutes
+  
   
   Organisation and report management submission for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2, test plan, final presentation)
   
