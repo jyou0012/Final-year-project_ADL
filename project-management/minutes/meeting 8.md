@@ -1,4 +1,4 @@
-# Minutes of the seven Client Meeting
+# Minutes of the 8th Client Meeting
 
 Team **25** / Meeting **8** / Date **20-05-2024** / Time **11:45 - 12:45** / Location **Ingkarni Wardli, floor 4**
 
