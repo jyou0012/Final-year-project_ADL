@@ -9,5 +9,5 @@ Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **9** / Total Hours 1
 | Tue | 07-05-2024 | 20:00   | 22:00    | 2         | intergrated with student page|Increase visual effects | need to debug with other member|
 | Wed | 08-05-2024 |  14:00  |  15:30   |  1.5           | debug intergration  | Timesheet entry | tested and done |
 | Thu | 09-05-2024 |    |         |        |  | |
-| Fri | 10-05-2024 | 14:00   | 17:00    | 3           | start staff page formatting, create staffinfo bar components| Improve user experience| tested and done |
+| Fri | 10-05-2024 | 14:00   | 17:00    | 3           | start coding staff page formatting, create staffinfo bar components| Improve user experience| tested and done |
 
