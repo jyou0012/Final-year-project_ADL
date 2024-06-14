@@ -1,6 +1,6 @@
 # MCI Project Weekly Time Sheet
 
-Team **25** / Name **Jiayu You** / ID **a1847115** / Week **9** / Total Hours 12.5
+Team **25** / Name **Jiayu You** / ID **a1847115** / Week **9** / Total Hours 14.5
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
@@ -9,3 +9,4 @@ Team **25** / Name **Jiayu You** / ID **a1847115** / Week **9** / Total Hours 12
 | Wed | 08-05-2024 |  20:00  |  20:30   |     0.5        | Study function about automatic set time week etc | Timesheet entry | setup branch "Jiayu_automatic_set_time_week |
 | Thu | 09-05-2024 |  14:00   |    18:30      |     4.5       | implement functions to automatically calculate the current week with given start date and mid break period | automatic email sending | done and tested |
 | Fri | 10-05-2024 | 14:00   | 17:00    | 3           | Add Automated email sending function| automatic email sending| meet some issues and need to fix|
+| Sat | 11-05-2024 | 20:00   | 22:00    | 2           | work on bug fix| automatic email sending| continue|
