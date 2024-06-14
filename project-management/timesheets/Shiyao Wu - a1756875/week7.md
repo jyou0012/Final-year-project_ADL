@@ -9,8 +9,4 @@ Team **25** / Name **ShiYao Wu** / ID **a1756875** / Week **7** / Total Hours 10
 | Wed | 10-04-2024 | 14:00   | 16:00    | 2          | use MUI to render Timesheet Form page | Optimisation of the interface| Continue to improve the interface|
 | Thu | 11-04-2024 | 15:00   | 17:00    | 2           | Combine days and weeks in the same submission screen| Optimised structure of the submission interface| Preparing to upload to the branch|
 | Fri | 12-04-2024 | 13:00   | 14:00    | 1           | Continue to optimise code and uploads | Reviewed together by the group | Proceed to the next module design|
-| Sat | 13-04-2024 | 15:00  |  16:00  |  1         | working on frond end coding  | start learing  with node.js and Material UI|Practice the first page |
-| Sun | 14-04-2024 | 15:00 | 16:00   | 1        | Meet up with Tream Members |Discuss about our outcoming | Design student list page
 
-
- 
