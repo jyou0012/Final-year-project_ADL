@@ -2,7 +2,7 @@
 
 Team **25** / Meeting **2** / Date **26-03-2024** / Time **11:45 - 12:30** / Location **Ingkarni Wardli, floor 4**
 
-- Client: Cruz Lzu
+- Client: Cruz Izu
 - Attendees: Bofan Wang; Jiayu You; Xinrun Wu; Shiyao Wu; Qian Zhao
 
 ## 1 Discussion Topics
