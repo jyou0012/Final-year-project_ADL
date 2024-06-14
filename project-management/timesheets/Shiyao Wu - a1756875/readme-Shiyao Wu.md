@@ -1,8 +1,13 @@
 # Roles and Responsibilities		
+
 Front-end Developer (Later participated in backend development and integration)
+
 Primarily responsible for the design and implementation of the student timesheet submission interface.
+
 Developed the teacher's student information import functionality, including reading CSV files, storing data in the database, and displaying it in tables.
+
 Designed and implemented the semester setup page for teachers, ensuring that the start date automatically populates as the first day displayed on the student timesheet submission interface and automatically skips the mid-term break.
+
 Conducted unit testing and integration testing for the semester setup and student timesheet submission functionalities, ensuring seamless communication and data transfer.
 
 # Github Contribution
