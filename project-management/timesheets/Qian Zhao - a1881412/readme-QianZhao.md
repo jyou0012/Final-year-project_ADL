@@ -9,6 +9,7 @@
   
   
   
+  
 2、Product requirements management
 
   The first version of the product requirements prototype drawing
@@ -18,6 +19,7 @@
   Drawing of user flow chart after milestone2.  /Team-25/blob/main/design/user%20flow%20chart.jpg 
   
   Requirement research of the project : including the use of the student side pain points collection 
+  
   
   
   
@@ -33,6 +35,7 @@
  Student details page -- The student details page contains a display of the student's id, name, email and group. And the ability to click on a student's   email address to   jump to an outlook page  Team-25/src/app/staff/overview/group/[num]/
   
   
+   
    
    
 4、Project Testing	
