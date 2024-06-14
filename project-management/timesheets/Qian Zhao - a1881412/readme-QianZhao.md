@@ -1,5 +1,5 @@
 
-1. Project management
+1、 Project management
 
   Minute writing for each meeting with mentor (MEETING2, 3, 4, 5, 6)
   
