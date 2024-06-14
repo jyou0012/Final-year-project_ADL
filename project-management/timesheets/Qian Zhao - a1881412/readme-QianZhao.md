@@ -1,7 +1,7 @@
 
 1、 Project management
 
-  Minute writing for each meeting with mentor (MEETING2, 3, 4, 5, 6)
+  Minute writing for each meeting with our client (MEETING2, 3, 4, 5, 6)
   
   Organisation and report management submission for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2, test plan, final presentation)
   
@@ -32,8 +32,8 @@
 
   E-mail time page  -- Implementation of email sending interval page, page header,    current time interval display and modified time interval display and final submission   function  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/EmailTimeSetup.jsx
 
- Staff view student details page -- The student details page contains a display of the student's id, name, email and group. And the ability to click on a student's   email address to   jump to an outlook page https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/TimesheetFormTabs.jsx 
-and the rest code in https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/students/page.jsx
+ Staff view student details page -- The student details page contains a display of the student's submitting content ，including draft and final page  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/TimesheetFormTabs.jsx 
+and the rest code is in other page  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/students/page.jsx
  
 Staff group detail overview page  -- to view the student draft and final page implementation (page page top bar, sidebar, user information and student submission            information display)  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/staff/overview/group/%5Bnum%5D/page.jsx
    
