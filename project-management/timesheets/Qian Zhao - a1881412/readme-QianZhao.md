@@ -26,8 +26,9 @@
  3、Implementation of project function code module
   
 
-   Staffnavigation bar function	-- Staff's navigation bar allows staff to navigate from group overview to group member submit detail page to student submit content page and   back. [Team-25/blob/main/src/components/StaffInfoBar.jsx](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/StaffInfoBar.jsx)
-https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/StaffBar.jsx
+   Staffnavigation bar function	-- Staff's navigation bar allows staff to navigate from group overview to group member submit detail page to student submit content page and   back. [Team-25/blob/main/src/components/StaffInfoBar.jsx](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/StaffInfoBar.jsx) 
+   
+  Staff  option select function https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/StaffBar.jsx
 
   E-mail time page  -- Implementation of email sending interval page, page header,    current time interval display and modified time interval display and final submission   function   [/Team-25/blob/main/src/components/EmailTimeSetup.jsx](https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/StaffInfoBar.jsx)
 
