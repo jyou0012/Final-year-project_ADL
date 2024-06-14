@@ -1,13 +1,13 @@
 # MCI Project Weekly Time Sheet
 
-Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **7** / Total Hours 
+Team **25** / Name **Bofan Wang** / ID **a1878349** / Week **7** / Total Hours 15H
 
 | Day | Date       | Time In | Time Out | Total Hours | Task | How does it fit to project plan | Outcome/Next action |
 | --- | ---------- | ------- | -------- | ----------- | ---- | ------------------------------- | ------------------- |
-| Mon | 22-04-2024 |  11:00       |  20:00        | 5          | Playaround code with database interaction | | |
-| Tue | 23-04-2024 |         |          | 0           | | | |
-| Wed | 24-04-2024 | 16:00   | 17:00    | 1           | test code with database interaction | | timesheet save function | basic function code sample done and tested
+| Mon | 22-04-2024 |  10:00       |  15:00        | 5          | create database interaction | | |
+| Tue | 23-04-2024 |  16:00     |     18:00     | 2           | test code with database interaction and fix bug | | continue to fix bug|
+| Wed | 24-04-2024 | 16:00   | 17:00    | 1           | test code with database interaction | | timesheet save function | fix bug on user entry side
 | Thu | 25-04-2024 |         |          | 0           | | | |
-| Fri | 26-04-2024 | 20:00   | 24:00    | 4           | Modify the code to able to save draft and final submission to database; able to display based on conditions | timesheet save function| Done and tested
-| Sat | 27-04-2024 | 11:00   | 12:45    | 1.75          | Assign type for buttons | timesheet save function| Done and tested
+| Fri | 26-04-2024 | 10:00   | 14:00    | 4           | modify front end timesheet date and time entry | debug to match correct date| Done and tested
+| Sat | 27-04-2024 | 11:00   | 14:00    | 3          | debug and test code with database and front end text entry | timesheet save function| Done and tested
 
