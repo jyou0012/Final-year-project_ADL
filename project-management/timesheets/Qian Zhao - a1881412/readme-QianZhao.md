@@ -13,9 +13,9 @@
 
   The first version of the product requirements prototype drawing
   
-  The first version of the database management system structure drawing(https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/design/Database%20structure%20diagram.jpg)
+  The first version of the database management system structure drawing Team-25/blob/main/design/Database%20structure%20diagram.jpg 
   
-  Drawing of user flow chart after milestone2(https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/design/user%20flow%20chart.jpg)
+  Drawing of user flow chart after milestone2  Team-25/blob/main/design/user%20flow%20chart.jpg 
   
   Requirement research of the project : including the use of the student side pain points collection 
   
@@ -23,14 +23,14 @@
   
  3、Implementation of project function code module
   
-  Staff group detail overview page  -- to view the student draft and final page implementation (page page top bar, sidebar, user information and student submission            information display)https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/src/app/staff/overview
+  Staff group detail overview page  -- to view the student draft and final page implementation (page page top bar, sidebar, user information and student submission            information display) /Team-25/tree/main/src/app/staff/overview
   
 
-   Staffnavigation bar function	-- Staff's navigation bar allows staff to navigate from group overview to group member submit detail page to student submit content page and   back.https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/src/app/staff/overview
+   Staffnavigation bar function	-- Staff's navigation bar allows staff to navigate from group overview to group member submit detail page to student submit content page and   back. Team-25/blob/main/src/components/StaffInfoBar.jsx
 
-  E-mail time page  -- Implementation of email sending interval page, page header,    current time interval display and modified time interval display and final submission   function   https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/EmailTimeSetup.jsx
+  E-mail time page  -- Implementation of email sending interval page, page header,    current time interval display and modified time interval display and final submission   function   /Team-25/blob/main/src/components/EmailTimeSetup.jsx
 
- Student details page -- The student details page contains a display of the student's id, name, email and group. And the ability to click on a student's   email address to   jump to an outlook page  
+ Student details page -- The student details page contains a display of the student's id, name, email and group. And the ability to click on a student's   email address to   jump to an outlook page  Team-25/src/app/staff/overview/group/[num]/
   
   
    
