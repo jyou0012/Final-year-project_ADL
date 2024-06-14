@@ -10,7 +10,7 @@ Conducted unit testing and integration testing for the semester setup and studen
 
 Developed the student timesheet submission interface. Code is stored in the team's GitHub repository (path: https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/students).
 Implemented the student timesheet submission page with features such as date selection, time selection, task description, and time calculation.
-Created and implemented the TimesheetForm.jsx and Indicator.jsx components. Code is stored in the GitHub repository (paths: TimesheetForm.jsx, Indicator.jsx).
+Created and implemented the TimesheetForm.jsx components. Code is stored in the GitHub repository (paths: https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/components/TimesheetForm.jsx).
 
 ## Mid Development Phase
 
