@@ -5,7 +5,7 @@
   
     team meeting   https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/agenda
 
-    client meeting https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/minutes
+    client meeting  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/tree/main/project-management/minutes
 
   
   Organisation and report management submission for each Assignment discussion meeting (pitch presentation, business plan presentation, milestones 1 and 2, test plan, final presentation)
