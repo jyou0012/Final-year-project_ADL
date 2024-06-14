@@ -1,0 +1,27 @@
+Individual Statement
+
+1. Roles and Responsibilities
+Front-end Developer
+Throughout the project, I primarily focused on the design and implementation of the student-side timesheet submission interface.
+Responsible for the student information import functionality on the teacher side, including reading CSV files, storing data in the database, and displaying it in a table format.
+Designed and implemented the semester setup page for teachers, ensuring that the start date is automatically set as the first day on the student timesheet submission interface and can automatically skip the mid-term break.
+Conducted unit tests and integration tests for the semester setup and student timesheet submission functionalities, ensuring seamless communication and data transmission.
+
+2. GitHub Contributions
+Early Development
+Independently developed the student-side timesheet submission interface. The code is saved in the team’s GitHub repository (path: Team-25/src/app/students).
+Implemented features such as date selection, time selection, task description, and time calculation on the student timesheet filling page.
+
+Mid Development
+Developed and implemented the student information import functionality on the teacher side. This involved reading CSV files, storing student data in the database, and displaying it in a table format on the front end. The code is saved in the GitHub repository (path: Team-25/src/app/staff/import).
+Designed and implemented the semester setup page for teachers, allowing them to set the start date and mid-term break. Ensured that the front-end timesheet filling page automatically reads and applies these settings. The code is saved in the GitHub repository (path: Team-25/src/app/staff/time).
+
+Later Development
+Participated in the design and implementation of database operations and backend logic to facilitate front-end and back-end communication. Ensured accurate data transmission and processing. The related code is stored in the GitHub repository (path: Team-25/src/database/save-semester-info.js, Team-25/src/database/semesterTime.js, Team-25/src/database/staff.js).
+
+3. Project Effort
+Total hours: Approximately 180 hours
+Average hours per week: Approximately 15 hours
+  
+   
+ 
