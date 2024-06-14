@@ -41,7 +41,8 @@
 and the rest code is in other page  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/students/page.jsx
  
 Staff group detail overview page  -- to view the student draft and final page implementation (page page top bar, sidebar, user information and student submission            information display)  https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/staff/overview/group/%5Bnum%5D/page.jsx
-   
+  
+Email History Page - allows you to display the history of emails sent, as well as check the history of emails sent to a particular student.https://github.cs.adelaide.edu.au/MCI-Projects-2024/Team-25/blob/main/src/app/staff/email/page.jsx
    
 4、Project Testing	
 
